@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "prefswindow.h"
 
 namespace Ui {
     class MainWindow;
@@ -18,6 +19,7 @@ public:
 private:
     Ui::MainWindow *ui;
     bool settingsSet;
+    PrefsWindow *prefs;
 
 private slots:
     void on_actionPreferences_triggered();

@@ -30,3 +30,5 @@ RESOURCES += \
     icons.qrc
 
 OTHER_FILES +=
+
+CONFIG += x86_64

@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include <stdio.h>
 #include <QMessageBox>
-#include "prefswindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     this->setUnifiedTitleAndToolBarOnMac(true);
     settingsSet = false;
+
+    this->setAnimated(true);
+
     ui->setupUi(this);
 }
 
@@ -41,6 +43,8 @@ void MainWindow::on_actionRecord_triggered()
              // default
          } else if (prefPopup.clickedButton() == (QAbstractButton*)preferencesButton) {
              // prefs
+             prefs = new PrefsWindow(this,1);
+             prefs->show();
          } else if (prefPopup.clickedButton() == (QAbstractButton*)cancelButton){
              // cancel
          }
@@ -51,6 +55,6 @@ void MainWindow::on_actionRecord_triggered()
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    PrefsWindow *prefs = new PrefsWindow(this);
+    prefs = new PrefsWindow(this);
     prefs->show();
 }
