@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::PrefsRec *ui;
+    int bpm;
+
+private slots:
+    void on_bpmLineEdit_editingFinished();
+    void on_bpmHorizontalSlider_valueChanged(int value);
 };
 
 #endif // PREFSREC_H

@@ -100,6 +100,12 @@
    <property name="toolTip">
     <string>quit application</string>
    </property>
+   <property name="statusTip">
+    <string extracomment="quit application"/>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
   </action>
   <action name="actionRecord">
    <property name="icon">

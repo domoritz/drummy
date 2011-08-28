@@ -29,23 +29,60 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Speed</string>
+      <string>Recording speed</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QSlider" name="horizontalSlider">
+       <widget class="QSlider" name="bpmHorizontalSlider">
+        <property name="toolTip">
+         <string>slide to set the speed in bpm</string>
+        </property>
+        <property name="minimum">
+         <number>40</number>
+        </property>
+        <property name="maximum">
+         <number>200</number>
+        </property>
+        <property name="value">
+         <number>120</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="bpmLineEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="inputMask">
+         <string>000; </string>
+        </property>
+        <property name="text">
+         <string>120</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="bpmLabel">
+        <property name="toolTip">
+         <string>beats per minute</string>
+        </property>
+        <property name="statusTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string>beats per minute label</string>
+        </property>
+        <property name="accessibleName">
+         <string>label</string>
+        </property>
+        <property name="text">
+         <string>bpm</string>
         </property>
        </widget>
       </item>
@@ -98,6 +135,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QPushButton" name="pushButton_2">
+          <property name="toolTip">
+           <string>add an entry</string>
+          </property>
           <property name="text">
            <string>Add...</string>
           </property>
@@ -105,6 +145,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_3">
+          <property name="toolTip">
+           <string>edit selected entry</string>
+          </property>
           <property name="text">
            <string>Edit...</string>
           </property>
@@ -112,6 +155,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton">
+          <property name="toolTip">
+           <string>remove selected entry</string>
+          </property>
           <property name="text">
            <string>Remove</string>
           </property>
@@ -138,22 +184,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>horizontalSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>lineEdit</receiver>
-   <slot>paste()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>122</x>
-     <y>45</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>343</x>
-     <y>46</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

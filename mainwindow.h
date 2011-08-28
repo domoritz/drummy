@@ -22,6 +22,7 @@ private:
     PrefsWindow *prefs;
 
 private slots:
+    void on_actionAbout_triggered();
     void on_actionPreferences_triggered();
     void on_actionRecord_triggered();
 };

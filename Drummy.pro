@@ -14,17 +14,20 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     prefswindow.cpp \
     prefsapp.cpp \
-    prefsrec.cpp
+    prefsrec.cpp \
+    about.cpp
 
 HEADERS  += mainwindow.h \
     prefswindow.h \
     prefsapp.h \
-    prefsrec.h
+    prefsrec.h \
+    about.h
 
 FORMS    += mainwindow.ui \
     prefswindow.ui \
     prefsapp.ui \
-    prefsrec.ui
+    prefsrec.ui \
+    about.ui
 
 RESOURCES += \
     icons.qrc

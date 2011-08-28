@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "about.h"
 #include "ui_mainwindow.h"
 #include <stdio.h>
 #include <QMessageBox>
@@ -57,4 +58,10 @@ void MainWindow::on_actionPreferences_triggered()
 {
     prefs = new PrefsWindow(this);
     prefs->show();
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    About *aw = new About(this);
+    aw->show();
 }
