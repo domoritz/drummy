@@ -27,7 +27,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="speedGroupBox">
      <property name="title">
       <string>Recording speed</string>
      </property>
@@ -90,71 +90,74 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="mapGroupBox">
      <property name="title">
       <string>Map Drums to Keys</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QTableWidget" name="tableWidget">
-        <column>
-         <property name="text">
-          <string>Name</string>
-         </property>
-         <property name="font">
-          <font>
-           <family>Lucida Grande</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Key</string>
-         </property>
-         <property name="font">
-          <font>
-           <family>Monaco</family>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Character</string>
-         </property>
-         <property name="font">
-          <font>
-           <family>Monaco</family>
-          </font>
-         </property>
-        </column>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Name</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>Lucida Grande</family>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Key</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>Monaco</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Character</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>Monaco</family>
+            </font>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="toolTip">
-           <string>add an entry</string>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="text">
-           <string>Add...</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
           </property>
-         </widget>
+         </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="toolTip">
-           <string>edit selected entry</string>
-          </property>
-          <property name="text">
-           <string>Edit...</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="removePushButton">
           <property name="toolTip">
            <string>remove selected entry</string>
           </property>
@@ -164,17 +167,14 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
+         <widget class="QPushButton" name="addPushButton">
+          <property name="toolTip">
+           <string>add an entry</string>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
+          <property name="text">
+           <string>Add</string>
           </property>
-         </spacer>
+         </widget>
         </item>
        </layout>
       </item>

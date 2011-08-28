@@ -14,6 +14,16 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setAnimated(true);
 
     ui->setupUi(this);
+
+    // quit-connection
+    connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
+
+    // set up settings
+    QCoreApplication::setOrganizationName("Dominik");
+    QCoreApplication::setOrganizationDomain("dominik.de");
+    QCoreApplication::setApplicationName("Drummy");
+
+    QCoreApplication::setApplicationVersion("0.1");
 }
 
 MainWindow::~MainWindow()
