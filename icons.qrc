@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/preferences_32.png</file>
+        <file>images/preferences_48.png</file>
+        <file>images/preferences_64.png</file>
+        <file>images/record_32.png</file>
+        <file>images/record_48.png</file>
+        <file>images/record_64.png</file>
+    </qresource>
+</RCC>

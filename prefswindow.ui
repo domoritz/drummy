@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PrefsWindow</class>
+ <widget class="QMainWindow" name="PrefsWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>184</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Preferences</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="PrefsApp" name="app"/>
+      <widget class="PrefsRec" name="rec"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>450</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionApplication"/>
+   <addaction name="actionRecording"/>
+  </widget>
+  <action name="actionRecording">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/images/record_32.png</normaloff>:/images/record_32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Recording</string>
+   </property>
+   <property name="toolTip">
+    <string>Recording Preferences</string>
+   </property>
+  </action>
+  <action name="actionApplication">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/images/preferences_32.png</normaloff>:/images/preferences_32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Application</string>
+   </property>
+   <property name="toolTip">
+    <string>Application Preferences</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PrefsApp</class>
+   <extends>QWidget</extends>
+   <header location="global">prefsapp.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PrefsRec</class>
+   <extends>QWidget</extends>
+   <header location="global">prefsrec.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
