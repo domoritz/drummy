@@ -1,10 +1,9 @@
 #include "mainwindow.h"
 #include "about.h"
 #include "ui_mainwindow.h"
-#include <stdio.h>
 #include <QMessageBox>
-#include <QtHelp>
 #include "helpdialog.h"
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -24,6 +23,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // quit-connection
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
+
+    // filter events on textedit (interesting while recording)
+    ui->textEdit->installEventFilter(this);
+
+    map.fetch();
 }
 
 MainWindow::~MainWindow()
@@ -77,11 +81,21 @@ void MainWindow::on_actionRecord_triggered()
 
 void MainWindow::record() {
     recording = true;
+    this->setFocus();
 
+    // fetch mapping
+    map.fetch();
+
+    //inform user
     trayIcon->show();
-    this->trayIcon->showMessage(tr("Recording"),tr("Recoding started. Use keyboard to record your drums."),QSystemTrayIcon::NoIcon,1000);
+    this->trayIcon->showMessage(tr("Recording"),tr("Recoding started. Use selected keys to record your drums."),QSystemTrayIcon::NoIcon,1000);
 
+    // change action icon to indicate recording
     ui->actionRecord->setIcon(QIcon(":/images/record_32.png"));
+
+    // initalize textedit
+    ui->textEdit->insertPlainText(" |");
+    ui->textEdit->insertPlainText("\n\r");
 }
 
 void MainWindow::stopRecording() {
@@ -93,6 +107,13 @@ void MainWindow::stopRecording() {
 }
 
 void MainWindow::on_actionPreferences_triggered()
+{
+    prefs = new PrefsWindow(this,0);
+    prefs->setWindowModality(Qt::ApplicationModal);
+    prefs->show();
+}
+
+void MainWindow::on_actionActionRecordingPreferences_triggered()
 {
     prefs = new PrefsWindow(this,1);
     prefs->setWindowModality(Qt::ApplicationModal);
@@ -122,4 +143,38 @@ void MainWindow::on_actionFullscreen_triggered()
         this->showFullScreen();
         ui->actionFullscreen->setText(tr("Quit Fullsceen"));
     }
+}
+
+// filters focus event of textedit to avoid input while recording
+// void QWidget::grabKeyboard () didn't work for me
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+ {
+     if (event->type() == QEvent::FocusIn && recording) {
+         qDebug() << "catched focus on textEdit while recording";
+         this->setFocus();
+         return true;
+     } else {
+         // standard event processing
+         return QObject::eventFilter(obj, event);
+     }
+ }
+
+void MainWindow::keyPressEvent ( QKeyEvent * event ){
+    if (recording) {
+        // avoid repeating keys
+        if(!event->isAutoRepeat()){
+
+            // get charater of keyevent
+            QChar c = event->text()[0];
+
+            qDebug() << c;
+
+            ui->textEdit->insertPlainText(map.getCharForKeyIfActive(c));
+        }
+    }
+}
+
+void MainWindow::on_actionClear_triggered()
+{
+    ui->textEdit->clear();
 }

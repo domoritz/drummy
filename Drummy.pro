@@ -17,7 +17,9 @@ SOURCES += main.cpp\
     prefsrec.cpp \
     about.cpp \
     itemdialog.cpp \
-    helpdialog.cpp
+    helpdialog.cpp \
+    mappings.cpp \
+    mappingitem.cpp
 
 HEADERS  += mainwindow.h \
     prefswindow.h \
@@ -26,7 +28,9 @@ HEADERS  += mainwindow.h \
     about.h \
     itemdialog.h \
     noeditdelegate.h \
-    helpdialog.h
+    helpdialog.h \
+    mappings.h \
+    mappingitem.h
 
 FORMS    += mainwindow.ui \
     prefswindow.ui \

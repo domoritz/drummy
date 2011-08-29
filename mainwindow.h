@@ -6,6 +6,7 @@
 #include <QtDebug>
 #include <QSystemTrayIcon>
 #include <QSettings>
+#include "mappings.h"
 
 class Assistant;
 
@@ -20,7 +21,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    Assistant *assistant;
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     Ui::MainWindow *ui;
@@ -31,13 +34,17 @@ private:
     void stopRecording();
     QSystemTrayIcon *trayIcon;
     QSettings settings;
+    Mappings map;
 
 private slots:
+    void on_actionClear_triggered();
+    void on_actionActionRecordingPreferences_triggered();
     void on_actionFullscreen_triggered();
     void on_actionHelp_triggered();
     void on_actionAbout_triggered();
     void on_actionPreferences_triggered();
     void on_actionRecord_triggered();
+    void keyPressEvent ( QKeyEvent * event );
 };
 
 #endif // MAINWINDOW_H

@@ -18,10 +18,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QTextBrowser" name="textBrowser"/>
-      </item>
-      <item>
-       <widget class="QTextEdit" name="textEdit"/>
+       <widget class="QPlainTextEdit" name="textEdit"/>
       </item>
      </layout>
     </item>
@@ -41,6 +38,7 @@
      <string>Tools</string>
     </property>
     <addaction name="actionPreferences"/>
+    <addaction name="actionClear"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -78,7 +76,6 @@
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
@@ -90,6 +87,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionRecord"/>
+   <addaction name="actionActionRecordingPreferences"/>
+   <addaction name="actionClear"/>
   </widget>
   <action name="actionPreferences">
    <property name="text">
@@ -139,10 +138,10 @@
     <string>Record</string>
    </property>
    <property name="toolTip">
-    <string>record a drum sequence</string>
+    <string>click to record a drum sequence</string>
    </property>
    <property name="statusTip">
-    <string>record a drum sequence</string>
+    <string>click to record a drum sequence</string>
    </property>
    <property name="whatsThis">
     <string>The record button</string>
@@ -196,6 +195,26 @@
   <action name="actionFullscreen">
    <property name="text">
     <string>Fullscreen</string>
+   </property>
+  </action>
+  <action name="actionActionRecordingPreferences">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/images/preferences_system_32.png</normaloff>:/images/preferences_system_32.png</iconset>
+   </property>
+   <property name="text">
+    <string>actionRecordingPreferences</string>
+   </property>
+   <property name="toolTip">
+    <string>Recording preferences</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="text">
+    <string>Clear</string>
+   </property>
+   <property name="toolTip">
+    <string>clear recorded drums</string>
    </property>
   </action>
  </widget>
