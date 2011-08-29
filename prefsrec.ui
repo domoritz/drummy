@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>470</width>
-    <height>330</height>
+    <width>551</width>
+    <height>341</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -98,43 +98,28 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QTableWidget" name="tableWidget">
-          <property name="sortingEnabled">
-           <bool>true</bool>
+         <widget class="QTreeWidget" name="treeWidget">
+          <property name="toolTip">
+           <string>duble click an item to edit it</string>
           </property>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
           <column>
            <property name="text">
             <string>Name</string>
-           </property>
-           <property name="font">
-            <font>
-             <family>Lucida Grande</family>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
            </property>
           </column>
           <column>
            <property name="text">
             <string>Key</string>
            </property>
-           <property name="font">
-            <font>
-             <family>Monaco</family>
-            </font>
-           </property>
           </column>
           <column>
            <property name="text">
             <string>Character</string>
            </property>
-           <property name="font">
-            <font>
-             <family>Monaco</family>
-            </font>
+          </column>
+          <column>
+           <property name="text">
+            <string>Active</string>
            </property>
           </column>
          </widget>
@@ -163,6 +148,16 @@
           </property>
           <property name="text">
            <string>Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="editPushButton">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string>Edit</string>
           </property>
          </widget>
         </item>

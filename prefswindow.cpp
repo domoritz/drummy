@@ -1,18 +1,23 @@
 #include "prefswindow.h"
 #include "ui_prefswindow.h"
 #include <QIcon>
+#include "mainwindow.h"
 
 PrefsWindow::PrefsWindow(QWidget *parent, int startIndex) :
         QMainWindow(parent),
         ui(new Ui::PrefsWindow)
 {
     this->setUnifiedTitleAndToolBarOnMac(true);
+
     ui->setupUi(this);
 
     // set selected widget to application prefs
     ui->stackedWidget->setCurrentIndex(startIndex);
     ui->actionApplication->setChecked(!startIndex);
     ui->actionRecording->setChecked(startIndex);
+
+    ui->actionPreferences->setEnabled(false);
+    ui->actionAbout->setEnabled(false);
 
     adjustSize();
 }

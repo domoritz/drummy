@@ -2,6 +2,7 @@
 #define PREFSWINDOW_H
 
 #include <QMainWindow>
+#include <QtDebug>
 
 namespace Ui {
     class PrefsWindow;

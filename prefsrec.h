@@ -4,6 +4,7 @@
 #include <QtDebug>
 #include <QWidget>
 #include <QSettings>
+#include <QTreeWidgetItem>
 
 namespace Ui {
     class PrefsRec;
@@ -23,9 +24,11 @@ private:
     QSettings settings;
     void save_table_to_settings();
     void load_table_data_settings();
+    bool initalized;
 
 private slots:
-    void on_tableWidget_cellChanged(int row, int column);
+    void on_treeWidget_itemChanged(QTreeWidgetItem* item, int column);
+    void on_editPushButton_clicked();
     void on_removePushButton_clicked();
     void on_addPushButton_clicked();
     void on_bpmLineEdit_editingFinished();

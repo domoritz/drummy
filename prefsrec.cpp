@@ -1,5 +1,6 @@
 #include "prefsrec.h"
 #include "ui_prefsrec.h"
+#include "noEditDelegate.h"
 
 PrefsRec::PrefsRec(QWidget *parent) :
         QWidget(parent),
@@ -10,7 +11,11 @@ PrefsRec::PrefsRec(QWidget *parent) :
     // set slider to saved value
     ui->bpmHorizontalSlider->setValue(settings.value("bpm",120).toInt());
 
+    // avoid reading and writing of settings at the same time
+    initalized = false;
     load_table_data_settings();
+    settings.sync();
+    initalized = true;
 }
 
 PrefsRec::~PrefsRec()
@@ -37,36 +42,66 @@ void PrefsRec::on_bpmLineEdit_editingFinished()
 }
 
 void PrefsRec::save_table_to_settings(){
-    int count = ui->tableWidget->rowCount();
-    settings.setValue("mapping.count",count);
+    if (initalized) {
 
-    settings.beginWriteArray("mappings");
-    for (int i = 0; i < count; i++) {
-        settings.setArrayIndex(i);
+        int count = ui->treeWidget->topLevelItemCount();
 
-        // null pointer could occur if you just use tableWidget->item(?,?)
-        settings.setValue("name",ui->tableWidget->item(i,0) ? ui->tableWidget->item(i,0)->text() : "");
-        settings.setValue("key",ui->tableWidget->item(i,1) ? ui->tableWidget->item(i,1)->text() : "");
-        settings.setValue("char",ui->tableWidget->item(i,2) ? ui->tableWidget->item(i,2)->text() : "");
+        settings.beginWriteArray("mappings");
+        for (int i = 0; i < count; i++) {
+            settings.setArrayIndex(i);
+
+            settings.setValue("name",ui->treeWidget->topLevelItem(i)->text(0));
+            settings.setValue("key",ui->treeWidget->topLevelItem(i)->text(1));
+            settings.setValue("char",ui->treeWidget->topLevelItem(i)->text(2));
+            settings.setValue("active",ui->treeWidget->topLevelItem(i)->checkState(3));
+        }
+        settings.endArray();
     }
-    settings.endArray();
 };
 
 void PrefsRec::load_table_data_settings(){
+    int count = settings.beginReadArray("mappings");
 
+    for (int i = 0; i < count; i++) {
+        settings.setArrayIndex(i);
+
+        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+        itm->setText(0,settings.value("name","").toString());
+        itm->setText(1,settings.value("key","").toString());
+        itm->setText(2,settings.value("char","").toString());
+        itm->setCheckState(3,settings.value("active",true).toBool()?Qt::Checked:Qt::Unchecked);
+
+        itm->setFlags(itm->flags() | Qt::ItemIsEditable);
+
+        // avoid editing of ckeckbox "text"
+        ui->treeWidget->setItemDelegateForColumn(3, new NoEditDelegate(this));
+
+        ui->treeWidget->insertTopLevelItem(i,itm);
+    }
+    settings.endArray();
 }
 
 void PrefsRec::on_addPushButton_clicked()
 {
-    int row = ui->tableWidget->rowCount();
-    ui->tableWidget->insertRow(row);
+    int items = ui->treeWidget->topLevelItemCount();
 
-    //save_table_to_settings();
+    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+    itm->setText(0,"-");
+    itm->setText(1,"-");
+    itm->setText(2,"-");
+    itm->setCheckState(3,Qt::Checked);
+
+    itm->setFlags(itm->flags() | Qt::ItemIsEditable);
+
+    // avoid editing of ckeckbox "text"
+    ui->treeWidget->setItemDelegateForColumn(3, new NoEditDelegate(this));
+
+    ui->treeWidget->insertTopLevelItem(items,itm);
 }
 
 void PrefsRec::on_removePushButton_clicked()
 {
-    QItemSelection selection(ui->tableWidget->selectionModel()->selection());
+    QItemSelection selection(ui->treeWidget->selectionModel()->selection());
 
     QList<int> rows;
     foreach(const QModelIndex & index, selection.indexes()) {
@@ -79,13 +114,19 @@ void PrefsRec::on_removePushButton_clicked()
     for(int i = rows.count() - 1; i >= 0; i -= 1) {
         int current = rows[i];
         if(current != prev) {
-            ui->tableWidget->removeRow(current);
+            ui->treeWidget->takeTopLevelItem(current);
             prev = current;
         }
     }
 }
 
-void PrefsRec::on_tableWidget_cellChanged(int row, int column)
+void PrefsRec::on_editPushButton_clicked()
+{
+    QList<QTreeWidgetItem *> selection = ui->treeWidget->selectedItems();
+    ui->treeWidget->editItem(selection.first());
+}
+
+void PrefsRec::on_treeWidget_itemChanged(QTreeWidgetItem* item, int column)
 {
     save_table_to_settings();
 }

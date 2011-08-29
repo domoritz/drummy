@@ -6,5 +6,11 @@
         <file>images/record_32.png</file>
         <file>images/record_48.png</file>
         <file>images/record_64.png</file>
+        <file>images/record_off_32.png</file>
+        <file>images/record_off_48.png</file>
+        <file>images/record_off_64.png</file>
+        <file>images/record_off_active_32.png</file>
+        <file>images/record_off_active_48.png</file>
+        <file>images/record_off_active_64.png</file>
     </qresource>
 </RCC>

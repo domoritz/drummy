@@ -3,6 +3,11 @@
 
 #include <QMainWindow>
 #include "prefswindow.h"
+#include <QtDebug>
+#include <QSystemTrayIcon>
+#include <QSettings>
+
+class Assistant;
 
 namespace Ui {
     class MainWindow;
@@ -15,13 +20,21 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    Assistant *assistant;
 
 private:
     Ui::MainWindow *ui;
     bool settingsSet;
+    bool recording;
     PrefsWindow *prefs;
+    void record();
+    void stopRecording();
+    QSystemTrayIcon *trayIcon;
+    QSettings settings;
 
 private slots:
+    void on_actionFullscreen_triggered();
+    void on_actionHelp_triggered();
     void on_actionAbout_triggered();
     void on_actionPreferences_triggered();
     void on_actionRecord_triggered();

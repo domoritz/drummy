@@ -16,25 +16,33 @@ SOURCES += main.cpp\
     prefsapp.cpp \
     prefsrec.cpp \
     about.cpp \
-    itemdialog.cpp
+    itemdialog.cpp \
+    helpdialog.cpp
 
 HEADERS  += mainwindow.h \
     prefswindow.h \
     prefsapp.h \
     prefsrec.h \
     about.h \
-    itemdialog.h
+    itemdialog.h \
+    noeditdelegate.h \
+    helpdialog.h
 
 FORMS    += mainwindow.ui \
     prefswindow.ui \
     prefsapp.ui \
     prefsrec.ui \
     about.ui \
-    itemdialog.ui
+    itemdialog.ui \
+    helpdialog.ui
 
 RESOURCES += \
     icons.qrc
 
 OTHER_FILES +=
 
-CONFIG += x86_64
+CONFIG += help \
+          assistant
+
+# in case you don't want a bundle
+#CONFIG-=app_bundle
