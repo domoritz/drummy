@@ -30,8 +30,7 @@ protected:
     Painter painter;
     QTimer *timer;
 
-private:    
-    bool settingsSet;
+private:
     bool recording;
     PrefsWindow *prefs;
     void record();

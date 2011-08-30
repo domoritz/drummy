@@ -12,7 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // unify the title and toolbar on mac
     this->setUnifiedTitleAndToolBarOnMac(true);
 
-    settingsSet = false;
     recording = false;
 
     this->setAnimated(true);
@@ -48,7 +47,7 @@ void MainWindow::on_actionRecord_triggered()
         stopRecording();
     } else {
         // if the mapping size is set and bigger than 0 we are ready to record
-        settingsSet = !settings.value("mappings/size").isNull() && settings.value("mappings/size").toInt() > 0;
+        bool settingsSet = !settings.value("mappings/size").isNull() && settings.value("mappings/size").toInt() > 0;
 
         if (settingsSet) {
             record();
@@ -102,7 +101,7 @@ void MainWindow::record() {
     painter.init();
 
     //start timer
-    timer->start(400);
+    timer->start(1000*60/settings.value("bpm",120).toInt());
 }
 
 void MainWindow::stopRecording() {

@@ -264,6 +264,11 @@
     <string>clear recorded drums</string>
    </property>
   </action>
+  <action name="actionPauseRec">
+   <property name="text">
+    <string>PauseRec</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
