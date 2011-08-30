@@ -8,16 +8,19 @@
 class Mappings :public QObject
 {
 
+
 public:
     Mappings();
-    ~Mappings();
-    void fetch();
+    ~Mappings();    
     QChar getCharForKeyIfActive(QChar);
-    MappingItem *getMappingForKeyIfActive(QChar);
-    QMap<int,MappingItem> getByNumberOrderedMapping();
-    QHash<QChar,MappingItem> getMapping();
+    MappingItem *getMappingForKey(QChar);
+    QMap<int,MappingItem> *getByNumberOrderedMapping();
+    QHash<QChar,MappingItem> *getMapping();
     MappingItem emptyMappingItem;
+    int count;
 public slots:
+    void fetch();
+    void clearUsage();
 
 protected:
     QSettings settings;

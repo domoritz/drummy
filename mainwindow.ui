@@ -61,6 +61,9 @@
           <family>Monaco</family>
          </font>
         </property>
+        <property name="lineWrapMode">
+         <enum>QTextEdit::NoWrap</enum>
+        </property>
        </widget>
       </item>
      </layout>
@@ -133,6 +136,7 @@
    <addaction name="actionActionRecordingPreferences"/>
    <addaction name="actionClear"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionPreferences">
    <property name="text">
     <string>Preferences</string>

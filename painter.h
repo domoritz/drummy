@@ -18,13 +18,23 @@ public:
 protected:
     Mappings map;
     QTextEdit *te;
+    QTextCursor cursor;
+    void up(int n);
+    void down(int n);
+    void left(int n);
+    void eol();
+    void end();
+    short int counter;
+    short int barcounter;
 
 signals:
 
 public slots:
     void setTextEdit(QTextEdit *te);
+    void newLine();
     void keyPressed(QKeyEvent *event);
     void init();
+    void tick();
 };
 
 #endif // PAINTER_H

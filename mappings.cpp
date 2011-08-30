@@ -18,11 +18,14 @@ Mappings::Mappings()
 
 Mappings::~Mappings()
 {
-
 }
 
 // fetches keymappings from settings
 void Mappings::fetch() {
+
+    omappings.clear();
+    mappings.clear();
+
     int count = settings.beginReadArray("mappings");
 
     qDebug() << "Fetching" << count << "mappings";
@@ -46,10 +49,12 @@ void Mappings::fetch() {
     settings.endArray();
 
     // create ordered mapping
-    omappings.clear();
     foreach (MappingItem item, mappings) {
         omappings[item.number] = item;
     }
+
+    // set count
+    this->count = count;
 }
 
 QChar Mappings::getCharForKeyIfActive(QChar key) {
@@ -62,8 +67,8 @@ QChar Mappings::getCharForKeyIfActive(QChar key) {
 };
 
 // return nullpointer if no mapping was found
-MappingItem *Mappings::getMappingForKeyIfActive(QChar key) {
-    if (mappings[key].active) {
+MappingItem *Mappings::getMappingForKey(QChar key) {
+    if (mappings.contains(key)) {
         return &mappings[key];
         qDebug() << "Fetched"<<key;
     } else {
@@ -71,10 +76,10 @@ MappingItem *Mappings::getMappingForKeyIfActive(QChar key) {
     }
 };
 
-QHash<QChar,MappingItem> Mappings::getMapping() {
-    return mappings;
+QHash<QChar,MappingItem>* Mappings::getMapping() {
+    return &mappings;
 }
 
-QMap<int,MappingItem> Mappings::getByNumberOrderedMapping() {
-    return omappings;
+QMap<int,MappingItem>* Mappings::getByNumberOrderedMapping() {
+    return &omappings;
 }

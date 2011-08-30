@@ -26,10 +26,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //give textedit pointer to painter
     painter.setTextEdit(ui->textEdit);
+
+    //create progress bar
+    progressBar = new QProgressBar();
+    ui->statusBar->addWidget(progressBar,1);
+
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), &painter, SLOT(tick()));
 }
 
 MainWindow::~MainWindow()
 {
+    delete timer;
     delete trayIcon;
     delete ui;
 }
@@ -80,8 +88,8 @@ void MainWindow::on_actionRecord_triggered()
 void MainWindow::record() {
     recording = true;
     this->setFocus();
-    ui->textEdit->setEnabled(false);
-    ui->textEdit->setFocusPolicy(Qt::NoFocus);
+    //ui->textEdit->setEnabled(false);
+    //ui->textEdit->setFocusPolicy(Qt::NoFocus);
 
     //inform user
     trayIcon->show();
@@ -92,12 +100,17 @@ void MainWindow::record() {
 
     // initalize textedit
     painter.init();
+
+    //start timer
+    timer->start(400);
 }
 
 void MainWindow::stopRecording() {
     recording = false;
     ui->textEdit->setEnabled(true);
     ui->textEdit->setFocusPolicy(Qt::StrongFocus);
+
+    timer->stop();
 
     this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::NoIcon,1000);
 

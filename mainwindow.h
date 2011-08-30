@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QtGui>
 #include "painter.h"
+#include <QTimer>
 
 class Assistant;
 
@@ -23,9 +24,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
+    QProgressBar *progressBar;
 
 protected:
     Painter painter;
+    QTimer *timer;
 
 private:    
     bool settingsSet;
