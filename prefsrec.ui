@@ -102,6 +102,9 @@
           <property name="toolTip">
            <string>duble click an item to edit it</string>
           </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
           <column>
            <property name="text">
             <string>Name</string>
