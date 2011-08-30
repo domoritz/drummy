@@ -13,6 +13,7 @@ public:
     QString name;
     QChar key;
     QChar character;
+    int number;
     bool active;
 };
 

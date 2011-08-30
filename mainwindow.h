@@ -6,7 +6,8 @@
 #include <QtDebug>
 #include <QSystemTrayIcon>
 #include <QSettings>
-#include "mappings.h"
+#include <QtGui>
+#include "painter.h"
 
 class Assistant;
 
@@ -21,12 +22,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    Ui::MainWindow *ui;
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    Painter painter;
 
-private:
-    Ui::MainWindow *ui;
+private:    
     bool settingsSet;
     bool recording;
     PrefsWindow *prefs;
@@ -34,7 +35,6 @@ private:
     void stopRecording();
     QSystemTrayIcon *trayIcon;
     QSettings settings;
-    Mappings map;
 
 private slots:
     void on_actionClear_triggered();

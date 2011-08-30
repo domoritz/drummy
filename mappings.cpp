@@ -2,11 +2,18 @@
 #include <QKeySequence>
 #include <QString>
 #include <QDebug>
+#include <QMap>
 
 // class which holds mappings for keys
 
 Mappings::Mappings()
 {
+    //create empty mapping
+    emptyMappingItem.active=false;
+    emptyMappingItem.character=QChar::Null;
+    emptyMappingItem.key=QChar::Null;
+    emptyMappingItem.name="";
+    emptyMappingItem.number=0;
 }
 
 Mappings::~Mappings()
@@ -30,12 +37,19 @@ void Mappings::fetch() {
         item.key = key;
         item.character = settings.value("char","").toString()[0];
         item.active = settings.value("active",true).toBool();
+        item.number = i;
 
         mappings.insert(key,item);
 
         qDebug() << "fetched" << key;
     }
     settings.endArray();
+
+    // create ordered mapping
+    omappings.clear();
+    foreach (MappingItem item, mappings) {
+        omappings[item.number] = item;
+    }
 }
 
 QChar Mappings::getCharForKeyIfActive(QChar key) {
@@ -46,3 +60,21 @@ QChar Mappings::getCharForKeyIfActive(QChar key) {
         return QChar::Null;
     }
 };
+
+// return nullpointer if no mapping was found
+MappingItem *Mappings::getMappingForKeyIfActive(QChar key) {
+    if (mappings[key].active) {
+        return &mappings[key];
+        qDebug() << "Fetched"<<key;
+    } else {
+        return &emptyMappingItem;
+    }
+};
+
+QHash<QChar,MappingItem> Mappings::getMapping() {
+    return mappings;
+}
+
+QMap<int,MappingItem> Mappings::getByNumberOrderedMapping() {
+    return omappings;
+}

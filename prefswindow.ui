@@ -86,8 +86,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>images/tp-settings-32x32.png</normaloff>images/tp-settings-32x32.png</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/images/tp-settings-32x32.png</normaloff>:/images/tp-settings-32x32.png</iconset>
    </property>
    <property name="text">
     <string>Application</string>

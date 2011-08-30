@@ -24,10 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // quit-connection
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
 
-    // filter events on textedit (interesting while recording)
-    ui->textEdit->installEventFilter(this);
-
-    map.fetch();
+    //give textedit pointer to painter
+    painter.setTextEdit(ui->textEdit);
 }
 
 MainWindow::~MainWindow()
@@ -82,9 +80,8 @@ void MainWindow::on_actionRecord_triggered()
 void MainWindow::record() {
     recording = true;
     this->setFocus();
-
-    // fetch mapping
-    map.fetch();
+    ui->textEdit->setEnabled(false);
+    ui->textEdit->setFocusPolicy(Qt::NoFocus);
 
     //inform user
     trayIcon->show();
@@ -94,12 +91,13 @@ void MainWindow::record() {
     ui->actionRecord->setIcon(QIcon(":/images/record_32.png"));
 
     // initalize textedit
-    ui->textEdit->insertPlainText(" |");
-    ui->textEdit->insertPlainText("\n\r");
+    painter.init();
 }
 
 void MainWindow::stopRecording() {
     recording = false;
+    ui->textEdit->setEnabled(true);
+    ui->textEdit->setFocusPolicy(Qt::StrongFocus);
 
     this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::NoIcon,1000);
 
@@ -145,31 +143,11 @@ void MainWindow::on_actionFullscreen_triggered()
     }
 }
 
-// filters focus event of textedit to avoid input while recording
-// void QWidget::grabKeyboard () didn't work for me
-bool MainWindow::eventFilter(QObject *obj, QEvent *event)
- {
-     if (event->type() == QEvent::FocusIn && recording) {
-         qDebug() << "catched focus on textEdit while recording";
-         this->setFocus();
-         return true;
-     } else {
-         // standard event processing
-         return QObject::eventFilter(obj, event);
-     }
- }
-
 void MainWindow::keyPressEvent ( QKeyEvent * event ){
     if (recording) {
         // avoid repeating keys
         if(!event->isAutoRepeat()){
-
-            // get charater of keyevent
-            QChar c = event->text()[0];
-
-            qDebug() << c;
-
-            ui->textEdit->insertPlainText(map.getCharForKeyIfActive(c));
+            painter.keyPressed(event);
         }
     }
 }
