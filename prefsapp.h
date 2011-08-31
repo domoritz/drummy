@@ -2,6 +2,8 @@
 #define PREFSAPP_H
 
 #include <QWidget>
+#include <QSettings>
+#include <QFontDialog>
 
 namespace Ui {
     class PrefsApp;
@@ -14,9 +16,24 @@ class PrefsApp : public QWidget
 public:
     explicit PrefsApp(QWidget *parent = 0);
     ~PrefsApp();
+    void fe();
+
+protected:
+    QFont outputfont;
+    QSettings settings;
 
 private:
     Ui::PrefsApp *ui;
+
+private slots:
+    void on_pushButton_clicked();
+
+public slots:
+    void saveFont(QFont font);
+
+signals:
+    void fontChanged(QFont font);
+
 };
 
 #endif // PREFSAPP_H

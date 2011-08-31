@@ -18,7 +18,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+    // preferences window
+    prefs = new PrefsWindow();
+
     trayIcon = new QSystemTrayIcon(this);
+
+    // connect font change signal/slot
+    connect(prefs, SIGNAL(fontChanged(QFont)),this,SLOT(changeFont(QFont)));
 
     // quit-connection
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
@@ -32,6 +38,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), &painter, SLOT(tick()));
+
+    /* use fe to force emit of font change
+     problem was:
+        i cannot connect signals and slots before the ui is initalized because i need the objects. however, if i do so, the emit from the
+        constructor does not go down here because no connection is established. qt does not have an opposite thing of emit which foreces a refresh!!!
+    */
+    prefs->fe();
 }
 
 MainWindow::~MainWindow()
@@ -73,9 +86,8 @@ void MainWindow::on_actionRecord_triggered()
                 record();
             } else if (prefPopup.clickedButton() == (QAbstractButton*)preferencesButton) {
                 // prefs
-                prefs = new PrefsWindow(this,1);
                 prefs->setWindowModality(Qt::ApplicationModal);
-                prefs->show();
+                prefs->show(1);
             } else if (prefPopup.clickedButton() == (QAbstractButton*)cancelButton){
                 // cancel
             }
@@ -118,16 +130,14 @@ void MainWindow::stopRecording() {
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    prefs = new PrefsWindow(this,0);
     prefs->setWindowModality(Qt::ApplicationModal);
-    prefs->show();
+    prefs->show(0);
 }
 
 void MainWindow::on_actionActionRecordingPreferences_triggered()
 {
-    prefs = new PrefsWindow(this,1);
     prefs->setWindowModality(Qt::ApplicationModal);
-    prefs->show();
+    prefs->show(1);
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -168,3 +178,9 @@ void MainWindow::on_actionClear_triggered()
 {
     ui->textEdit->clear();
 }
+
+void MainWindow::changeFont(QFont font)
+{
+    qDebug() << "font changed to" << font.family() << font.pointSize();
+    ui->textEdit->setFont(font);
+};

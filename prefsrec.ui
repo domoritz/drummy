@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>551</width>
-    <height>341</height>
+    <width>585</width>
+    <height>276</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -35,7 +35,7 @@
       <item>
        <widget class="QSlider" name="bpmHorizontalSlider">
         <property name="toolTip">
-         <string>slide to set the speed in bpm</string>
+         <string>Slide to set the speed for recording in bpm</string>
         </property>
         <property name="minimum">
          <number>40</number>
@@ -58,6 +58,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Type the speed for recording</string>
         </property>
         <property name="inputMask">
          <string>000; </string>
@@ -100,7 +103,14 @@
         <item>
          <widget class="QTreeWidget" name="treeWidget">
           <property name="toolTip">
-           <string>duble click an item to edit it</string>
+           <string>This Table shows your key mappings. This means 
+which key will be translated to which drum and 
+shown as which character.
+
+Double click an item to edit it. </string>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
           </property>
           <property name="alternatingRowColors">
            <bool>true</bool>
@@ -131,6 +141,13 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="defaultsPushButton">
+          <property name="text">
+           <string>Set defaults</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">

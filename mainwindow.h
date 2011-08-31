@@ -9,6 +9,7 @@
 #include <QtGui>
 #include "painter.h"
 #include <QTimer>
+#include <QFont>
 
 class Assistant;
 
@@ -47,6 +48,7 @@ private slots:
     void on_actionPreferences_triggered();
     void on_actionRecord_triggered();
     void keyPressEvent ( QKeyEvent * event );
+    void changeFont(QFont font);
 };
 
 #endif // MAINWINDOW_H

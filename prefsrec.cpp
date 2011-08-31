@@ -1,6 +1,9 @@
 #include "prefsrec.h"
 #include "ui_prefsrec.h"
 #include "noEditDelegate.h"
+#include "itemdialog.h"
+#include <QMessageBox>
+#include <QStringList>
 
 PrefsRec::PrefsRec(QWidget *parent) :
         QWidget(parent),
@@ -86,9 +89,9 @@ void PrefsRec::on_addPushButton_clicked()
     int items = ui->treeWidget->topLevelItemCount();
 
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
-    itm->setText(0,"-");
-    itm->setText(1,"-");
-    itm->setText(2,"-");
+    itm->setText(0,"");
+    itm->setText(1,"");
+    itm->setText(2,"");
     itm->setCheckState(3,Qt::Checked);
 
     itm->setFlags(itm->flags() | Qt::ItemIsEditable);
@@ -97,6 +100,8 @@ void PrefsRec::on_addPushButton_clicked()
     ui->treeWidget->setItemDelegateForColumn(3, new NoEditDelegate(this));
 
     ui->treeWidget->insertTopLevelItem(items,itm);
+
+    editItem(itm,-1);
 }
 
 void PrefsRec::on_removePushButton_clicked()
@@ -118,15 +123,76 @@ void PrefsRec::on_removePushButton_clicked()
             prev = current;
         }
     }
+
+    save_table_to_settings();
 }
 
 void PrefsRec::on_editPushButton_clicked()
 {
     QList<QTreeWidgetItem *> selection = ui->treeWidget->selectedItems();
-    ui->treeWidget->editItem(selection.first());
+    //ui->treeWidget->editItem(selection.first());
+    if (!selection.empty()) {
+        editItem(selection.first(),-1);
+    }
 }
 
 void PrefsRec::on_treeWidget_itemChanged(QTreeWidgetItem* item, int column)
 {
     save_table_to_settings();
+}
+
+void PrefsRec::editItem(QTreeWidgetItem* item, int column)
+{
+
+    ItemDialog dialog(this);
+    dialog.setModal(true);
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setItem(item, column);
+    dialog.exec();
+}
+
+void PrefsRec::on_treeWidget_itemDoubleClicked(QTreeWidgetItem* item, int column)
+{
+    editItem(item, column);
+}
+
+void PrefsRec::on_defaultsPushButton_clicked()
+{
+    QMessageBox msgBox(this);
+    msgBox.setModal(true);
+    msgBox.setWindowModality(Qt::WindowModal);
+    msgBox.setText("Replace current settings with defaults?");
+    msgBox.setInformativeText("Do you want to replace the current mappings with some example settings? Your own mappings will be lost.");
+    msgBox.setStandardButtons(QMessageBox::Yes  | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    int ret = msgBox.exec();
+
+    if (ret == QMessageBox::Yes) {
+        // Overwrite with defaults was clicked
+        ui->treeWidget->clear();
+
+        QStringList Hh;
+        Hh << "Hh" << "h" << "x";
+        QTreeWidgetItem *Hhitm = new QTreeWidgetItem(QStringList(Hh));
+        Hhitm->setCheckState(3,Qt::Checked);
+        ui->treeWidget->insertTopLevelItem(0,Hhitm);
+
+        QStringList TT;
+        TT << "TT" << "t" << "x";
+        QTreeWidgetItem *TTitm = new QTreeWidgetItem(QStringList(TT));
+        TTitm->setCheckState(3,Qt::Checked);
+        ui->treeWidget->insertTopLevelItem(1,TTitm);
+
+        QStringList R;
+        R << "R" << "r" << "o";
+        QTreeWidgetItem *Ritm = new QTreeWidgetItem(QStringList(R));
+        Ritm->setCheckState(3,Qt::Checked);
+        ui->treeWidget->insertTopLevelItem(2,Ritm);
+
+        this->save_table_to_settings();
+
+    } else {
+        // Don't overwrite was clicked
+
+    }
 }

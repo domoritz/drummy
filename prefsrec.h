@@ -20,19 +20,26 @@ public:
 
 private:
     Ui::PrefsRec *ui;
+
+protected:
     int bpm;
     QSettings settings;
-    void save_table_to_settings();
     void load_table_data_settings();
     bool initalized;
 
 private slots:
+    void on_defaultsPushButton_clicked();
+    void on_treeWidget_itemDoubleClicked(QTreeWidgetItem* item, int column);
     void on_treeWidget_itemChanged(QTreeWidgetItem* item, int column);
     void on_editPushButton_clicked();
     void on_removePushButton_clicked();
     void on_addPushButton_clicked();
     void on_bpmLineEdit_editingFinished();
     void on_bpmHorizontalSlider_valueChanged(int value);
+    void editItem(QTreeWidgetItem* item, int row);
+
+public slots:
+    void save_table_to_settings();
 };
 
 #endif // PREFSREC_H

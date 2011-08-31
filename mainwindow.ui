@@ -185,13 +185,7 @@
     <string>Record</string>
    </property>
    <property name="toolTip">
-    <string>click to record a drum sequence</string>
-   </property>
-   <property name="statusTip">
-    <string>click to record a drum sequence</string>
-   </property>
-   <property name="whatsThis">
-    <string>The record button</string>
+    <string>Start/stop recording a drum sequence</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+R</string>
@@ -257,11 +251,15 @@
    </property>
   </action>
   <action name="actionClear">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/images/trashcan_32.png</normaloff>:/images/trashcan_32.png</iconset>
+   </property>
    <property name="text">
     <string>Clear</string>
    </property>
    <property name="toolTip">
-    <string>clear recorded drums</string>
+    <string>Clear recordings</string>
    </property>
   </action>
   <action name="actionPauseRec">
