@@ -18,6 +18,7 @@ public:
     ~PrefsWindow();
     void fe();
 
+
 private:
     void resetSizePolicies(int index);
     Ui::PrefsWindow *ui;
@@ -32,6 +33,7 @@ public slots:
 
 signals:
     void fontChanged(QFont font);
+    void bpmChanged(int bpm);
 };
 
 #endif // PREFSWINDOW_H

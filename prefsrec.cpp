@@ -33,6 +33,7 @@ void PrefsRec::on_bpmHorizontalSlider_valueChanged(int bpm)
 
     // save value to settings
     settings.setValue("bpm",bpm);
+    emit bpmChanged(bpm);
 }
 
 void PrefsRec::on_bpmLineEdit_editingFinished()
@@ -42,9 +43,16 @@ void PrefsRec::on_bpmLineEdit_editingFinished()
 
     // save value to settings
     settings.setValue("bpm",bpm);
+    emit bpmChanged(bpm);
 }
 
-void PrefsRec::save_table_to_settings(){
+void PrefsRec::reloadBpm()
+{
+    // set slider to saved value
+    ui->bpmHorizontalSlider->setValue(settings.value("bpm",120).toInt());
+}
+
+void PrefsRec::saveTableToSettings(){
     if (initalized) {
 
         int count = ui->treeWidget->topLevelItemCount();
@@ -124,7 +132,7 @@ void PrefsRec::on_removePushButton_clicked()
         }
     }
 
-    save_table_to_settings();
+    saveTableToSettings();
 }
 
 void PrefsRec::on_editPushButton_clicked()
@@ -138,7 +146,7 @@ void PrefsRec::on_editPushButton_clicked()
 
 void PrefsRec::on_treeWidget_itemChanged(QTreeWidgetItem* item, int column)
 {
-    save_table_to_settings();
+    saveTableToSettings();
 }
 
 void PrefsRec::editItem(QTreeWidgetItem* item, int column)
@@ -189,7 +197,7 @@ void PrefsRec::on_defaultsPushButton_clicked()
         Ritm->setCheckState(3,Qt::Checked);
         ui->treeWidget->insertTopLevelItem(2,Ritm);
 
-        this->save_table_to_settings();
+        this->saveTableToSettings();
 
     } else {
         // Don't overwrite was clicked

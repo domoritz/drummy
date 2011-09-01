@@ -43,12 +43,24 @@ MainWindow::MainWindow(QWidget *parent) :
     progressTimer = new QTimer(this);
     connect(progressTimer, SIGNAL(timeout()), this, SLOT(progressTick()));
 
+    // connect bpm change
+    connect(ui->dockWidgetContents,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
+    connect(prefs,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
+
     /* use fe to force emit of font change
      problem was:
         i cannot connect signals and slots before the ui is initalized because i need the objects. however, if i do so, the emit from the
         constructor does not go down here because no connection is established. qt does not have an opposite thing of emit which foreces a refresh!!!
     */
     prefs->fe();
+
+    #ifdef Q_WS_MAC
+    ui->dockWidget->setWindowFlags(Qt::Drawer);
+    this->addDockWidget(Qt::RightDockWidgetArea,ui->dockWidget);
+    #endif
+
+    ui->dockWidget->hide();
+
 }
 
 MainWindow::~MainWindow()
@@ -102,11 +114,6 @@ void MainWindow::on_actionRecord_triggered()
 }
 
 void MainWindow::record() {
-    recording = true;
-    this->setFocus();
-    //ui->textEdit->setEnabled(false);
-    //ui->textEdit->setFocusPolicy(Qt::NoFocus);
-
     //inform user
     trayIcon->show();
     this->trayIcon->showMessage(tr("Recording"),tr("Recoding started. Use selected keys."),QSystemTrayIcon::NoIcon,1000);
@@ -117,20 +124,39 @@ void MainWindow::record() {
     // initalize textedit
     painter.init();
 
+    // disable some widgets
+    this->setFocus();
+    //ui->textEdit->setEnabled(false);
+    //ui->textEdit->setFocusPolicy(Qt::NoFocus);
+
+    ui->actionClear->setEnabled(false);
+    ui->actionPreferences->setEnabled(false);
+
     //start timer
-    timer->start(1000*60/settings.value("bpm",120).toInt());
+    // hint: if the progress timer is enabled it will emit the tick to the painter
+    // this makes it stay in sync
     if(settings.value("progress",true).toBool()) {
         progressBar->show();
         progressTimer->start(10*60/settings.value("bpm",120).toInt());
+    } else {
+        timer->start(1000*60/settings.value("bpm",120).toInt());
     }
+
+    recording = true;
 }
 
 void MainWindow::stopRecording() {
+    timer->stop();
+    progressTimer->stop();
+
     recording = false;
+
+    // disable some widgets
     ui->textEdit->setEnabled(true);
     //ui->textEdit->setFocusPolicy(Qt::StrongFocus);
 
-    timer->stop();
+    ui->actionClear->setEnabled(true);
+    ui->actionPreferences->setEnabled(true);
 
     this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::NoIcon,1000);
 
@@ -144,7 +170,19 @@ void MainWindow::progressTick()
 {
     progressBar->setValue(counter);
     counter+=1;
-    counter%=100;
+    if (counter%100 == 0) {
+        counter = 0;
+        painter.tick();
+    }
+}
+
+// if bpm changed use this slot
+void MainWindow::changeBpm(int bpm)
+{
+    timer->setInterval(1000*60/bpm);
+    progressTimer->setInterval(10*60/bpm);
+
+    ui->dockWidgetContents->reloadBpm();
 }
 
 void MainWindow::on_actionPreferences_triggered()
@@ -153,10 +191,16 @@ void MainWindow::on_actionPreferences_triggered()
     prefs->show(0);
 }
 
-void MainWindow::on_actionActionRecordingPreferences_triggered()
+void MainWindow::on_actionRecordingPreferences_triggered()
 {
-    prefs->setWindowModality(Qt::ApplicationModal);
-    prefs->show(1);
+    //prefs->setWindowModality(Qt::ApplicationModal);
+    //prefs->show(1);
+
+    if (ui->dockWidget->isVisible()){
+        ui->dockWidget->hide();
+    } else {
+        ui->dockWidget->show();
+    }
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -203,3 +247,8 @@ void MainWindow::changeFont(QFont font)
     qDebug() << "font changed to" << font.family() << font.pointSize();
     ui->textEdit->setFont(font);
 };
+
+void MainWindow::on_dockWidget_visibilityChanged(bool visible)
+{
+    ui->actionRecordingPreferences->setChecked(visible);
+}

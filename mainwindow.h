@@ -42,16 +42,20 @@ private:
     QSettings settings;
 
 private slots:
+    void on_actionRecordingPreferences_triggered();
+    void on_dockWidget_visibilityChanged(bool visible);
     void on_actionClear_triggered();
-    void on_actionActionRecordingPreferences_triggered();
     void on_actionFullscreen_triggered();
     void on_actionHelp_triggered();
     void on_actionAbout_triggered();
-    void on_actionPreferences_triggered();
     void on_actionRecord_triggered();
+    void on_actionPreferences_triggered();
+
+public slots:
     void keyPressEvent ( QKeyEvent * event );
     void changeFont(QFont font);
     void progressTick();
+    void changeBpm(int bpm);
 };
 
 #endif // MAINWINDOW_H

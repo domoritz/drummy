@@ -14,8 +14,9 @@ PrefsWindow::PrefsWindow(QWidget *parent) :
     ui->actionPreferences->setEnabled(false);
     ui->actionAbout->setEnabled(false);
 
-    // pass font signal through
+    // pass signals through
     connect(ui->app,SIGNAL(fontChanged(QFont)),this,SIGNAL(fontChanged(QFont)));
+    connect(ui->rec,SIGNAL(bpmChanged(int)),this,SIGNAL(bpmChanged(int)));
 }
 
 PrefsWindow::~PrefsWindow()
@@ -30,6 +31,8 @@ void PrefsWindow::show(int startIndex)
     // set selected widget to application prefs
     if (startIndex == 1) {
         ui->actionRecording->trigger();
+    } else {
+        ui->actionGeneral->trigger();
     }
 
     adjustSize();

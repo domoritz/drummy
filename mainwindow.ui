@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
-    <height>355</height>
+    <width>698</width>
+    <height>409</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -75,7 +75,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>613</width>
+     <width>698</width>
      <height>22</height>
     </rect>
    </property>
@@ -133,10 +133,16 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionRecord"/>
-   <addaction name="actionActionRecordingPreferences"/>
+   <addaction name="actionRecordingPreferences"/>
    <addaction name="actionClear"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="PrefsRec" name="dockWidgetContents"/>
+  </widget>
   <action name="actionPreferences">
    <property name="text">
     <string>Preferences</string>
@@ -238,13 +244,16 @@
     <string>Fullscreen</string>
    </property>
   </action>
-  <action name="actionActionRecordingPreferences">
+  <action name="actionRecordingPreferences">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/images/record_settings_32.png</normaloff>:/images/record_settings_32.png</iconset>
    </property>
    <property name="text">
-    <string>actionRecordingPreferences</string>
+    <string>recordingPreferences</string>
    </property>
    <property name="toolTip">
     <string>Recording preferences</string>
@@ -269,6 +278,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>PrefsRec</class>
+   <extends>QWidget</extends>
+   <header location="global">prefsrec.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="icons.qrc"/>
  </resources>
