@@ -19,5 +19,8 @@
         <file>images/trashcan_32.png</file>
         <file>images/trashcan_48.png</file>
         <file>images/trashcan_64.png</file>
+        <file>images/record_settings_32.png</file>
+        <file>images/record_settings_48.png</file>
+        <file>images/record_settings_64.png</file>
     </qresource>
 </RCC>

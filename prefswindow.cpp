@@ -9,7 +9,10 @@ PrefsWindow::PrefsWindow(QWidget *parent) :
 {
     this->setUnifiedTitleAndToolBarOnMac(true);
 
-     ui->setupUi(this);
+    ui->setupUi(this);
+
+    ui->actionPreferences->setEnabled(false);
+    ui->actionAbout->setEnabled(false);
 
     // pass font signal through
     connect(ui->app,SIGNAL(fontChanged(QFont)),this,SIGNAL(fontChanged(QFont)));
@@ -25,12 +28,9 @@ void PrefsWindow::fe() {ui->app->fe();}
 void PrefsWindow::show(int startIndex)
 {
     // set selected widget to application prefs
-    ui->stackedWidget->setCurrentIndex(startIndex);
-    ui->actionGeneral->setChecked(!startIndex);
-    ui->actionRecording->setChecked(startIndex);
-
-    ui->actionPreferences->setEnabled(false);
-    ui->actionAbout->setEnabled(false);
+    if (startIndex == 1) {
+        ui->actionRecording->trigger();
+    }
 
     adjustSize();
 
@@ -41,12 +41,21 @@ const QSizePolicy ignored(QSizePolicy::Ignored, QSizePolicy::Ignored);
 const QSizePolicy preferred(QSizePolicy::Preferred, QSizePolicy::Preferred);
 const QSizePolicy expanding(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+void PrefsWindow::on_actionGeneral_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->app);
+    ui->actionGeneral->setChecked(true);
+    ui->actionRecording->setChecked(false);
+    this->setWindowTitle(tr("Preferences"));
+}
 
 void PrefsWindow::on_actionRecording_triggered()
 {
     ui->stackedWidget->setCurrentWidget(ui->rec);
     ui->actionGeneral->setChecked(false);
     ui->actionRecording->setChecked(true);
+
+    this->setWindowTitle(tr("Preferences - Recording"));
 }
 
 void PrefsWindow::on_stackedWidget_currentChanged(int index)
@@ -63,11 +72,4 @@ void PrefsWindow::on_stackedWidget_currentChanged(int index)
     */
     //layout()->activate();
     //adjustSize();
-}
-
-void PrefsWindow::on_actionGeneral_triggered()
-{
-    ui->stackedWidget->setCurrentWidget(ui->app);
-    ui->actionGeneral->setChecked(true);
-    ui->actionRecording->setChecked(false);
 }

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Edit mapping</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -24,7 +24,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Name</string>
+          <string>Name:</string>
          </property>
         </widget>
        </item>
@@ -42,7 +42,7 @@ Use one up to three characters.</string>
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Key</string>
+          <string>Key:</string>
          </property>
         </widget>
        </item>
@@ -60,7 +60,7 @@ Just one character please. Thanks!</string>
        <item row="2" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Character</string>
+          <string>Character:</string>
          </property>
         </widget>
        </item>

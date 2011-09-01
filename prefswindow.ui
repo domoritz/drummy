@@ -78,7 +78,7 @@
    </property>
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/images/record_32.png</normaloff>:/images/record_32.png</iconset>
+     <normaloff>:/images/record_settings_32.png</normaloff>:/images/record_settings_32.png</iconset>
    </property>
    <property name="text">
     <string>Recording</string>

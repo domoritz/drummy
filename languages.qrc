@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>lang/drummy_de.qm</file>
+        <file>lang/drummy_de.ts</file>
+        <file>lang/drummy_en.qm</file>
+        <file>lang/drummy_en.ts</file>
+    </qresource>
+</RCC>

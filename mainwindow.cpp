@@ -35,9 +35,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //create progress bar
     progressBar = new QProgressBar();
     ui->statusBar->addWidget(progressBar,1);
+    progressBar->hide();
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), &painter, SLOT(tick()));
+
+    progressTimer = new QTimer(this);
+    connect(progressTimer, SIGNAL(timeout()), this, SLOT(progressTick()));
 
     /* use fe to force emit of font change
      problem was:
@@ -50,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete timer;
+    delete progressTimer;
     delete trayIcon;
     delete ui;
 }
@@ -104,7 +109,7 @@ void MainWindow::record() {
 
     //inform user
     trayIcon->show();
-    this->trayIcon->showMessage(tr("Recording"),tr("Recoding started. Use selected keys to record your drums."),QSystemTrayIcon::NoIcon,1000);
+    this->trayIcon->showMessage(tr("Recording"),tr("Recoding started. Use selected keys."),QSystemTrayIcon::NoIcon,1000);
 
     // change action icon to indicate recording
     ui->actionRecord->setIcon(QIcon(":/images/record_32.png"));
@@ -114,18 +119,32 @@ void MainWindow::record() {
 
     //start timer
     timer->start(1000*60/settings.value("bpm",120).toInt());
+    if(settings.value("progress",true).toBool()) {
+        progressBar->show();
+        progressTimer->start(10*60/settings.value("bpm",120).toInt());
+    }
 }
 
 void MainWindow::stopRecording() {
     recording = false;
     ui->textEdit->setEnabled(true);
-    ui->textEdit->setFocusPolicy(Qt::StrongFocus);
+    //ui->textEdit->setFocusPolicy(Qt::StrongFocus);
 
     timer->stop();
 
     this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::NoIcon,1000);
 
     ui->actionRecord->setIcon(QIcon(":/images/record_off_32.png"));
+
+    progressBar->hide();
+}
+
+// updates the progressbar
+void MainWindow::progressTick()
+{
+    progressBar->setValue(counter);
+    counter+=1;
+    counter%=100;
 }
 
 void MainWindow::on_actionPreferences_triggered()

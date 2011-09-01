@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>585</width>
-    <height>276</height>
+    <width>470</width>
+    <height>253</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -78,12 +78,6 @@
         <property name="statusTip">
          <string/>
         </property>
-        <property name="whatsThis">
-         <string>beats per minute label</string>
-        </property>
-        <property name="accessibleName">
-         <string>label</string>
-        </property>
         <property name="text">
          <string>bpm</string>
         </property>
@@ -95,7 +89,7 @@
    <item>
     <widget class="QGroupBox" name="mapGroupBox">
      <property name="title">
-      <string>Map Drums to Keys</string>
+      <string>Map drums, keys and characters</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>

@@ -26,6 +26,7 @@ private:
     Ui::PrefsApp *ui;
 
 private slots:
+    void on_progressCheckBox_toggled(bool checked);
     void on_pushButton_clicked();
 
 public slots:

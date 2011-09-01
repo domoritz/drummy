@@ -30,6 +30,8 @@ public:
 protected:
     Painter painter;
     QTimer *timer;
+    QTimer *progressTimer;
+    int counter;
 
 private:
     bool recording;
@@ -49,6 +51,7 @@ private slots:
     void on_actionRecord_triggered();
     void keyPressEvent ( QKeyEvent * event );
     void changeFont(QFont font);
+    void progressTick();
 };
 
 #endif // MAINWINDOW_H

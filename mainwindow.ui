@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Drummy - Record drums</string>
+   <string>Drummy</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -201,7 +201,7 @@
   </action>
   <action name="actionCopy">
    <property name="text">
-    <string>Copy</string>
+    <string>&amp;Copy</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
@@ -222,7 +222,7 @@
   </action>
   <action name="actionSelect_All">
    <property name="text">
-    <string>Select All</string>
+    <string>Select &amp;All</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
@@ -241,7 +241,7 @@
   <action name="actionActionRecordingPreferences">
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/images/preferences_system_32.png</normaloff>:/images/preferences_system_32.png</iconset>
+     <normaloff>:/images/record_settings_32.png</normaloff>:/images/record_settings_32.png</iconset>
    </property>
    <property name="text">
     <string>actionRecordingPreferences</string>

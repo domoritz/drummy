@@ -17,8 +17,11 @@ PrefsApp::PrefsApp(QWidget *parent) :
     int size = 13;
     #endif
 
+    // load settings
     outputfont.setFamily(settings.value("font/family",family).toString());
     outputfont.setPointSize(settings.value("font/size",size).toInt());
+
+    ui->progressCheckBox->setChecked(settings.value("progress",true).toBool());
 
     saveFont(outputfont);
 }
@@ -55,4 +58,9 @@ void PrefsApp::saveFont(QFont font)
     settings.setValue("font/size",font.pointSize());
 
     emit fontChanged(outputfont);
+}
+
+void PrefsApp::on_progressCheckBox_toggled(bool checked)
+{
+    settings.setValue("progress",checked);
 }
