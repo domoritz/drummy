@@ -58,6 +58,7 @@ public slots:
     void changeFont(QFont font);
     void progressTick();
     void changeBpm(int bpm);
+    void startTimer();
 };
 
 #endif // MAINWINDOW_H

@@ -18,6 +18,7 @@ void Painter::init() {
     // if te is empty (no previous recording), init painting
     if (te->toPlainText().isEmpty()) {
         drawInitLine();
+        tick();
     } else {
         mainCursor.movePosition(QTextCursor::Start);
         mainCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,4);

@@ -145,7 +145,14 @@ void MainWindow::record() {
 
     ui->dockWidgetContents->setFullyEnabled(false);
 
-    //start timer
+    //start timer with a short delay
+    QTimer::singleShot(200,this,SLOT(startTimer()));
+
+    recording = true;
+}
+
+void MainWindow::startTimer()
+{
     // hint: if the progress timer is enabled it will emit the tick to the painter
     // this makes it stay in sync
     if(settings.value("progress",true).toBool()) {
@@ -154,8 +161,6 @@ void MainWindow::record() {
     } else {
         timer->start(1000*60/settings.value("bpm",120).toInt());
     }
-
-    recording = true;
 }
 
 void MainWindow::stopRecording() {
@@ -254,6 +259,7 @@ void MainWindow::keyPressEvent ( QKeyEvent * event ){
 void MainWindow::on_actionClear_triggered()
 {
     ui->textEdit->clear();
+    ui->textEdit->insertPlainText("");
     ui->actionPreferences->setEnabled(true);
     ui->dockWidgetContents->setFullyEnabled(true,false);
 }
@@ -266,5 +272,6 @@ void MainWindow::changeFont(QFont font)
 
 void MainWindow::on_dockWidget_visibilityChanged(bool visible)
 {
+    qDebug() << "dock widget visibility changed";
     ui->actionRecordingPreferences->setChecked(visible);
 }

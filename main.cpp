@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setApplicationVersion("0.1");
 
+    QApplication::setWindowIcon(QIcon(":/images/record_512.png"));
+
     // set encoding to utf-8
     QTextCodec::setCodecForTr(QTextCodec::codecForName("utf8"));
 

@@ -22,5 +22,8 @@
         <file>images/record_settings_32.png</file>
         <file>images/record_settings_48.png</file>
         <file>images/record_settings_64.png</file>
+        <file>images/Drummy.icns</file>
+        <file>images/Drummy.ico</file>
+        <file>images/record_512.png</file>
     </qresource>
 </RCC>

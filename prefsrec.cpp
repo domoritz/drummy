@@ -56,6 +56,8 @@ void PrefsRec::reload()
 void PrefsRec::setFullyEnabled(bool enabled, bool excludeButtons)
 {
     ui->treeWidget->setEnabled(enabled);
+    ui->bpmLineEdit->setEnabled(enabled);
+
     if (!excludeButtons) {
         ui->editPushButton->setEnabled(enabled);
         ui->addPushButton->setEnabled(enabled);

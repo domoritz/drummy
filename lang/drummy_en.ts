@@ -136,199 +136,199 @@ presses will be recorded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="84"/>
+        <location filename="../mainwindow.ui" line="90"/>
         <source>Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="91"/>
-        <location filename="../mainwindow.ui" line="233"/>
+        <location filename="../mainwindow.ui" line="97"/>
+        <location filename="../mainwindow.ui" line="245"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="98"/>
+        <location filename="../mainwindow.ui" line="104"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="104"/>
+        <location filename="../mainwindow.ui" line="110"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="115"/>
+        <location filename="../mainwindow.ui" line="121"/>
         <source>Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="127"/>
+        <location filename="../mainwindow.ui" line="133"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="142"/>
+        <location filename="../mainwindow.ui" line="154"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="145"/>
+        <location filename="../mainwindow.ui" line="157"/>
         <source>edit settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="153"/>
+        <location filename="../mainwindow.ui" line="165"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="156"/>
+        <location filename="../mainwindow.ui" line="168"/>
         <source>about this app</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="164"/>
+        <location filename="../mainwindow.ui" line="176"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="167"/>
+        <location filename="../mainwindow.ui" line="179"/>
         <source>quit application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="185"/>
+        <location filename="../mainwindow.ui" line="197"/>
         <source>Record</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="188"/>
+        <location filename="../mainwindow.ui" line="200"/>
         <source>Start/stop recording a drum sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="191"/>
+        <location filename="../mainwindow.ui" line="203"/>
         <source>Ctrl+Shift+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="196"/>
+        <location filename="../mainwindow.ui" line="208"/>
         <source>Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="199"/>
+        <location filename="../mainwindow.ui" line="211"/>
         <source>Ctrl+X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="204"/>
+        <location filename="../mainwindow.ui" line="216"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="225"/>
+        <location filename="../mainwindow.ui" line="237"/>
         <source>Select &amp;All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="207"/>
+        <location filename="../mainwindow.ui" line="262"/>
+        <source>recordingPreferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="219"/>
         <source>Ctrl+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="212"/>
+        <location filename="../mainwindow.ui" line="224"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="215"/>
+        <location filename="../mainwindow.ui" line="227"/>
         <source>Ctrl+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="220"/>
+        <location filename="../mainwindow.ui" line="232"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="228"/>
+        <location filename="../mainwindow.ui" line="240"/>
         <source>Ctrl+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="238"/>
-        <location filename="../mainwindow.cpp" line="180"/>
+        <location filename="../mainwindow.ui" line="250"/>
+        <location filename="../mainwindow.cpp" line="243"/>
         <source>Fullscreen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="247"/>
-        <source>actionRecordingPreferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="250"/>
+        <location filename="../mainwindow.ui" line="265"/>
         <source>Recording preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="259"/>
+        <location filename="../mainwindow.ui" line="274"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="262"/>
+        <location filename="../mainwindow.ui" line="277"/>
         <source>Clear recordings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="267"/>
+        <location filename="../mainwindow.ui" line="282"/>
         <source>PauseRec</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="77"/>
+        <location filename="../mainwindow.cpp" line="100"/>
         <source>No recoding Preferences!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="78"/>
+        <location filename="../mainwindow.cpp" line="101"/>
         <source>You haven&apos;t set your recording preferences. Do you want to use your own or use the default preferences?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="80"/>
+        <location filename="../mainwindow.cpp" line="103"/>
         <source>Set preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="81"/>
+        <location filename="../mainwindow.cpp" line="104"/>
         <source>Use defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="112"/>
+        <location filename="../mainwindow.cpp" line="130"/>
         <source>Recording</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="112"/>
+        <location filename="../mainwindow.cpp" line="130"/>
         <source>Recoding started. Use selected keys.</source>
-        <translation type="unfinished">Recoding started. Use the keys you set in the prefereneces to record your drums.</translation>
+        <translation type="unfinished">Recoding started. Use the keys you set in the prefereneces to record your drums.\nYou can still set the recording speed. </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="135"/>
+        <location filename="../mainwindow.cpp" line="180"/>
         <source>Finished recording</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="135"/>
+        <location filename="../mainwindow.cpp" line="180"/>
         <source>Recoding stopped.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Recording has been stopped. Edit your result, record other drums or start over. </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="183"/>
+        <location filename="../mainwindow.cpp" line="246"/>
         <source>Quit Fullsceen</source>
         <translation type="unfinished"></translation>
     </message>
@@ -409,61 +409,59 @@ presses will be recorded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="100"/>
+        <location filename="../prefsrec.ui" line="106"/>
         <source>This Table shows your key mappings. This means 
 which key will be translated to which drum and 
-shown as which character.
-
-Double click an item to edit it. </source>
+shown as which character.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="114"/>
+        <location filename="../prefsrec.ui" line="127"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="119"/>
+        <location filename="../prefsrec.ui" line="132"/>
         <source>Key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="124"/>
+        <location filename="../prefsrec.ui" line="137"/>
         <source>Character</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="129"/>
+        <location filename="../prefsrec.ui" line="142"/>
         <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="141"/>
+        <location filename="../prefsrec.ui" line="154"/>
         <source>Set defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="161"/>
+        <location filename="../prefsrec.ui" line="174"/>
         <source>remove selected entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="164"/>
+        <location filename="../prefsrec.ui" line="177"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="174"/>
+        <location filename="../prefsrec.ui" line="187"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="181"/>
+        <location filename="../prefsrec.ui" line="194"/>
         <source>add an entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="184"/>
+        <location filename="../prefsrec.ui" line="197"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -473,7 +471,7 @@ Double click an item to edit it. </source>
     <message>
         <location filename="../prefswindow.ui" line="17"/>
         <location filename="../prefswindow.ui" line="107"/>
-        <location filename="../prefswindow.cpp" line="49"/>
+        <location filename="../prefswindow.cpp" line="53"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -518,7 +516,7 @@ Double click an item to edit it. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefswindow.cpp" line="58"/>
+        <location filename="../prefswindow.cpp" line="64"/>
         <source>Preferences - Recording</source>
         <translation type="unfinished"></translation>
     </message>
