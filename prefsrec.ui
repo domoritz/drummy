@@ -99,9 +99,7 @@
           <property name="toolTip">
            <string>This Table shows your key mappings. This means 
 which key will be translated to which drum and 
-shown as which character.
-
-Double click an item to edit it. </string>
+shown as which character.</string>
           </property>
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>

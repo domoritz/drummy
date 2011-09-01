@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QKeyEvent>
 #include "mappings.h"
+#include <QTextDocument>
 
 class Painter : public QObject
 {
@@ -18,12 +19,8 @@ public:
 protected:
     Mappings map;
     QTextEdit *te;
-    QTextCursor cursor;
-    void up(int n);
-    void down(int n);
-    void left(int n);
-    void eol();
-    void end();
+    QTextDocument *document;
+    QTextCursor mainCursor;
     short int counter;
     short int barcounter;
 
@@ -31,7 +28,7 @@ signals:
 
 public slots:
     void setTextEdit(QTextEdit *te);
-    void newLine();
+    void drawInitLine();
     void keyPressed(QKeyEvent *event);
     void init();
     void tick();

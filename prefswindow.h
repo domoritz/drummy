@@ -34,6 +34,7 @@ public slots:
 signals:
     void fontChanged(QFont font);
     void bpmChanged(int bpm);
+    void settingsChanged();
 };
 
 #endif // PREFSWINDOW_H

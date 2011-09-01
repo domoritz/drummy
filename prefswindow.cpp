@@ -17,6 +17,7 @@ PrefsWindow::PrefsWindow(QWidget *parent) :
     // pass signals through
     connect(ui->app,SIGNAL(fontChanged(QFont)),this,SIGNAL(fontChanged(QFont)));
     connect(ui->rec,SIGNAL(bpmChanged(int)),this,SIGNAL(bpmChanged(int)));
+    connect(ui->rec,SIGNAL(settingsChanged()),this,SIGNAL(settingsChanged()));
 }
 
 PrefsWindow::~PrefsWindow()
@@ -57,6 +58,8 @@ void PrefsWindow::on_actionRecording_triggered()
     ui->stackedWidget->setCurrentWidget(ui->rec);
     ui->actionGeneral->setChecked(false);
     ui->actionRecording->setChecked(true);
+
+    ui->rec->reload();
 
     this->setWindowTitle(tr("Preferences - Recording"));
 }

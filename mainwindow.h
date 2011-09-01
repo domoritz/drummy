@@ -10,6 +10,7 @@
 #include "painter.h"
 #include <QTimer>
 #include <QFont>
+#include <QCloseEvent>
 
 class Assistant;
 
@@ -50,6 +51,7 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionRecord_triggered();
     void on_actionPreferences_triggered();
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void keyPressEvent ( QKeyEvent * event );

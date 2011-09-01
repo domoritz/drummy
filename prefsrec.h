@@ -39,11 +39,13 @@ private slots:
     void editItem(QTreeWidgetItem* item, int row);
 
 public slots:
-    void reloadBpm();
+    void reload();
     void saveTableToSettings();
+    void setFullyEnabled(bool enabled, bool excludeButtons=false);
 
 signals:
     void bpmChanged(int bpm);
+    void settingsChanged();
 };
 
 #endif // PREFSREC_H

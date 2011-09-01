@@ -64,6 +64,9 @@
         <property name="lineWrapMode">
          <enum>QTextEdit::NoWrap</enum>
         </property>
+        <property name="overwriteMode">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
      </layout>

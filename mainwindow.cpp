@@ -47,6 +47,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->dockWidgetContents,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
     connect(prefs,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
 
+    // connect settings changed
+    connect(prefs,SIGNAL(settingsChanged()),ui->dockWidgetContents,SLOT(reload()));
+
     /* use fe to force emit of font change
      problem was:
         i cannot connect signals and slots before the ui is initalized because i need the objects. however, if i do so, the emit from the
@@ -69,6 +72,14 @@ MainWindow::~MainWindow()
     delete progressTimer;
     delete trayIcon;
     delete ui;
+}
+
+// fix issue with drawer when closing app
+// https://bugreports.qt.nokia.com//browse/QTBUG-15897
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    this->setFocus();
+    QWidget::close();
 }
 
 void MainWindow::on_actionRecord_triggered()
@@ -126,11 +137,13 @@ void MainWindow::record() {
 
     // disable some widgets
     this->setFocus();
-    //ui->textEdit->setEnabled(false);
+    ui->textEdit->setEnabled(false);
     //ui->textEdit->setFocusPolicy(Qt::NoFocus);
 
     ui->actionClear->setEnabled(false);
     ui->actionPreferences->setEnabled(false);
+
+    ui->dockWidgetContents->setFullyEnabled(false);
 
     //start timer
     // hint: if the progress timer is enabled it will emit the tick to the painter
@@ -151,12 +164,13 @@ void MainWindow::stopRecording() {
 
     recording = false;
 
-    // disable some widgets
+    // reenable some widgets
     ui->textEdit->setEnabled(true);
     //ui->textEdit->setFocusPolicy(Qt::StrongFocus);
 
     ui->actionClear->setEnabled(true);
-    ui->actionPreferences->setEnabled(true);
+
+    ui->dockWidgetContents->setFullyEnabled(true,true);
 
     this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::NoIcon,1000);
 
@@ -182,7 +196,7 @@ void MainWindow::changeBpm(int bpm)
     timer->setInterval(1000*60/bpm);
     progressTimer->setInterval(10*60/bpm);
 
-    ui->dockWidgetContents->reloadBpm();
+    ui->dockWidgetContents->reload();
 }
 
 void MainWindow::on_actionPreferences_triggered()
@@ -240,6 +254,8 @@ void MainWindow::keyPressEvent ( QKeyEvent * event ){
 void MainWindow::on_actionClear_triggered()
 {
     ui->textEdit->clear();
+    ui->actionPreferences->setEnabled(true);
+    ui->dockWidgetContents->setFullyEnabled(true,false);
 }
 
 void MainWindow::changeFont(QFont font)

@@ -11,14 +11,7 @@ PrefsRec::PrefsRec(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // set slider to saved value
-    ui->bpmHorizontalSlider->setValue(settings.value("bpm",120).toInt());
-
-    // avoid reading and writing of settings at the same time
-    initalized = false;
-    load_table_data_settings();
-    settings.sync();
-    initalized = true;
+    reload();
 }
 
 PrefsRec::~PrefsRec()
@@ -46,10 +39,29 @@ void PrefsRec::on_bpmLineEdit_editingFinished()
     emit bpmChanged(bpm);
 }
 
-void PrefsRec::reloadBpm()
+void PrefsRec::reload()
 {
     // set slider to saved value
     ui->bpmHorizontalSlider->setValue(settings.value("bpm",120).toInt());
+
+    // avoid reading and writing of settings at the same time
+    initalized = false;
+    ui->treeWidget->clear();
+    load_table_data_settings();
+    settings.sync();
+    initalized = true;
+}
+
+// disables/enables everything in the mapping group
+void PrefsRec::setFullyEnabled(bool enabled, bool excludeButtons)
+{
+    ui->treeWidget->setEnabled(enabled);
+    if (!excludeButtons) {
+        ui->editPushButton->setEnabled(enabled);
+        ui->addPushButton->setEnabled(enabled);
+        ui->defaultsPushButton->setEnabled(enabled);
+        ui->removePushButton->setEnabled(enabled);
+    }
 }
 
 void PrefsRec::saveTableToSettings(){
@@ -68,6 +80,8 @@ void PrefsRec::saveTableToSettings(){
         }
         settings.endArray();
     }
+
+    emit settingsChanged();
 };
 
 void PrefsRec::load_table_data_settings(){
@@ -161,7 +175,10 @@ void PrefsRec::editItem(QTreeWidgetItem* item, int column)
 
 void PrefsRec::on_treeWidget_itemDoubleClicked(QTreeWidgetItem* item, int column)
 {
-    editItem(item, column);
+    // before editing an item check if it may not be adequate
+    if (ui->editPushButton->isEnabled()) {
+        editItem(item, column);
+}
 }
 
 void PrefsRec::on_defaultsPushButton_clicked()
