@@ -1,85 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PrefsRec</class>
- <widget class="QWidget" name="PrefsRec">
+ <class>PrefsMap</class>
+ <widget class="QWidget" name="PrefsMap">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>416</width>
-    <height>297</height>
+    <width>555</width>
+    <height>316</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QGroupBox" name="speedGroupBox">
-     <property name="title">
-      <string>Recording speed</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QSlider" name="bpmHorizontalSlider">
-        <property name="toolTip">
-         <string>Slide to set the speed for recording in bpm</string>
-        </property>
-        <property name="minimum">
-         <number>40</number>
-        </property>
-        <property name="maximum">
-         <number>300</number>
-        </property>
-        <property name="value">
-         <number>120</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="bpmLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Type the speed for recording</string>
-        </property>
-        <property name="inputMask">
-         <string>000; </string>
-        </property>
-        <property name="text">
-         <string>120</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="bpmLabel">
-        <property name="toolTip">
-         <string>beats per minute</string>
-        </property>
-        <property name="statusTip">
-         <string/>
-        </property>
-        <property name="text">
-         <string>bpm</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item>
     <widget class="QGroupBox" name="mapGroupBox">
      <property name="title">
@@ -119,11 +53,6 @@ shown as which character.</string>
           <column>
            <property name="text">
             <string>Name</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Short name</string>
            </property>
           </column>
           <column>
@@ -181,9 +110,6 @@ shown as which character.</string>
          <widget class="QPushButton" name="editPushButton">
           <property name="enabled">
            <bool>true</bool>
-          </property>
-          <property name="toolTip">
-           <string>edit selected entry</string>
           </property>
           <property name="text">
            <string>Edit</string>

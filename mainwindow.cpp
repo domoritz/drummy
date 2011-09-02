@@ -4,6 +4,8 @@
 #include <QMessageBox>
 #include "helpdialog.h"
 #include <QKeyEvent>
+#include "previewdialog.h"
+#include "songinfo.h"
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -20,6 +22,46 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+
+    //shortcuts, platform independant
+    ui->actionCopy->setShortcut(QKeySequence::Copy);
+    ui->actionCut->setShortcut(QKeySequence::Cut);
+    ui->actionDelete->setShortcut(QKeySequence::Delete);
+    ui->actionHelp->setShortcut(QKeySequence::HelpContents);
+    ui->actionNew->setShortcut(QKeySequence::New);
+    ui->actionPaste->setShortcut(QKeySequence::Paste);
+    ui->actionSave->setShortcut(QKeySequence::Save);
+    ui->actionSave_As->setShortcut(QKeySequence::SaveAs);
+    ui->actionPreferences->setShortcut(QKeySequence::Preferences);
+    ui->actionQuit->setShortcut(QKeySequence::Quit);
+    ui->actionSelect_All->setShortcut(QKeySequence::SelectAll);
+    ui->actionUndo->setShortcut(QKeySequence::Undo);
+    ui->actionRedo->setShortcut(QKeySequence::Redo);
+
+
+    // simple undo/ redo
+    connect(ui->tabsTextEdit->document(), SIGNAL(undoAvailable(bool)),
+            ui->actionUndo, SLOT(setEnabled(bool)));
+    connect(ui->tabsTextEdit->document(), SIGNAL(redoAvailable(bool)),
+            ui->actionRedo, SLOT(setEnabled(bool)));
+
+    setWindowModified(ui->tabsTextEdit->document()->isModified());
+    ui->actionUndo->setEnabled(ui->tabsTextEdit->document()->isUndoAvailable());
+    ui->actionRedo->setEnabled(ui->tabsTextEdit->document()->isRedoAvailable());
+
+    connect(ui->actionUndo, SIGNAL(triggered()), ui->tabsTextEdit, SLOT(undo()));
+    connect(ui->actionRedo, SIGNAL(triggered()), ui->tabsTextEdit, SLOT(redo()));
+
+
+    /* ui->stackedWidget->layout()->setSpacing(0);
+    ui->stackedWidget->layout()->setMargin(0);
+    ui->stackedWidget->layout()->setContentsMargins(0,0,0,0);
+    ui->stackedWidget->layout()->activate();
+    this->layout()->setSpacing(0);
+    this->layout()->setMargin(0);
+    this->layout()->setContentsMargins(0,0,0,0);
+    this->layout()->activate();*/
+
     // preferences window
     prefs = new PrefsWindow();
 
@@ -32,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
 
     //give textedit pointer to painter
-    painter.setTextEdit(ui->textEdit);
+    painter.setTextEdit(ui->tabsTextEdit);
 
     //create progress bar
     progressBar = new QProgressBar();
@@ -46,14 +88,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(progressTimer, SIGNAL(timeout()), this, SLOT(progressTick()));
 
     // document
-    connect(ui->textEdit->document(), SIGNAL(contentsChanged()),this, SLOT(documentWasModified()));
+    connect(ui->tabsTextEdit->document(), SIGNAL(contentsChanged()),this, SLOT(documentWasModified()));
     setCurrentFile("");
 
     ui->actionCut->setEnabled(false);
     ui->actionCopy->setEnabled(false);
-    connect(ui->textEdit, SIGNAL(copyAvailable(bool)),
+    connect(ui->tabsTextEdit, SIGNAL(copyAvailable(bool)),
             ui->actionCut, SLOT(setEnabled(bool)));
-    connect(ui->textEdit, SIGNAL(copyAvailable(bool)),
+    connect(ui->tabsTextEdit, SIGNAL(copyAvailable(bool)),
             ui->actionCopy, SLOT(setEnabled(bool)));
 
     connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
@@ -109,21 +151,21 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::writeSettings()
 {
-    settings.setValue("pos", pos());
-    settings.setValue("size", size());
+    settings.setValue("window/pos", pos());
+    settings.setValue("window/size", size());
 }
 
 void MainWindow::readSettings()
 {
-    QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
-    QSize size = settings.value("size", QSize(400, 400)).toSize();
+    QPoint pos = settings.value("window/pos", QPoint(200, 200)).toPoint();
+    QSize size = settings.value("window/size", QSize(400, 400)).toSize();
     resize(size);
     move(pos);
 }
 
 bool MainWindow::maybeSave()
 {
-    if (ui->textEdit->document()->isModified()) {
+    if (this->isWindowModified()) {
         QMessageBox saveMsgBox(this);
 
         saveMsgBox.setText("The document has been modified.");
@@ -144,7 +186,7 @@ bool MainWindow::maybeSave()
 void MainWindow::newFile()
 {
     if (maybeSave()) {
-        ui->textEdit->clear();
+        ui->tabsTextEdit->clear();
         setCurrentFile("");
     }
 }
@@ -180,7 +222,8 @@ bool MainWindow::saveFile(const QString &fileName)
 
     QTextStream out(&file);
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    out << ui->textEdit->toPlainText();
+    // ToDo: add song/tab information
+    out << buildOutput();
     QApplication::restoreOverrideCursor();
 
     setCurrentFile(fileName);
@@ -190,13 +233,13 @@ bool MainWindow::saveFile(const QString &fileName)
 
 void MainWindow::documentWasModified()
 {
-    setWindowModified(ui->textEdit->document()->isModified());
+    setWindowModified(ui->tabsTextEdit->document()->isModified());
 }
 
 void MainWindow::setCurrentFile(const QString &fileName)
 {
     curFile = fileName;
-    ui->textEdit->document()->setModified(false);
+    ui->tabsTextEdit->document()->setModified(false);
     setWindowModified(false);
 
     QString shownName;
@@ -271,12 +314,14 @@ void MainWindow::record() {
     painter.init();
 
     // disable some widgets
-    //this->setFocus();
-    ui->textEdit->setEnabled(false);
+    this->setFocus();
+    ui->tabsTextEdit->setEnabled(false);
     //ui->textEdit->setFocusPolicy(Qt::NoFocus);
 
+    ui->songInfoWidget->setDisabled(true);
     ui->actionClear->setEnabled(false);
     ui->actionPreferences->setEnabled(false);
+    ui->actionPreview->setEnabled(false);
 
     ui->dockWidgetContents->setFullyEnabled(false);
 
@@ -314,11 +359,12 @@ void MainWindow::stopRecording() {
     recording = false;
 
     // reenable some widgets
-    ui->textEdit->setEnabled(true);
+    ui->tabsTextEdit->setEnabled(true);
     //ui->textEdit->setFocusPolicy(Qt::StrongFocus);
 
+    ui->songInfoWidget->setEnabled(true);
     ui->actionClear->setEnabled(true);
-
+    ui->actionPreview->setEnabled(true);
     ui->dockWidgetContents->setFullyEnabled(true,true);
 
     this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::Information,1000);
@@ -337,6 +383,20 @@ void MainWindow::progressTick()
         counter = 0;
         painter.tick();
     }
+}
+
+QString MainWindow::buildOutput()
+{
+    QString out;
+    out.append(ui->songInfoWidget->stringifyInfos());
+
+    // mappings object
+    Mappings map;
+
+    out.replace("##mappings##",map.stringifyMappings());
+    out.append("\n");
+    out.append(ui->tabsTextEdit->toPlainText());
+    return out;
 }
 
 // if bpm changed use this slot
@@ -402,8 +462,9 @@ void MainWindow::keyPressEvent ( QKeyEvent * event ){
 
 void MainWindow::on_actionClear_triggered()
 {
-    ui->textEdit->clear();
-    ui->textEdit->insertPlainText("");
+    //ui->tabsTextEdit->clear();
+    ui->tabsTextEdit->setPlainText("");
+    ui->tabsTextEdit->insertPlainText("");
     ui->actionPreferences->setEnabled(true);
     ui->dockWidgetContents->setFullyEnabled(true,false);
 }
@@ -411,7 +472,7 @@ void MainWindow::on_actionClear_triggered()
 void MainWindow::changeFont(QFont font)
 {
     qDebug() << "font changed to" << font.family() << font.pointSize();
-    ui->textEdit->setFont(font);
+    ui->tabsTextEdit->setFont(font);
 };
 
 void MainWindow::on_dockWidget_visibilityChanged(bool visible)
@@ -422,6 +483,19 @@ void MainWindow::on_dockWidget_visibilityChanged(bool visible)
 
 void MainWindow::on_actionSelect_All_triggered()
 {
-    ui->textEdit->setFocus();
-    ui->textEdit->selectAll();
+    ui->tabsTextEdit->setFocus();
+    ui->tabsTextEdit->selectAll();
+}
+
+// show preview of output
+void MainWindow::on_actionPreview_triggered()
+{
+    QString text;
+    text.append(buildOutput());
+
+    PreviewDialog dialog(this);
+    dialog.setText(text);
+    dialog.readFont();
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.exec();
 }

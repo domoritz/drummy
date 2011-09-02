@@ -11,6 +11,9 @@
 #include <QTimer>
 #include <QFont>
 #include <QCloseEvent>
+#include <QUndoCommand>
+#include <QUndoStack>
+#include <QUndoView>
 
 class Assistant;
 
@@ -26,7 +29,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
-    QProgressBar *progressBar;
+    QUndoStack *undoStack;
 
 protected:
     Painter painter;
@@ -37,6 +40,8 @@ protected:
     void setCurrentFile(const QString &fileName);
     QString strippedName(const QString &fullFileName);
     bool saveFile(const QString &fileName);
+    Mappings map;
+    QProgressBar *progressBar;
 
 private:
     bool recording;
@@ -47,7 +52,10 @@ private:
     QSettings settings;
     QString curFile;
 
+    QUndoView *undoView;
+
 private slots:
+    void on_actionPreview_triggered();
     void on_actionSelect_All_triggered();
     void on_actionRecordingPreferences_triggered();
     void on_dockWidget_visibilityChanged(bool visible);
@@ -64,6 +72,7 @@ private slots:
     void documentWasModified();
     void writeSettings();
     void readSettings();
+    QString buildOutput();
 
 public slots:
     void keyPressEvent ( QKeyEvent * event );

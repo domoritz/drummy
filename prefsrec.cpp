@@ -72,21 +72,21 @@ void PrefsRec::setMappingDefaults()
     ui->treeWidget->clear();
 
     QStringList Hh;
-    Hh << "Hh" << "h" << "x";
+    Hh << "High-hat" << "Hh" << "h" << "x";
     QTreeWidgetItem *Hhitm = new QTreeWidgetItem(QStringList(Hh));
-    Hhitm->setCheckState(3,Qt::Checked);
+    Hhitm->setCheckState(4,Qt::Checked);
     ui->treeWidget->insertTopLevelItem(0,Hhitm);
 
     QStringList TT;
-    TT << "TT" << "t" << "x";
+    TT << "Low tom" << "T" << "t" << "t";
     QTreeWidgetItem *TTitm = new QTreeWidgetItem(QStringList(TT));
-    TTitm->setCheckState(3,Qt::Checked);
+    TTitm->setCheckState(4,Qt::Checked);
     ui->treeWidget->insertTopLevelItem(1,TTitm);
 
     QStringList R;
-    R << "R" << "r" << "o";
+    R << "Crash" << "Cc" << "c" << "X";
     QTreeWidgetItem *Ritm = new QTreeWidgetItem(QStringList(R));
-    Ritm->setCheckState(3,Qt::Checked);
+    Ritm->setCheckState(4,Qt::Checked);
     ui->treeWidget->insertTopLevelItem(2,Ritm);
 
     this->saveTableToSettings();
@@ -102,12 +102,17 @@ void PrefsRec::saveTableToSettings(){
             settings.setArrayIndex(i);
 
             settings.setValue("name",ui->treeWidget->topLevelItem(i)->text(0));
-            settings.setValue("key",ui->treeWidget->topLevelItem(i)->text(1));
-            settings.setValue("char",ui->treeWidget->topLevelItem(i)->text(2));
-            settings.setValue("active",ui->treeWidget->topLevelItem(i)->checkState(3));
+            settings.setValue("shortname",ui->treeWidget->topLevelItem(i)->text(1));
+            settings.setValue("key",ui->treeWidget->topLevelItem(i)->text(2));
+            settings.setValue("char",ui->treeWidget->topLevelItem(i)->text(3));
+            settings.setValue("active",ui->treeWidget->topLevelItem(i)->checkState(4));
         }
         settings.endArray();
     }
+
+    // adjust column widths
+    for (int i=0;i<5;i++)
+        ui->treeWidget->resizeColumnToContents(i);
 
     emit settingsChanged();
 };
@@ -118,20 +123,25 @@ void PrefsRec::load_table_data_settings(){
     for (int i = 0; i < count; i++) {
         settings.setArrayIndex(i);
 
-        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);        
         itm->setText(0,settings.value("name","").toString());
-        itm->setText(1,settings.value("key","").toString());
-        itm->setText(2,settings.value("char","").toString());
-        itm->setCheckState(3,settings.value("active",true).toBool()?Qt::Checked:Qt::Unchecked);
+        itm->setText(1,settings.value("shortname","").toString());
+        itm->setText(2,settings.value("key","").toString());
+        itm->setText(3,settings.value("char","").toString());
+        itm->setCheckState(4,settings.value("active",true).toBool()?Qt::Checked:Qt::Unchecked);
 
         itm->setFlags(itm->flags() | Qt::ItemIsEditable);
 
         // avoid editing of ckeckbox "text"
-        ui->treeWidget->setItemDelegateForColumn(3, new NoEditDelegate(this));
+        ui->treeWidget->setItemDelegateForColumn(4, new NoEditDelegate(this));
 
         ui->treeWidget->insertTopLevelItem(i,itm);
     }
     settings.endArray();
+
+    // adjust column widths
+    for (int i=0;i<5;i++)
+        ui->treeWidget->resizeColumnToContents(i);
 }
 
 void PrefsRec::on_addPushButton_clicked()
@@ -142,12 +152,13 @@ void PrefsRec::on_addPushButton_clicked()
     itm->setText(0,"");
     itm->setText(1,"");
     itm->setText(2,"");
-    itm->setCheckState(3,Qt::Checked);
+    itm->setText(3,"");
+    itm->setCheckState(4,Qt::Checked);
 
     itm->setFlags(itm->flags() | Qt::ItemIsEditable);
 
     // avoid editing of ckeckbox "text"
-    ui->treeWidget->setItemDelegateForColumn(3, new NoEditDelegate(this));
+    ui->treeWidget->setItemDelegateForColumn(4, new NoEditDelegate(this));
 
     ui->treeWidget->insertTopLevelItem(items,itm);
 
@@ -224,6 +235,5 @@ void PrefsRec::on_defaultsPushButton_clicked()
         setMappingDefaults();
     } else {
         // Don't overwrite was clicked
-
     }
 }

@@ -23,6 +23,8 @@ PrefsApp::PrefsApp(QWidget *parent) :
 
     ui->progressCheckBox->setChecked(settings.value("progress",true).toBool());
 
+    ui->barsperlineSpinBox->setValue(settings.value("barsperline",2).toInt());
+
     saveFont(outputfont);
 }
 
@@ -63,4 +65,9 @@ void PrefsApp::saveFont(QFont font)
 void PrefsApp::on_progressCheckBox_toggled(bool checked)
 {
     settings.setValue("progress",checked);
+}
+
+void PrefsApp::on_barsperlineSpinBox_valueChanged(int )
+{
+    settings.setValue("barsperline",ui->barsperlineSpinBox->value());
 }

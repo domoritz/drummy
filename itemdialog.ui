@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>375</width>
-    <height>191</height>
+    <width>384</width>
+    <height>255</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,19 +34,16 @@
           <string>The name of the drum.
 Use one up to three characters.</string>
          </property>
-         <property name="inputMask">
-          <string>Xxx; </string>
-         </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>Key:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="2" column="1">
         <widget class="QLineEdit" name="keyLineEdit">
          <property name="toolTip">
           <string>The key from your key board you want to use for this drum.
@@ -57,20 +54,34 @@ Just one character please. Thanks!</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Character:</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <widget class="QLineEdit" name="charLineEdit">
          <property name="toolTip">
           <string>The character that will be used to show this drum in the output</string>
          </property>
          <property name="inputMask">
           <string>X; </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Short name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="shortNameLineEdit">
+         <property name="inputMask">
+          <string>Xxx; </string>
          </property>
         </widget>
        </item>
@@ -94,16 +105,31 @@ Just one character please. Thanks!</string>
       </spacer>
      </item>
      <item>
-      <widget class="QCheckBox" name="activeCheckBox">
-       <property name="toolTip">
-        <string>You can deactivate this key mapping here. 
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QCheckBox" name="activeCheckBox">
+         <property name="toolTip">
+          <string>You can deactivate this key mapping here. 
 A line for the drum will be painted but to key 
 presses will be recorded.</string>
-       </property>
-       <property name="text">
-        <string>Activate this key mapping for a recording session</string>
-       </property>
-      </widget>
+         </property>
+         <property name="text">
+          <string>Activate this key mapping for a recording session</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="enabledCheckBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Fully enable/diable this mapping 
+(will not be visible at all)</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <spacer name="horizontalSpacer">

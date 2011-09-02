@@ -4,6 +4,7 @@
 #include <QSettings>
 #include "mappingitem.h"
 #include <QHash>
+#include <QString>
 
 class Mappings :public QObject
 {
@@ -18,9 +19,11 @@ public:
     QHash<QChar,MappingItem> *getMapping();
     MappingItem emptyMappingItem;
     int count;
+
 public slots:
     void fetch();
     void clearUsage();
+    QString stringifyMappings();
 
 protected:
     QSettings settings;

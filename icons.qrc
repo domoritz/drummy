@@ -1,29 +1,18 @@
 <RCC>
     <qresource prefix="/">
         <file>images/preferences_32.png</file>
-        <file>images/preferences_48.png</file>
-        <file>images/preferences_64.png</file>
         <file>images/record_32.png</file>
         <file>images/record_48.png</file>
         <file>images/record_64.png</file>
         <file>images/record_off_32.png</file>
-        <file>images/record_off_48.png</file>
-        <file>images/record_off_64.png</file>
         <file>images/record_off_active_32.png</file>
-        <file>images/record_off_active_48.png</file>
-        <file>images/record_off_active_64.png</file>
         <file>images/preferences_system_32.png</file>
-        <file>images/preferences_system_48.png</file>
-        <file>images/preferences_system_64.png</file>
         <file>images/tp-settings-32x32.png</file>
         <file>images/trashcan_32.png</file>
-        <file>images/trashcan_48.png</file>
-        <file>images/trashcan_64.png</file>
         <file>images/record_settings_32.png</file>
-        <file>images/record_settings_48.png</file>
-        <file>images/record_settings_64.png</file>
         <file>images/Drummy.icns</file>
         <file>images/Drummy.ico</file>
         <file>images/record_512.png</file>
+        <file>images/preview_32.png</file>
     </qresource>
 </RCC>

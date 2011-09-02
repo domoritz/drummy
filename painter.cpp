@@ -5,10 +5,13 @@ Painter::Painter(QObject *parent) :
         QObject(parent)
 {
     map.fetch();
+
+    // avoid text input before first tick
+    ticked = false;
 }
 
 void Painter::init() {
-    counter = 2;
+    counter = 6;
     barcounter = 0;
 
     // fetch mapping
@@ -19,7 +22,6 @@ void Painter::init() {
     // if te is empty (no previous recording), init painting
     if (te->toPlainText().isEmpty()) {
         drawInitLine();
-        //tick();
     } else {
         mainCursor.movePosition(QTextCursor::Start);
         mainCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,4);
@@ -47,7 +49,7 @@ void Painter::drawInitLine()
     mainCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,4);
 
     foreach(MappingItem mapping, *map.getByNumberOrderedMapping()) {
-        moveCursor.insertText(QString("%1|\n").arg(mapping.name,-3));
+        moveCursor.insertText(QString("%1|\n").arg(mapping.shortName,-3));
     }
 
     te->setTextCursor(mainCursor);
@@ -56,37 +58,44 @@ void Painter::drawInitLine()
 // key pressed in main window
 void Painter::keyPressed(QKeyEvent *event)
 {
-    // get charater of keyevent
-    QChar c = event->text()[0];
+    if (ticked) {
+        // get charater of keyevent
+        QChar c = event->text()[0];
 
-    MappingItem *item = map.getMappingForKey(c);
+        MappingItem *item = map.getMappingForKey(c);
 
-    if (item->active && item) {
-        qDebug() << c;
+        if (item->active && item) {
+            qDebug() << c;
 
-        QTextCursor moveCursor;
-        moveCursor = mainCursor;
+            QTextCursor moveCursor;
+            moveCursor = mainCursor;
 
-        moveCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,item->number+1);
-        moveCursor.deletePreviousChar();
-        moveCursor.insertText(item->character);
+            moveCursor.beginEditBlock();
+
+            moveCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,item->number+1);
+            moveCursor.deletePreviousChar();
+            moveCursor.insertText(item->character);
+
+            moveCursor.endEditBlock();
+        }
     }
 }
 
 void Painter::tick()
 {
+    ticked = true;
+
     te->setTextCursor(mainCursor);
 
     QTextCursor moveCursor;
     moveCursor = mainCursor;
 
     // if 1 bar reached draw a line
-    if (counter == 10) {
-        counter = 2;
+    if (counter == 22) {
+        counter = 6;
         barcounter++;
 
         // vertical line
-
         if (mainCursor.atBlockEnd()) {
             mainCursor.insertText("|");
             for (int i = 0; i < map.count; i++) {
@@ -98,34 +107,35 @@ void Painter::tick()
         }
 
         moveCursor = mainCursor;
-    }
 
-    // after 4 bars, new line
-    if (barcounter == 4) {
-        barcounter = 0;
 
-        mainCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,map.count+1);
-        mainCursor.movePosition(QTextCursor::EndOfLine);
+        // after 4 bars, new line
+        if (barcounter == settings.value("barsperline",2).toInt()) {
+            barcounter = 0;
 
-        if (mainCursor.atEnd()) {
-            mainCursor.insertText("\n\n");
-            drawInitLine();
-        } else {
-            mainCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,2);
-            mainCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,4);
+            mainCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,map.count+1);
+            mainCursor.movePosition(QTextCursor::EndOfLine);
+
+            if (mainCursor.atEnd()) {
+                mainCursor.insertText("\n\n");
+                drawInitLine();
+            } else {
+                mainCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,2);
+                mainCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,4);
+            }
+            moveCursor = mainCursor;
+
+            //scroll down
+            te->moveCursor(QTextCursor::End);
+            te->ensureCursorVisible();
+
+            te->setTextCursor(mainCursor);
         }
-        moveCursor = mainCursor;
-
-        //scroll down
-        te->moveCursor(QTextCursor::End);
-        te->ensureCursorVisible();
-
-        te->setTextCursor(mainCursor);
     }
 
     //paint a new column header
     if (mainCursor.atBlockEnd()) {
-        mainCursor.insertText(counter%2 ? "+" : QString::number(counter/2));
+        mainCursor.insertText(counter%4==0 ? "+" : (counter%2?" ":QString::number(counter/4)));
     } else {
         mainCursor.movePosition(QTextCursor::Right);
     }
@@ -152,5 +162,4 @@ void Painter::tick()
         moveCursor.movePosition(QTextCursor::StartOfLine);
         moveCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,column);
     }
-
 }

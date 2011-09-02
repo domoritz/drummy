@@ -13,7 +13,10 @@ Mappings::Mappings()
     emptyMappingItem.character=QChar::Null;
     emptyMappingItem.key=QChar::Null;
     emptyMappingItem.name="";
+    emptyMappingItem.shortName="";
     emptyMappingItem.number=0;
+
+    fetch();
 }
 
 Mappings::~Mappings()
@@ -37,6 +40,7 @@ void Mappings::fetch() {
 
         QChar key = settings.value("key","").toString()[0];
         item.name = settings.value("name","").toString();
+        item.shortName = settings.value("shortname").toString();
         item.key = key;
         item.character = settings.value("char","").toString()[0];
         item.active = settings.value("active",true).toBool();
@@ -82,4 +86,16 @@ QHash<QChar,MappingItem>* Mappings::getMapping() {
 
 QMap<int,MappingItem>* Mappings::getByNumberOrderedMapping() {
     return &omappings;
+}
+
+QString Mappings::stringifyMappings()
+{
+    QString out;
+    int size = -15;
+
+    foreach(MappingItem mapping, omappings) {
+        out.append(QString("%1- %2\n").arg(mapping.shortName,size).arg(mapping.name));
+    }
+
+    return out;
 }

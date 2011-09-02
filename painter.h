@@ -23,6 +23,10 @@ protected:
     QTextCursor mainCursor;
     short int counter;
     short int barcounter;
+    QSettings settings;
+
+private:
+    bool ticked;
 
 signals:
 

@@ -11,6 +11,7 @@ public:
     MappingItem();
     ~MappingItem();
     QString name;
+    QString shortName;
     QChar key;
     QChar character;
     int number;
