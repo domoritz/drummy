@@ -41,6 +41,11 @@ void PrefsWindow::show(int startIndex)
     this->setVisible(true); // == show()
 }
 
+void PrefsWindow::setMappingDefaults()
+{
+    ui->rec->setMappingDefaults();
+}
+
 const QSizePolicy ignored(QSizePolicy::Ignored, QSizePolicy::Ignored);
 const QSizePolicy preferred(QSizePolicy::Preferred, QSizePolicy::Preferred);
 const QSizePolicy expanding(QSizePolicy::Expanding, QSizePolicy::Expanding);

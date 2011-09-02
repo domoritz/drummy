@@ -3,12 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIconFile</key>
-	<string>Drummy.icns</string>
+	<string>Drummy</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleExecutable</key>
 	<string>Drummy</string>
 	<key>CFBundleIdentifier</key>
 	<string>de.dominik.Drummy</string>
+	<key>CFBundleShortVersionString</key>
+	<string>Drummy 1.0 Alpha</string>
 </dict>
 </plist>

@@ -33,6 +33,10 @@ protected:
     QTimer *timer;
     QTimer *progressTimer;
     int counter;
+    bool maybeSave();
+    void setCurrentFile(const QString &fileName);
+    QString strippedName(const QString &fullFileName);
+    bool saveFile(const QString &fileName);
 
 private:
     bool recording;
@@ -41,8 +45,10 @@ private:
     void stopRecording();
     QSystemTrayIcon *trayIcon;
     QSettings settings;
+    QString curFile;
 
 private slots:
+    void on_actionSelect_All_triggered();
     void on_actionRecordingPreferences_triggered();
     void on_dockWidget_visibilityChanged(bool visible);
     void on_actionClear_triggered();
@@ -52,6 +58,12 @@ private slots:
     void on_actionRecord_triggered();
     void on_actionPreferences_triggered();
     void closeEvent(QCloseEvent *event);
+    void newFile();
+    bool save();
+    bool saveAs();
+    void documentWasModified();
+    void writeSettings();
+    void readSettings();
 
 public slots:
     void keyPressEvent ( QKeyEvent * event );

@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("dominik.de");
     QCoreApplication::setApplicationName("Drummy");
 
-    QCoreApplication::setApplicationVersion("0.1");
+    QCoreApplication::setApplicationVersion("1.0 Alpha");
 
     QApplication::setWindowIcon(QIcon(":/images/record_512.png"));
 

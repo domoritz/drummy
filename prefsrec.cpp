@@ -66,6 +66,32 @@ void PrefsRec::setFullyEnabled(bool enabled, bool excludeButtons)
     }
 }
 
+void PrefsRec::setMappingDefaults()
+{
+    // Overwrite with defaults was clicked
+    ui->treeWidget->clear();
+
+    QStringList Hh;
+    Hh << "Hh" << "h" << "x";
+    QTreeWidgetItem *Hhitm = new QTreeWidgetItem(QStringList(Hh));
+    Hhitm->setCheckState(3,Qt::Checked);
+    ui->treeWidget->insertTopLevelItem(0,Hhitm);
+
+    QStringList TT;
+    TT << "TT" << "t" << "x";
+    QTreeWidgetItem *TTitm = new QTreeWidgetItem(QStringList(TT));
+    TTitm->setCheckState(3,Qt::Checked);
+    ui->treeWidget->insertTopLevelItem(1,TTitm);
+
+    QStringList R;
+    R << "R" << "r" << "o";
+    QTreeWidgetItem *Ritm = new QTreeWidgetItem(QStringList(R));
+    Ritm->setCheckState(3,Qt::Checked);
+    ui->treeWidget->insertTopLevelItem(2,Ritm);
+
+    this->saveTableToSettings();
+}
+
 void PrefsRec::saveTableToSettings(){
     if (initalized) {
 
@@ -195,29 +221,7 @@ void PrefsRec::on_defaultsPushButton_clicked()
     int ret = msgBox.exec();
 
     if (ret == QMessageBox::Yes) {
-        // Overwrite with defaults was clicked
-        ui->treeWidget->clear();
-
-        QStringList Hh;
-        Hh << "Hh" << "h" << "x";
-        QTreeWidgetItem *Hhitm = new QTreeWidgetItem(QStringList(Hh));
-        Hhitm->setCheckState(3,Qt::Checked);
-        ui->treeWidget->insertTopLevelItem(0,Hhitm);
-
-        QStringList TT;
-        TT << "TT" << "t" << "x";
-        QTreeWidgetItem *TTitm = new QTreeWidgetItem(QStringList(TT));
-        TTitm->setCheckState(3,Qt::Checked);
-        ui->treeWidget->insertTopLevelItem(1,TTitm);
-
-        QStringList R;
-        R << "R" << "r" << "o";
-        QTreeWidgetItem *Ritm = new QTreeWidgetItem(QStringList(R));
-        Ritm->setCheckState(3,Qt::Checked);
-        ui->treeWidget->insertTopLevelItem(2,Ritm);
-
-        this->saveTableToSettings();
-
+        setMappingDefaults();
     } else {
         // Don't overwrite was clicked
 

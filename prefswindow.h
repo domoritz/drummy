@@ -30,6 +30,7 @@ private slots:
 
 public slots:
     void show(int startIndex);
+    void setMappingDefaults();
 
 signals:
     void fontChanged(QFont font);

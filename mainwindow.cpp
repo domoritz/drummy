@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setAnimated(true);
 
+    readSettings();
+
     ui->setupUi(this);
 
     // preferences window
@@ -43,6 +45,21 @@ MainWindow::MainWindow(QWidget *parent) :
     progressTimer = new QTimer(this);
     connect(progressTimer, SIGNAL(timeout()), this, SLOT(progressTick()));
 
+    // document
+    connect(ui->textEdit->document(), SIGNAL(contentsChanged()),this, SLOT(documentWasModified()));
+    setCurrentFile("");
+
+    ui->actionCut->setEnabled(false);
+    ui->actionCopy->setEnabled(false);
+    connect(ui->textEdit, SIGNAL(copyAvailable(bool)),
+            ui->actionCut, SLOT(setEnabled(bool)));
+    connect(ui->textEdit, SIGNAL(copyAvailable(bool)),
+            ui->actionCopy, SLOT(setEnabled(bool)));
+
+    connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
+    connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(save()));
+    connect(ui->actionSave_As, SIGNAL(triggered()), this, SLOT(saveAs()));
+
     // connect bpm change
     connect(ui->dockWidgetContents,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
     connect(prefs,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
@@ -57,10 +74,10 @@ MainWindow::MainWindow(QWidget *parent) :
     */
     prefs->fe();
 
-    #ifdef Q_WS_MAC
+#ifdef Q_WS_MAC
     ui->dockWidget->setWindowFlags(Qt::Drawer);
     this->addDockWidget(Qt::RightDockWidgetArea,ui->dockWidget);
-    #endif
+#endif
 
     ui->dockWidget->hide();
 
@@ -74,12 +91,126 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// fix issue with drawer when closing app
-// https://bugreports.qt.nokia.com//browse/QTBUG-15897
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    this->setFocus();
+    if (maybeSave()) {
+        writeSettings();
+        // fix issue with drawer when closing app
+        // https://bugreports.qt.nokia.com//browse/QTBUG-15897
+        this->setFocus();
+        event->accept();
+    } else {
+        event->ignore();
+    }
+
     QWidget::close();
+}
+
+void MainWindow::writeSettings()
+{
+    settings.setValue("pos", pos());
+    settings.setValue("size", size());
+}
+
+void MainWindow::readSettings()
+{
+    QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
+    QSize size = settings.value("size", QSize(400, 400)).toSize();
+    resize(size);
+    move(pos);
+}
+
+bool MainWindow::maybeSave()
+{
+    if (ui->textEdit->document()->isModified()) {
+        QMessageBox saveMsgBox(this);
+
+        saveMsgBox.setText("The document has been modified.");
+        saveMsgBox.setInformativeText("Do you want to save your changes?");
+        saveMsgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        saveMsgBox.setDefaultButton(QMessageBox::Save);
+        saveMsgBox.setWindowModality(Qt::WindowModal);
+        int ret = saveMsgBox.exec();
+
+        if (ret == QMessageBox::Save)
+            return save();
+        else if (ret == QMessageBox::Cancel)
+            return false;
+    }
+    return true;
+}
+
+void MainWindow::newFile()
+{
+    if (maybeSave()) {
+        ui->textEdit->clear();
+        setCurrentFile("");
+    }
+}
+
+bool MainWindow::save()
+{
+    if (curFile.isEmpty()) {
+        return saveAs();
+    } else {
+        return saveFile(curFile);
+    }
+}
+
+bool MainWindow::saveAs()
+{
+    QString fileName = QFileDialog::getSaveFileName(this);
+    if (fileName.isEmpty())
+        return false;
+
+    return saveFile(fileName);
+}
+
+bool MainWindow::saveFile(const QString &fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, tr("Drummy"),
+                             tr("Cannot write file %1:\n%2.")
+                             .arg(fileName)
+                             .arg(file.errorString()));
+        return false;
+    }
+
+    QTextStream out(&file);
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    out << ui->textEdit->toPlainText();
+    QApplication::restoreOverrideCursor();
+
+    setCurrentFile(fileName);
+    //ui->statusBar()->showMessage(tr("File saved"), 2000);
+    return true;
+}
+
+void MainWindow::documentWasModified()
+{
+    setWindowModified(ui->textEdit->document()->isModified());
+}
+
+void MainWindow::setCurrentFile(const QString &fileName)
+{
+    curFile = fileName;
+    ui->textEdit->document()->setModified(false);
+    setWindowModified(false);
+
+    QString shownName;
+    if (curFile.isEmpty())
+        shownName = "untitled.txt";
+    else
+        shownName = strippedName(curFile);
+
+    setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("Drummy")));
+}
+
+QString MainWindow::strippedName(const QString &fullFileName)
+{
+    return QFileInfo(fullFileName).fileName();
 }
 
 void MainWindow::on_actionRecord_triggered()
@@ -109,7 +240,7 @@ void MainWindow::on_actionRecord_triggered()
 
             if (prefPopup.clickedButton() == (QAbstractButton*)defaultButton) {
                 // default
-
+                prefs->setMappingDefaults();
                 //TODO set defaults
                 record();
             } else if (prefPopup.clickedButton() == (QAbstractButton*)preferencesButton) {
@@ -125,9 +256,13 @@ void MainWindow::on_actionRecord_triggered()
 }
 
 void MainWindow::record() {
+    // variable indicates that the user clicked recording.
+    // it helps to detect if the user cancelled recording while it is being initalized
+    recording = true;
+
     //inform user
     trayIcon->show();
-    this->trayIcon->showMessage(tr("Recording"),tr("Recoding started. Use selected keys."),QSystemTrayIcon::NoIcon,1000);
+    this->trayIcon->showMessage(tr("Recording"),tr("Recoding started. Use selected keys."),QSystemTrayIcon::Information,1500);
 
     // change action icon to indicate recording
     ui->actionRecord->setIcon(QIcon(":/images/record_32.png"));
@@ -136,7 +271,7 @@ void MainWindow::record() {
     painter.init();
 
     // disable some widgets
-    this->setFocus();
+    //this->setFocus();
     ui->textEdit->setEnabled(false);
     //ui->textEdit->setFocusPolicy(Qt::NoFocus);
 
@@ -145,21 +280,30 @@ void MainWindow::record() {
 
     ui->dockWidgetContents->setFullyEnabled(false);
 
-    //start timer with a short delay
-    QTimer::singleShot(200,this,SLOT(startTimer()));
+    // set progressbar to intermedia to indicate that recording will be started soon
+    if(settings.value("progress",true).toBool()) {
+        progressBar->show();
+        // set intermediate
+        progressBar->setMaximum(0);
+        progressBar->setValue(0);
+    }
 
-    recording = true;
+    //start timer with a short delay
+    QTimer::singleShot(500,this,SLOT(startTimer()));
 }
 
 void MainWindow::startTimer()
 {
-    // hint: if the progress timer is enabled it will emit the tick to the painter
-    // this makes it stay in sync
-    if(settings.value("progress",true).toBool()) {
-        progressBar->show();
-        progressTimer->start(10*60/settings.value("bpm",120).toInt());
-    } else {
-        timer->start(1000*60/settings.value("bpm",120).toInt());
+    if (recording) {
+        painter.tick();
+        // hint: if the progress timer is enabled it will emit the tick to the painter
+        // this makes it stay in sync
+        if(settings.value("progress",true).toBool()) {
+            progressBar->setMaximum(100);
+            progressTimer->start(10*60/settings.value("bpm",120).toInt());
+        } else {
+            timer->start(1000*60/settings.value("bpm",120).toInt());
+        }
     }
 }
 
@@ -177,7 +321,7 @@ void MainWindow::stopRecording() {
 
     ui->dockWidgetContents->setFullyEnabled(true,true);
 
-    this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::NoIcon,1000);
+    this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::Information,1000);
 
     ui->actionRecord->setIcon(QIcon(":/images/record_off_32.png"));
 
@@ -274,4 +418,10 @@ void MainWindow::on_dockWidget_visibilityChanged(bool visible)
 {
     qDebug() << "dock widget visibility changed";
     ui->actionRecordingPreferences->setChecked(visible);
+}
+
+void MainWindow::on_actionSelect_All_triggered()
+{
+    ui->textEdit->setFocus();
+    ui->textEdit->selectAll();
 }

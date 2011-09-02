@@ -1,4 +1,5 @@
 #include "painter.h"
+#include <QScrollBar>
 
 Painter::Painter(QObject *parent) :
         QObject(parent)
@@ -18,7 +19,7 @@ void Painter::init() {
     // if te is empty (no previous recording), init painting
     if (te->toPlainText().isEmpty()) {
         drawInitLine();
-        tick();
+        //tick();
     } else {
         mainCursor.movePosition(QTextCursor::Start);
         mainCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,4);
@@ -114,6 +115,10 @@ void Painter::tick()
             mainCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,4);
         }
         moveCursor = mainCursor;
+
+        //scroll down
+        te->moveCursor(QTextCursor::End);
+        te->ensureCursorVisible();
 
         te->setTextCursor(mainCursor);
     }
