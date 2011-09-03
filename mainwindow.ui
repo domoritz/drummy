@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
-    <height>488</height>
+    <width>719</width>
+    <height>563</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="margin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
@@ -75,13 +78,10 @@
        <property name="lineWrapMode">
         <enum>QTextEdit::NoWrap</enum>
        </property>
-       <property name="overwriteMode">
-        <bool>false</bool>
-       </property>
       </widget>
       <widget class="SongInfo" name="songInfoWidget" native="true">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -96,7 +96,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>760</width>
+     <width>719</width>
      <height>22</height>
     </rect>
    </property>
@@ -125,6 +125,8 @@
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionPrint"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -229,7 +231,7 @@
     <string>Start/stop recording a drum sequence</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+R</string>
+    <string>Ctrl+R</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
@@ -355,6 +357,14 @@
    </property>
    <property name="text">
     <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="text">
+    <string>Print</string>
+   </property>
+   <property name="toolTip">
+    <string>Print tabs document</string>
    </property>
   </action>
  </widget>

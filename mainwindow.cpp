@@ -4,7 +4,6 @@
 #include <QMessageBox>
 #include "helpdialog.h"
 #include <QKeyEvent>
-#include "previewdialog.h"
 #include "songinfo.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -36,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionSelect_All->setShortcut(QKeySequence::SelectAll);
     ui->actionUndo->setShortcut(QKeySequence::Undo);
     ui->actionRedo->setShortcut(QKeySequence::Redo);
+    ui->actionPrint->setShortcut(QKeySequence::Print);
 
 
     // simple undo/ redo
@@ -51,20 +51,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionUndo, SIGNAL(triggered()), ui->tabsTextEdit, SLOT(undo()));
     connect(ui->actionRedo, SIGNAL(triggered()), ui->tabsTextEdit, SLOT(redo()));
 
-
-    /* ui->stackedWidget->layout()->setSpacing(0);
-    ui->stackedWidget->layout()->setMargin(0);
-    ui->stackedWidget->layout()->setContentsMargins(0,0,0,0);
-    ui->stackedWidget->layout()->activate();
-    this->layout()->setSpacing(0);
-    this->layout()->setMargin(0);
-    this->layout()->setContentsMargins(0,0,0,0);
-    this->layout()->activate();*/
-
     // preferences window
     prefs = new PrefsWindow();
 
     trayIcon = new QSystemTrayIcon(this);
+
+    // preview
+    previewDialog = new PreviewDialog(this);
+    previewDialog->setWindowModality(Qt::WindowModal);
 
     // connect font change signal/slot
     connect(prefs, SIGNAL(fontChanged(QFont)),this,SLOT(changeFont(QFont)));
@@ -116,6 +110,7 @@ MainWindow::MainWindow(QWidget *parent) :
     prefs->fe();
 
 #ifdef Q_WS_MAC
+    // show dockwidget as drawer on a mac
     ui->dockWidget->setWindowFlags(Qt::Drawer);
     this->addDockWidget(Qt::RightDockWidgetArea,ui->dockWidget);
 #endif
@@ -319,15 +314,19 @@ void MainWindow::record() {
     // initalize textedit
     painter.init();
 
-    // disable some widgets
+    // get focus to catch keyevents
     this->setFocus();
-    ui->tabsTextEdit->setEnabled(false);
-    //ui->textEdit->setFocusPolicy(Qt::NoFocus);
+
+    // disable some widgets
+    ui->tabsTextEdit->setTextInteractionFlags(Qt::NoTextInteraction);
 
     ui->songInfoWidget->setDisabled(true);
     ui->actionClear->setEnabled(false);
     ui->actionPreferences->setEnabled(false);
     ui->actionPreview->setEnabled(false);
+
+    // disable menu to avod strange behavior
+    ui->menuBar->setEnabled(false);
 
     ui->dockWidgetContents->setFullyEnabled(false);
 
@@ -369,13 +368,14 @@ void MainWindow::stopRecording() {
     recording = false;
 
     // reenable some widgets
-    ui->tabsTextEdit->setEnabled(true);
-    //ui->textEdit->setFocusPolicy(Qt::StrongFocus);
+    ui->tabsTextEdit->setTextInteractionFlags(Qt::TextEditorInteraction);
 
     ui->songInfoWidget->setEnabled(true);
     ui->actionClear->setEnabled(true);
     ui->actionPreview->setEnabled(true);
     ui->dockWidgetContents->setFullyEnabled(true,true);
+
+    ui->menuBar->setEnabled(true);
 
     this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::Information,1000);
 
@@ -503,9 +503,18 @@ void MainWindow::on_actionPreview_triggered()
     QString text;
     text.append(buildOutput());
 
-    PreviewDialog dialog(this);
-    dialog.setText(text);
-    dialog.readFont();
-    dialog.setWindowModality(Qt::WindowModal);
-    dialog.exec();
+
+    previewDialog->setText(text);
+    previewDialog->readFont();
+    previewDialog->show();
+}
+
+void MainWindow::on_actionPrint_triggered()
+{
+    QString text;
+    text.append(buildOutput());
+    previewDialog->setText(text);
+    previewDialog->readFont();
+
+    previewDialog->on_actionPrint_triggered();
 }

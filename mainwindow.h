@@ -14,6 +14,7 @@
 #include <QUndoCommand>
 #include <QUndoStack>
 #include <QUndoView>
+#include "previewdialog.h"
 
 class Assistant;
 
@@ -53,8 +54,10 @@ private:
     QString curFile;
 
     QUndoView *undoView;
+    PreviewDialog *previewDialog;
 
 private slots:
+    void on_actionPrint_triggered();
     void on_actionPreview_triggered();
     void on_actionSelect_All_triggered();
     void on_actionRecordingPreferences_triggered();

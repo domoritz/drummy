@@ -24,6 +24,10 @@ private:
 public slots:
     void setText(QString text);
     void readFont();
+    void on_actionPrint_triggered();
+
+private slots:
+    void on_printPushButton_clicked();
 };
 
 #endif // PREVIEWDIALOG_H
