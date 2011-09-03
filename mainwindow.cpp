@@ -18,10 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setAnimated(true);
 
-    readSettings();
-
     ui->setupUi(this);
 
+    readSettings();
 
     //shortcuts, platform independant
     ui->actionCopy->setShortcut(QKeySequence::Copy);
@@ -168,6 +167,7 @@ bool MainWindow::maybeSave()
     if (this->isWindowModified()) {
         QMessageBox saveMsgBox(this);
 
+        saveMsgBox.setWindowTitle("Drummy");
         saveMsgBox.setText("The document has been modified.");
         saveMsgBox.setInformativeText("Do you want to save your changes?");
         saveMsgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
@@ -202,7 +202,7 @@ bool MainWindow::save()
 
 bool MainWindow::saveAs()
 {
-    QString fileName = QFileDialog::getSaveFileName(this);
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save tabs"),QDir::homePath());
     if (fileName.isEmpty())
         return false;
 
@@ -212,11 +212,16 @@ bool MainWindow::saveAs()
 bool MainWindow::saveFile(const QString &fileName)
 {
     QFile file(fileName);
-    if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Drummy"),
-                             tr("Cannot write file %1:\n%2.")
-                             .arg(fileName)
-                             .arg(file.errorString()));
+    if (file.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox warn(this);
+        warn.setWindowTitle(tr("Drummy"));
+        warn.setIcon(QMessageBox::Warning);
+        warn.setText(tr("Cannot write file %1:\n%2.")
+                     .arg(fileName)
+                     .arg(file.errorString()));
+        warn.setWindowModality(Qt::WindowModal);
+        warn.show();
+
         return false;
     }
 
@@ -273,6 +278,7 @@ void MainWindow::on_actionRecord_triggered()
             //prefPopup.setIcon(QMessageBox::Question);
             prefPopup.setText(tr("No recoding Preferences!"));
             prefPopup.setInformativeText(tr("You haven't set your recording preferences. Do you want to use your own or use the default preferences?"));
+            //prefPopup.setDetailedText(tr("The default settings are drum mappings and look like this: \nHh - High-hat\nT  - Low tom\nCc - Crash"));
 
             QPushButton *preferencesButton = prefPopup.addButton(tr("Set preferences"), QMessageBox::ActionRole);
             QPushButton *defaultButton = prefPopup.addButton(tr("Use defaults"), QMessageBox::ActionRole);
@@ -353,8 +359,12 @@ void MainWindow::startTimer()
 }
 
 void MainWindow::stopRecording() {
+    // stop timer
     timer->stop();
     progressTimer->stop();
+
+    // remove last highlight
+    painter.highlight(false);
 
     recording = false;
 

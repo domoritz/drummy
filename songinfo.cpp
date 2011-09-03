@@ -32,24 +32,24 @@ QString SongInfo::stringifyInfos()
     }
 
     if (ui->timeEdit->time().toString("H:m:s") != "0:0:0") {
-        out.append(QString("%1 : %2\n").arg(tr("Length"),size).arg(ui->timeEdit->time().toString("HH:mm:ss")));
+        out.append(QString("%1: %2\n").arg(tr("Length"),size).arg(ui->timeEdit->time().toString("HH:mm:ss")));
     }
 
     if (!out.isEmpty()) {
         out.append("\n");
     }
 
+    out.append(QString("%1: %2\n").arg(tr("Instrument"),size).arg(ui->instrumentComboBox->itemText(ui->instrumentComboBox->currentIndex())));
+
     if (!ui->authorLineEdit->text().isEmpty()) {
         out.append(QString("%1: %2\n").arg(tr("Author"),size).arg(ui->authorLineEdit->text()));
     }
-
-    out.append(QString("%1: %2\n").arg(tr("Instrument"),size).arg(ui->instrumentComboBox->itemText(ui->instrumentComboBox->currentIndex())));
 
     // will be replaced with mappings
     out.append("\n##mappings##\n\n");
 
     if (!ui->textEdit->toPlainText().isEmpty()) {
-        out.append(QString("%1:\n %2\n").arg(tr("More Information")).arg(ui->textEdit->toPlainText()));
+        out.append(QString("%1:\n%2\n").arg(tr("More Information")).arg(ui->textEdit->toPlainText()));
     }
 
     return out;

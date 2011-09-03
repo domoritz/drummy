@@ -36,6 +36,8 @@ public slots:
     void keyPressed(QKeyEvent *event);
     void init();
     void tick();
+    void highlight(bool enabled);
+
 };
 
 #endif // PAINTER_H

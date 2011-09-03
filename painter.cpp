@@ -90,6 +90,8 @@ void Painter::tick()
     QTextCursor moveCursor;
     moveCursor = mainCursor;
 
+    highlight(false);
+
     // if 1 bar reached draw a line
     if (counter == 22) {
         counter = 6;
@@ -161,5 +163,27 @@ void Painter::tick()
 
         moveCursor.movePosition(QTextCursor::StartOfLine);
         moveCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,column);
+    }
+
+    highlight(true);
+}
+
+void Painter::highlight(bool enabled)
+{
+    QTextCursor moveCursor;
+    moveCursor = mainCursor;
+
+    for(int i = 0; i<map.count+1 ;i++) {
+        moveCursor.movePosition(QTextCursor::Left,QTextCursor::KeepAnchor);
+
+        QTextCharFormat format;
+        //format.setFontWeight(enabled ? QFont::Bold : QFont::Normal);
+        format.setFontUnderline(enabled);
+
+        moveCursor.mergeCharFormat(format);
+
+        moveCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor);
+
+        moveCursor.movePosition(QTextCursor::Down);
     }
 }
