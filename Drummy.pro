@@ -9,19 +9,18 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
+QT       += core gui
 
 win32 {
     win32:RC_FILE = Drummy.rc
     target.path = /bin
 } else:macx {
-    LIBS += -framework CoreFoundation
     ICON = images/Drummy.icns
     QMAKE_INFO_PLIST = drummy.Info.plist
 } else {
-    LIBS *= -lExtensionSystem -lAggregation
-
-    target.path  = /bin
-    INSTALLS    += target
+    TARGET = Drummy
+    #target.path  = /bin
+    #INSTALLS    += target
 }
 
 # Input

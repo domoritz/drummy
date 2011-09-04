@@ -1,7 +1,7 @@
 #ifndef NOEDITDELEGATE_H
 #define NOEDITDELEGATE_H
 
-#include "QStyledItemDelegate.h"
+#include <QStyledItemDelegate>
 
 class NoEditDelegate: public QStyledItemDelegate {
 public:

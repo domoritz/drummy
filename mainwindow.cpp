@@ -102,6 +102,16 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect settings changed
     connect(prefs,SIGNAL(settingsChanged()),ui->dockWidgetContents,SLOT(reload()));
 
+    // save(as) dialog
+    saveDialog = new QFileDialog(this);
+    saveDialog->setWindowModality(Qt::WindowModal);
+    saveDialog->setFilter(QDir::Files);
+    saveDialog->setFileMode(QFileDialog::AnyFile);
+    saveDialog->setAcceptMode(QFileDialog::AcceptSave);
+    saveDialog->setViewMode(QFileDialog::List);
+    connect(saveDialog,SIGNAL(accepted()),this,SLOT(saveDialogAccepted()));
+    quit = false;
+
     /* use fe to force emit of font change
      problem was:
         i cannot connect signals and slots before the ui is initalized because i need the objects. however, if i do so, the emit from the
@@ -130,6 +140,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    quit = true;
+
     if (maybeSave()) {
         writeSettings();
         // fix issue with drawer when closing app
@@ -162,7 +174,6 @@ bool MainWindow::maybeSave()
     if (this->isWindowModified()) {
         QMessageBox saveMsgBox(this);
 
-        saveMsgBox.setWindowTitle("Drummy");
         saveMsgBox.setText("The document has been modified.");
         saveMsgBox.setInformativeText("Do you want to save your changes?");
         saveMsgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
@@ -170,10 +181,13 @@ bool MainWindow::maybeSave()
         saveMsgBox.setWindowModality(Qt::WindowModal);
         int ret = saveMsgBox.exec();
 
-        if (ret == QMessageBox::Save)
-            return save();
-        else if (ret == QMessageBox::Cancel)
+        if (ret == QMessageBox::Save) {
+            save();
             return false;
+        } else if (ret == QMessageBox::Cancel) {
+            quit = false;
+            return false;
+        }
     }
     return true;
 }
@@ -186,36 +200,51 @@ void MainWindow::newFile()
     }
 }
 
-bool MainWindow::save()
+void MainWindow::save()
 {
     if (curFile.isEmpty()) {
-        return saveAs();
+        saveAs();
     } else {
-        return saveFile(curFile);
+        saveFile(curFile);
     }
 }
 
-bool MainWindow::saveAs()
+void MainWindow::saveAs()
 {
-    QString fileName = QFileDialog::getSaveFileName(this,tr("Save tabs"),QDir::homePath());
-    if (fileName.isEmpty())
-        return false;
+    saveDialog->setWindowTitle(tr("Save tabs"));
+    saveDialog->setDefaultSuffix("txt");
+    saveDialog->setDirectory(QDir::homePath());
+    saveDialog->show();
+}
 
-    return saveFile(fileName);
+void MainWindow::saveDialogAccepted()
+{
+    QString fileName;
+    fileName = saveDialog->selectedFiles()[0];
+
+    qDebug() << fileName.isEmpty();
+    if (fileName.isEmpty()) {
+        // no file
+        // should never be called because this slot is only called on accept
+    } else {
+        saveFile(fileName);
+    }
+    if (quit)
+        this->close();
+
 }
 
 bool MainWindow::saveFile(const QString &fileName)
 {
     QFile file(fileName);
-    if (file.open(QFile::WriteOnly | QFile::Text)) {
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox warn(this);
-        warn.setWindowTitle(tr("Drummy"));
         warn.setIcon(QMessageBox::Warning);
         warn.setText(tr("Cannot write file %1:\n%2.")
                      .arg(fileName)
                      .arg(file.errorString()));
-        warn.setWindowModality(Qt::WindowModal);
-        warn.show();
+        warn.setWindowModality(Qt::ApplicationModal);
+        warn.exec();
 
         return false;
     }
@@ -248,7 +277,11 @@ void MainWindow::setCurrentFile(const QString &fileName)
     else
         shownName = strippedName(curFile);
 
+    setWindowFilePath(shownName);
+
+#ifndef Q_WS_MAC
     setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("Drummy")));
+#endif
 }
 
 QString MainWindow::strippedName(const QString &fullFileName)
@@ -454,7 +487,7 @@ void MainWindow::on_actionFullscreen_triggered()
 {
     if (this->isFullScreen()){
         this->showNormal();
-        ui->actionFullscreen->setText(tr("Fullscreen"));
+        ui->actionFullscreen->setText(tr("Enter Fullscreen"));
     } else {
         this->showFullScreen();
         ui->actionFullscreen->setText(tr("Quit Fullsceen"));
@@ -518,3 +551,4 @@ void MainWindow::on_actionPrint_triggered()
 
     previewDialog->on_actionPrint_triggered();
 }
+

@@ -1,7 +1,7 @@
 #include "previewdialog.h"
 #include "ui_previewdialog.h"
 #include <QDebug>
-#import <QFont>
+#include <QFont>
 #include <QTextCharFormat>
 #include <QPrinter>
 #include <QPrintDialog>
@@ -30,7 +30,7 @@ void PreviewDialog::readFont()
     int size = 13;
     #else
     // non Mac code here
-    QString family = "Courier"
+    QString family = "Courier";
     int size = 13;
     #endif
 

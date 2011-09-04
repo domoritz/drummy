@@ -13,7 +13,7 @@ PrefsApp::PrefsApp(QWidget *parent) :
     int size = 13;
     #else
     // non Mac code here
-    QString family = "Courier"
+    QString family = "Courier";
     int size = 13;
     #endif
 

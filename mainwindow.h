@@ -36,8 +36,7 @@ protected:
     Painter painter;
     QTimer *timer;
     QTimer *progressTimer;
-    int counter;
-    bool maybeSave();
+    int counter;    
     void setCurrentFile(const QString &fileName);
     QString strippedName(const QString &fullFileName);
     bool saveFile(const QString &fileName);
@@ -55,6 +54,8 @@ private:
 
     QUndoView *undoView;
     PreviewDialog *previewDialog;
+    QFileDialog *saveDialog;
+    bool quit;
 
 private slots:
     void on_actionPrint_triggered();
@@ -70,12 +71,14 @@ private slots:
     void on_actionPreferences_triggered();
     void closeEvent(QCloseEvent *event);
     void newFile();
-    bool save();
-    bool saveAs();
+    void save();
+    void saveAs();
+    bool maybeSave();
     void documentWasModified();
     void writeSettings();
     void readSettings();
     QString buildOutput();
+    void saveDialogAccepted();
 
 public slots:
     void keyPressEvent ( QKeyEvent * event );
