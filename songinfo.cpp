@@ -49,7 +49,7 @@ QString SongInfo::stringifyInfos()
     out.append("\n##mappings##\n\n");
 
     if (!ui->textEdit->toPlainText().isEmpty()) {
-        out.append(QString("%1:\n%2\n").arg(tr("More Information")).arg(ui->textEdit->toPlainText()));
+        out.append(QString("%1:\n%2\n").arg(tr("Additional Information")).arg(ui->textEdit->toPlainText()));
     }
 
     return out;
