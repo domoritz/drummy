@@ -164,7 +164,7 @@ void MainWindow::writeSettings()
 void MainWindow::readSettings()
 {
     QPoint pos = settings.value("window/pos", QPoint(200, 200)).toPoint();
-    QSize size = settings.value("window/size", QSize(400, 400)).toSize();
+    QSize size = settings.value("window/size", QSize(800, 500)).toSize();
     resize(size);
     move(pos);
 }
@@ -197,6 +197,7 @@ void MainWindow::newFile()
     if (maybeSave()) {
         ui->tabsTextEdit->clear();
         setCurrentFile("");
+        // toDo delete song infos
     }
 }
 
@@ -381,11 +382,12 @@ void MainWindow::startTimer()
         painter.tick();
         // hint: if the progress timer is enabled it will emit the tick to the painter
         // this makes it stay in sync
+        changeBpm(settings.value("bpm",120).toInt());
         if(settings.value("progress",true).toBool()) {
             progressBar->setMaximum(100);
-            progressTimer->start(10*60/settings.value("bpm",120).toInt());
+            progressTimer->start();
         } else {
-            timer->start(1000*60/settings.value("bpm",120).toInt());
+            timer->start();
         }
     }
 }
@@ -408,6 +410,8 @@ void MainWindow::stopRecording() {
     ui->actionPreview->setEnabled(true);
     ui->dockWidgetContents->setFullyEnabled(true,true);
 
+    ui->tabsTextEdit->setReadOnly(false);
+
     ui->menuBar->setEnabled(true);
 
     this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::Information,1000);
@@ -422,9 +426,11 @@ void MainWindow::progressTick()
 {
     progressBar->setValue(counter);
     counter+=1;
-    if (counter%100 == 0) {
-        counter = 0;
+    if (counter%25 == 0) {
         painter.tick();
+        if (counter%100 == 0) {
+            counter = 0;
+        }
     }
 }
 
@@ -444,9 +450,9 @@ QString MainWindow::buildOutput()
 
 // if bpm changed use this slot
 void MainWindow::changeBpm(int bpm)
-{
-    timer->setInterval(1000*60/bpm);
-    progressTimer->setInterval(10*60/bpm);
+{    
+    timer->setInterval(4*1000*60/bpm);
+    progressTimer->setInterval(4*10*60/bpm);
 
     ui->dockWidgetContents->reload();
 }
@@ -506,6 +512,7 @@ void MainWindow::keyPressEvent ( QKeyEvent * event ){
 void MainWindow::on_actionClear_triggered()
 {
     //ui->tabsTextEdit->clear();
+    ui->tabsTextEdit->setReadOnly(true);
     ui->tabsTextEdit->setPlainText("");
     ui->tabsTextEdit->insertPlainText("");
     ui->actionPreferences->setEnabled(true);

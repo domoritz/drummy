@@ -156,7 +156,7 @@ shown as which character.</string>
         <item>
          <widget class="QPushButton" name="defaultsPushButton">
           <property name="text">
-           <string>Set defaults</string>
+           <string>Set Defaults</string>
           </property>
          </widget>
         </item>

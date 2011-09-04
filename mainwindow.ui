@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>582</height>
+    <width>633</width>
+    <height>530</height>
    </rect>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -75,6 +75,9 @@
        <property name="lineWrapMode">
         <enum>QTextEdit::NoWrap</enum>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="SongInfo" name="songInfoWidget" native="true">
        <property name="sizePolicy">
@@ -93,7 +96,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>599</width>
+     <width>633</width>
      <height>22</height>
     </rect>
    </property>
@@ -278,7 +281,7 @@
      <normaloff>:/images/record_settings_32.png</normaloff>:/images/record_settings_32.png</iconset>
    </property>
    <property name="text">
-    <string>Recording preferences</string>
+    <string>Show Recording Preferences</string>
    </property>
    <property name="toolTip">
     <string>Recording preferences</string>

@@ -6,21 +6,30 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = Drummy
 DEPENDPATH += .
 INCLUDEPATH += .
 QT       += core gui
+CONFIG += static
 
 win32 {
     win32:RC_FILE = Drummy.rc
-    target.path = /bin
+    QMAKE_LFLAGS += -static-libgcc
 } else:macx {
+    CONFIG += x86_64
     ICON = images/Drummy.icns
     QMAKE_INFO_PLIST = drummy.Info.plist
 } else {
-    TARGET = Drummy
     #target.path  = /bin
     #INSTALLS    += target
+}
+
+static { # Everything below takes effect with CONFIG += static
+
+    CONFIG += static
+
+    DEFINES += STATIC # Equivalent to "#define STATIC" in source code
+    message("Static build.")
 }
 
 # Input

@@ -19,6 +19,16 @@ int main(int argc, char *argv[])
     // set encoding to utf-8
     QTextCodec::setCodecForTr(QTextCodec::codecForName("utf8"));
 
+#ifdef QT_DEBUG
+    qDebug() << "Application compiled in debug mode";
+    //do Debug stuff here
+#endif
+
+#ifdef QT_NO_DEBUG
+    qDebug() << "Application compiled in release mode";
+    //do release stuff here
+#endif
+
     // Translator
     QTranslator qtTranslator;
     qDebug() << "qt language" << qtTranslator.load("qt_" + QLocale::system().name(),QLibraryInfo::location(QLibraryInfo::TranslationsPath));
