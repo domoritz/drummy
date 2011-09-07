@@ -31,12 +31,19 @@ private slots:
     void on_defaultsPushButton_clicked();
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem* item, int column);
     void on_treeWidget_itemChanged(QTreeWidgetItem* item, int column);
-    void on_editPushButton_clicked();
-    void on_removePushButton_clicked();
-    void on_addPushButton_clicked();
     void on_bpmLineEdit_editingFinished();
     void on_bpmHorizontalSlider_valueChanged(int value);
     void editItem(QTreeWidgetItem* item, int row);
+    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+    void on_actionAdd_triggered();
+    void on_actionEdit_triggered();
+    void on_actionRemove_triggered();
+    void on_actionUp_triggered();
+    void on_actionDown_triggered();
+    void on_moveToolButton_clicked();
+    void checkIfEmpty();
+    void on_treeWidget_itemSelectionChanged();
+    void setSelectionButtonsEnabled(bool enabled);
 
 public slots:
     void reload();

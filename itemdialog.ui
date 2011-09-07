@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>384</width>
-    <height>255</height>
+    <height>239</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
        <item row="0" column="1">
         <widget class="QLineEdit" name="nameLineEdit">
          <property name="toolTip">
-          <string>The name of the drum.
+          <string>Descriptive name of the item.
 Use one up to three characters.</string>
          </property>
         </widget>
@@ -80,6 +80,9 @@ Just one character please. Thanks!</string>
        </item>
        <item row="1" column="1">
         <widget class="QLineEdit" name="shortNameLineEdit">
+         <property name="toolTip">
+          <string>This Name will be user for the output.</string>
+         </property>
          <property name="inputMask">
           <string>Xxx; </string>
          </property>
@@ -109,9 +112,7 @@ Just one character please. Thanks!</string>
        <item>
         <widget class="QCheckBox" name="activeCheckBox">
          <property name="toolTip">
-          <string>You can deactivate this key mapping here. 
-A line for the drum will be painted but to key 
-presses will be recorded.</string>
+          <string>If set, the mapping will be active and previous recordings will be overwritten</string>
          </property>
          <property name="text">
           <string>Activate this key mapping for a recording session</string>
@@ -120,12 +121,11 @@ presses will be recorded.</string>
        </item>
        <item>
         <widget class="QCheckBox" name="enabledCheckBox">
-         <property name="enabled">
-          <bool>false</bool>
+         <property name="toolTip">
+          <string>If enabled, item will be visible at all in the output</string>
          </property>
          <property name="text">
-          <string>Fully enable/diable this mapping 
-(will not be visible at all)</string>
+          <string>Fully enable/diable this mapping</string>
          </property>
         </widget>
        </item>

@@ -4,12 +4,29 @@
 #include "itemdialog.h"
 #include <QMessageBox>
 #include <QStringList>
+#include <QMenu>
+#include "enums.h"
 
 PrefsRec::PrefsRec(QWidget *parent) :
-        QWidget(parent),
-        ui(new Ui::PrefsRec)
+    QWidget(parent),
+    ui(new Ui::PrefsRec)
 {
     ui->setupUi(this);
+
+    // check if mappings are empty and disable widgets in case it is
+    checkIfEmpty();
+
+    // check selection and disable unneccessary widgets
+    on_treeWidget_itemSelectionChanged();
+
+    ui->treeWidget->addAction(ui->actionAdd);
+    ui->treeWidget->addAction(ui->actionRemove);
+    ui->treeWidget->addAction(ui->actionEdit);
+    ui->treeWidget->addAction(ui->actionUp);
+    ui->treeWidget->addAction(ui->actionDown);
+
+    ui->moveToolButton->addAction(ui->actionUp);
+    ui->moveToolButton->addAction(ui->actionDown);
 
     reload();
 }
@@ -59,10 +76,8 @@ void PrefsRec::setFullyEnabled(bool enabled, bool excludeButtons)
     ui->bpmLineEdit->setEnabled(enabled);
 
     if (!excludeButtons) {
-        ui->editPushButton->setEnabled(enabled);
-        ui->addPushButton->setEnabled(enabled);
         ui->defaultsPushButton->setEnabled(enabled);
-        ui->removePushButton->setEnabled(enabled);
+        setSelectionButtonsEnabled(enabled);
     }
 }
 
@@ -74,19 +89,22 @@ void PrefsRec::setMappingDefaults()
     QStringList Hh;
     Hh << "High-hat" << "Hh" << "h" << "x";
     QTreeWidgetItem *Hhitm = new QTreeWidgetItem(QStringList(Hh));
-    Hhitm->setCheckState(4,Qt::Checked);
+    Hhitm->setCheckState(MACTIVE,Qt::Checked);
+    Hhitm->setCheckState(MENABLED,Qt::Checked);
     ui->treeWidget->insertTopLevelItem(0,Hhitm);
 
     QStringList TT;
     TT << "Low tom" << "T" << "t" << "t";
     QTreeWidgetItem *TTitm = new QTreeWidgetItem(QStringList(TT));
-    TTitm->setCheckState(4,Qt::Checked);
+    TTitm->setCheckState(MACTIVE,Qt::Checked);
+    TTitm->setCheckState(MENABLED,Qt::Checked);
     ui->treeWidget->insertTopLevelItem(1,TTitm);
 
     QStringList R;
     R << "Crash" << "Cc" << "c" << "X";
     QTreeWidgetItem *Ritm = new QTreeWidgetItem(QStringList(R));
-    Ritm->setCheckState(4,Qt::Checked);
+    Ritm->setCheckState(MACTIVE,Qt::Checked);
+    Ritm->setCheckState(MENABLED,Qt::Checked);
     ui->treeWidget->insertTopLevelItem(2,Ritm);
 
     this->saveTableToSettings();
@@ -101,17 +119,18 @@ void PrefsRec::saveTableToSettings(){
         for (int i = 0; i < count; i++) {
             settings.setArrayIndex(i);
 
-            settings.setValue("name",ui->treeWidget->topLevelItem(i)->text(0));
-            settings.setValue("shortname",ui->treeWidget->topLevelItem(i)->text(1));
-            settings.setValue("key",ui->treeWidget->topLevelItem(i)->text(2));
-            settings.setValue("char",ui->treeWidget->topLevelItem(i)->text(3));
-            settings.setValue("active",ui->treeWidget->topLevelItem(i)->checkState(4));
+            settings.setValue("name",ui->treeWidget->topLevelItem(i)->text(MNAME));
+            settings.setValue("shortname",ui->treeWidget->topLevelItem(i)->text(MSNAME));
+            settings.setValue("key",ui->treeWidget->topLevelItem(i)->text(MKEY));
+            settings.setValue("char",ui->treeWidget->topLevelItem(i)->text(MCHAR));
+            settings.setValue("active",ui->treeWidget->topLevelItem(i)->checkState(MACTIVE));
+            settings.setValue("enabled",ui->treeWidget->topLevelItem(i)->checkState(MENABLED));
         }
         settings.endArray();
     }
 
     // adjust column widths
-    for (int i=0;i<5;i++)
+    for (int i=0;i<6;i++)
         ui->treeWidget->resizeColumnToContents(i);
 
     emit settingsChanged();
@@ -123,49 +142,114 @@ void PrefsRec::load_table_data_settings(){
     for (int i = 0; i < count; i++) {
         settings.setArrayIndex(i);
 
-        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);        
-        itm->setText(0,settings.value("name","").toString());
-        itm->setText(1,settings.value("shortname","").toString());
-        itm->setText(2,settings.value("key","").toString());
-        itm->setText(3,settings.value("char","").toString());
-        itm->setCheckState(4,settings.value("active",true).toBool()?Qt::Checked:Qt::Unchecked);
+        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+        itm->setText(MNAME,settings.value("name","").toString());
+        itm->setText(MSNAME,settings.value("shortname","").toString());
+        itm->setText(MKEY,settings.value("key","").toString());
+        itm->setText(MCHAR,settings.value("char","").toString());
+        itm->setCheckState(MACTIVE,settings.value("active",true).toBool()?Qt::Checked:Qt::Unchecked);
+        itm->setCheckState(MENABLED,settings.value("enabled",true).toBool()?Qt::Checked:Qt::Unchecked);
 
         itm->setFlags(itm->flags() | Qt::ItemIsEditable);
 
-        // avoid editing of ckeckbox "text"
-        ui->treeWidget->setItemDelegateForColumn(4, new NoEditDelegate(this));
+        // avoid editing of ckeckbox "active" and "enabled"
+        ui->treeWidget->setItemDelegateForColumn(MACTIVE, new NoEditDelegate(this));
+        ui->treeWidget->setItemDelegateForColumn(MENABLED, new NoEditDelegate(this));
 
         ui->treeWidget->insertTopLevelItem(i,itm);
     }
     settings.endArray();
 
     // adjust column widths
-    for (int i=0;i<5;i++)
+    for (int i=0;i<MENABLED;i++)
         ui->treeWidget->resizeColumnToContents(i);
 }
 
-void PrefsRec::on_addPushButton_clicked()
+void PrefsRec::on_treeWidget_itemChanged(QTreeWidgetItem* item, int column)
+{
+    saveTableToSettings();
+    checkIfEmpty();
+}
+
+void PrefsRec::editItem(QTreeWidgetItem* item, int column)
+{
+    ItemDialog dialog(this);
+    dialog.setModal(true);
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setItem(item, column);
+    dialog.exec();
+}
+
+void PrefsRec::on_treeWidget_itemDoubleClicked(QTreeWidgetItem* item, int column)
+{
+    // before editing an item check if it may not be adequate
+    if (ui->editToolButton->isEnabled()) {
+        editItem(item, column);
+    }
+}
+
+void PrefsRec::on_defaultsPushButton_clicked()
+{
+    if (ui->treeWidget->topLevelItemCount() == 0){
+        setMappingDefaults();
+        return;
+    }
+
+    QMessageBox msgBox(this);
+    msgBox.setModal(true);
+    msgBox.setWindowModality(Qt::WindowModal);
+    msgBox.setText("Replace current settings with defaults?");
+    msgBox.setInformativeText("Do you want to replace the current mappings with some example settings? Your own mappings will be lost.");
+    msgBox.setStandardButtons(QMessageBox::Yes  | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    int ret = msgBox.exec();
+
+    if (ret == QMessageBox::Yes) {
+        setMappingDefaults();
+    } else {
+        // Don't overwrite was clicked
+    }
+}
+
+void PrefsRec::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
+{
+
+}
+
+void PrefsRec::on_actionAdd_triggered()
 {
     int items = ui->treeWidget->topLevelItemCount();
 
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
-    itm->setText(0,"");
-    itm->setText(1,"");
-    itm->setText(2,"");
-    itm->setText(3,"");
-    itm->setCheckState(4,Qt::Checked);
+    itm->setText(MNAME,"");
+    itm->setText(MSNAME,"");
+    itm->setText(MKEY,"");
+    itm->setText(MCHAR,"");
+    itm->setCheckState(MACTIVE,Qt::Checked);
+    itm->setCheckState(MENABLED,Qt::Checked);
 
     itm->setFlags(itm->flags() | Qt::ItemIsEditable);
 
     // avoid editing of ckeckbox "text"
-    ui->treeWidget->setItemDelegateForColumn(4, new NoEditDelegate(this));
+    ui->treeWidget->setItemDelegateForColumn(MACTIVE, new NoEditDelegate(this));
+    ui->treeWidget->setItemDelegateForColumn(MENABLED, new NoEditDelegate(this));
 
     ui->treeWidget->insertTopLevelItem(items,itm);
 
     editItem(itm,-1);
 }
 
-void PrefsRec::on_removePushButton_clicked()
+void PrefsRec::on_actionEdit_triggered()
+{
+    QList<QTreeWidgetItem *> selection = ui->treeWidget->selectedItems();
+
+    if (selection.isEmpty())
+        return;
+
+    editItem(selection.first(),-1);
+}
+
+void PrefsRec::on_actionRemove_triggered()
 {
     QItemSelection selection(ui->treeWidget->selectionModel()->selection());
 
@@ -185,55 +269,80 @@ void PrefsRec::on_removePushButton_clicked()
         }
     }
 
+    checkIfEmpty();
     saveTableToSettings();
 }
 
-void PrefsRec::on_editPushButton_clicked()
+void PrefsRec::on_actionUp_triggered()
 {
     QList<QTreeWidgetItem *> selection = ui->treeWidget->selectedItems();
-    //ui->treeWidget->editItem(selection.first());
-    if (!selection.empty()) {
-        editItem(selection.first(),-1);
+
+    if (selection.isEmpty())
+        return;
+
+    // If selection has the first line the items are on the top -> return
+    int row = ui->treeWidget->indexOfTopLevelItem(selection.first());
+    if ( row == 0 )
+        return;
+
+    QTreeWidgetItem *itemAbove;
+    QListIterator<QTreeWidgetItem *> it(selection);
+
+    while ( it.hasNext() )
+    {
+        row = ui->treeWidget->indexOfTopLevelItem(it.next());
+        itemAbove = ui->treeWidget->takeTopLevelItem(row - 1);
+        ui->treeWidget->insertTopLevelItem(row, itemAbove);
     }
 }
 
-void PrefsRec::on_treeWidget_itemChanged(QTreeWidgetItem* item, int column)
+void PrefsRec::on_actionDown_triggered()
 {
-    saveTableToSettings();
+    QList<QTreeWidgetItem *> selection = ui->treeWidget->selectedItems();
+
+    if (selection.isEmpty())
+        return;
+
+    // If selection has the first line the items are on the top -> return
+    int row = ui->treeWidget->indexOfTopLevelItem(selection.last());
+    if (row == ui->treeWidget->topLevelItemCount() - 1)
+        return;
+
+    QTreeWidgetItem *itemBelow;
+
+    row = ui->treeWidget->indexOfTopLevelItem(selection.last());
+    itemBelow = ui->treeWidget->takeTopLevelItem( row + 1);
+    ui->treeWidget->insertTopLevelItem(row + 1 - selection.length() , itemBelow);
+
+    ui->treeWidget->scrollToItem(selection.last());
 }
 
-void PrefsRec::editItem(QTreeWidgetItem* item, int column)
+void PrefsRec::on_moveToolButton_clicked()
 {
-
-    ItemDialog dialog(this);
-    dialog.setModal(true);
-    dialog.setWindowModality(Qt::WindowModal);
-    dialog.setItem(item, column);
-    dialog.exec();
+    ui->moveToolButton->showMenu();
 }
 
-void PrefsRec::on_treeWidget_itemDoubleClicked(QTreeWidgetItem* item, int column)
+// disbale some widgets if treewidget is empty
+void PrefsRec::checkIfEmpty()
 {
-    // before editing an item check if it may not be adequate
-    if (ui->editPushButton->isEnabled()) {
-        editItem(item, column);
-}
+    setSelectionButtonsEnabled(ui->treeWidget->topLevelItemCount() != 0);
+
+    // check selection
+    on_treeWidget_itemSelectionChanged();
 }
 
-void PrefsRec::on_defaultsPushButton_clicked()
+void PrefsRec::on_treeWidget_itemSelectionChanged()
 {
-    QMessageBox msgBox(this);
-    msgBox.setModal(true);
-    msgBox.setWindowModality(Qt::WindowModal);
-    msgBox.setText("Replace current settings with defaults?");
-    msgBox.setInformativeText("Do you want to replace the current mappings with some example settings? Your own mappings will be lost.");
-    msgBox.setStandardButtons(QMessageBox::Yes  | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    int ret = msgBox.exec();
+    setSelectionButtonsEnabled(ui->treeWidget->selectedItems().count() != 0);
+}
 
-    if (ret == QMessageBox::Yes) {
-        setMappingDefaults();
-    } else {
-        // Don't overwrite was clicked
-    }
+void PrefsRec::setSelectionButtonsEnabled(bool enabled)
+{
+    ui->moveToolButton->setEnabled(enabled);
+    ui->removeToolButton->setEnabled(enabled);
+    ui->editToolButton->setEnabled(enabled);
+    ui->actionUp->setEnabled(enabled);
+    ui->actionDown->setEnabled(enabled);
+    ui->actionRemove->setEnabled(enabled);
+    ui->actionEdit->setEnabled(enabled);
 }

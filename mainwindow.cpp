@@ -19,6 +19,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+#ifdef Q_WS_MAC
+    // show dockwidget as drawer on a mac
+    ui->dockWidget->setWindowFlags(Qt::Drawer);
+    this->addDockWidget(Qt::RightDockWidgetArea,ui->dockWidget);
+#endif
+
     readSettings();
 
     //shortcuts, platform independant
@@ -102,7 +108,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect settings changed
     connect(prefs,SIGNAL(settingsChanged()),ui->dockWidgetContents,SLOT(reload()));
 
-    // save(as) dialog
+    // save(as)/ export dialog
     saveDialog = new QFileDialog(this);
     saveDialog->setWindowModality(Qt::WindowModal);
     saveDialog->setFilter(QDir::Files);
@@ -118,15 +124,6 @@ MainWindow::MainWindow(QWidget *parent) :
         constructor does not go down here because no connection is established. qt does not have an opposite thing of emit which foreces a refresh!!!
     */
     prefs->fe();
-
-#ifdef Q_WS_MAC
-    // show dockwidget as drawer on a mac
-    ui->dockWidget->setWindowFlags(Qt::Drawer);
-    this->addDockWidget(Qt::RightDockWidgetArea,ui->dockWidget);
-#endif
-
-    ui->dockWidget->hide();
-
 }
 
 MainWindow::~MainWindow()
@@ -140,10 +137,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    writeSettings();
+
     quit = true;
 
     if (maybeSave()) {
-        writeSettings();
         // fix issue with drawer when closing app
         // https://bugreports.qt.nokia.com//browse/QTBUG-15897
         this->setFocus();
@@ -159,12 +157,16 @@ void MainWindow::writeSettings()
 {
     settings.setValue("window/pos", pos());
     settings.setValue("window/size", size());
+    settings.setValue("window/recprefs", ui->dockWidget->isVisible());
+    //settings.setValue("window/songinfo", ui->songInfoWidget->isVisible());
 }
 
 void MainWindow::readSettings()
 {
     QPoint pos = settings.value("window/pos", QPoint(200, 200)).toPoint();
     QSize size = settings.value("window/size", QSize(800, 500)).toSize();
+    ui->dockWidget->setVisible(settings.value("window/recprefs",false).toBool());
+    //ui->songInfoWidget->setVisible(settings.value("window/songinfo",true).toBool());
     resize(size);
     move(pos);
 }
@@ -527,7 +529,7 @@ void MainWindow::changeFont(QFont font)
 
 void MainWindow::on_dockWidget_visibilityChanged(bool visible)
 {
-    qDebug() << "dock widget visibility changed";
+    //qDebug() << "dock widget visibility changed";
     ui->actionRecordingPreferences->setChecked(visible);
 }
 
@@ -542,7 +544,6 @@ void MainWindow::on_actionPreview_triggered()
 {
     QString text;
     text.append(buildOutput());
-
 
     previewDialog->setText(text);
     previewDialog->readFont();

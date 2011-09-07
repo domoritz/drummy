@@ -2,6 +2,7 @@
 #include "ui_itemdialog.h"
 #include <QTableWidget>
 #include <QDebug>
+#include "enums.h"
 
 ItemDialog::ItemDialog(PrefsRec *parent) :
     QDialog(parent),
@@ -19,27 +20,31 @@ ItemDialog::~ItemDialog()
 void ItemDialog::setItem(QTreeWidgetItem *item, int column)
 {
     this->item = item;
-    ui->nameLineEdit->setText(item->text(0));
-    ui->shortNameLineEdit->setText(item->text(1));
-    ui->keyLineEdit->setText(item->text(2));
-    ui->charLineEdit->setText(item->text(3));
-    ui->activeCheckBox->setCheckState(item->checkState(4));
+    ui->nameLineEdit->setText(item->text(MNAME));
+    ui->shortNameLineEdit->setText(item->text(MSNAME));
+    ui->keyLineEdit->setText(item->text(MKEY));
+    ui->charLineEdit->setText(item->text(MCHAR));
+    ui->activeCheckBox->setCheckState(item->checkState(MACTIVE));
+    ui->enabledCheckBox->setCheckState(item->checkState(MENABLED));
 
     switch(column) {
-    case 0:
+    case MNAME:
         ui->nameLineEdit->setFocus();
         break;
-    case 1:
+    case MSNAME:
         ui->shortNameLineEdit->setFocus();
         break;
-    case 2:
+    case MKEY:
         ui->keyLineEdit->setFocus();
         break;
-    case 3:
+    case MCHAR:
         ui->charLineEdit->setFocus();
         break;
-    case 4:
+    case MACTIVE:
         ui->activeCheckBox->setFocus();
+        break;
+    case MENABLED:
+        ui->enabledCheckBox->setFocus();
         break;
     default:
         break;
@@ -51,11 +56,12 @@ void ItemDialog::setItem(QTreeWidgetItem *item, int column)
 // add/ save
 void ItemDialog::on_buttonBox_accepted()
 {
-    item->setText(0,ui->nameLineEdit->text());
-    item->setText(1,ui->shortNameLineEdit->text());
-    item->setText(2,ui->keyLineEdit->text());
-    item->setText(3,ui->charLineEdit->text());
-    item->setCheckState(4,ui->activeCheckBox->checkState());
+    item->setText(MNAME,ui->nameLineEdit->text());
+    item->setText(MSNAME,ui->shortNameLineEdit->text());
+    item->setText(MKEY,ui->keyLineEdit->text());
+    item->setText(MCHAR,ui->charLineEdit->text());
+    item->setCheckState(MACTIVE,ui->activeCheckBox->checkState());
+    item->setCheckState(MENABLED,ui->enabledCheckBox->checkState());
 
     this->close();
 }

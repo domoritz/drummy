@@ -16,6 +16,7 @@ public:
     QChar character;
     int number;
     bool active;
+    bool enabled;
 };
 
 #endif // MAPPINGITEM_H
