@@ -47,6 +47,7 @@ private slots:
 
 public slots:
     void reload();
+    void reloadBmp();
     void saveTableToSettings();
     void setFullyEnabled(bool enabled, bool excludeButtons=false);
     void setMappingDefaults();

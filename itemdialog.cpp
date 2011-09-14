@@ -9,7 +9,6 @@ ItemDialog::ItemDialog(PrefsRec *parent) :
     ui(new Ui::ItemDialog)
 {
     ui->setupUi(this);
-    connect(ui->buttonBox,SIGNAL(accepted),parent,SLOT(save_table_to_settings));
 }
 
 ItemDialog::~ItemDialog()

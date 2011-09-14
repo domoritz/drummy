@@ -64,7 +64,7 @@ void PrefsWindow::on_actionRecording_triggered()
     ui->actionGeneral->setChecked(false);
     ui->actionRecording->setChecked(true);
 
-    ui->rec->reload();
+    //ui->rec->reload();
 
     this->setWindowTitle(tr("Preferences - Recording"));
 }

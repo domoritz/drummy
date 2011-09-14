@@ -58,8 +58,7 @@ void PrefsRec::on_bpmLineEdit_editingFinished()
 
 void PrefsRec::reload()
 {
-    // set slider to saved value
-    ui->bpmHorizontalSlider->setValue(settings.value("bpm",120).toInt());
+    reloadBmp();
 
     // avoid reading and writing of settings at the same time
     initalized = false;
@@ -67,6 +66,12 @@ void PrefsRec::reload()
     load_table_data_settings();
     settings.sync();
     initalized = true;
+}
+
+void PrefsRec::reloadBmp()
+{
+    // set slider to saved value
+    ui->bpmHorizontalSlider->setValue(settings.value("bpm",120).toInt());
 }
 
 // disables/enables everything in the mapping group
@@ -111,7 +116,9 @@ void PrefsRec::setMappingDefaults()
 }
 
 void PrefsRec::saveTableToSettings(){
+
     if (initalized) {
+        qDebug() << "save mappings";
 
         int count = ui->treeWidget->topLevelItemCount();
 
@@ -127,16 +134,18 @@ void PrefsRec::saveTableToSettings(){
             settings.setValue("enabled",ui->treeWidget->topLevelItem(i)->checkState(MENABLED));
         }
         settings.endArray();
+
+        // adjust column widths
+        for (int i=0;i<6;i++)
+            ui->treeWidget->resizeColumnToContents(i);
+
+        emit settingsChanged();
     }
-
-    // adjust column widths
-    for (int i=0;i<6;i++)
-        ui->treeWidget->resizeColumnToContents(i);
-
-    emit settingsChanged();
 };
 
 void PrefsRec::load_table_data_settings(){
+    qDebug() << "load mappings";
+
     int count = settings.beginReadArray("mappings");
 
     for (int i = 0; i < count; i++) {

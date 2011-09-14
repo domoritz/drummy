@@ -4,8 +4,6 @@
 Painter::Painter(QObject *parent) :
         QObject(parent)
 {
-    map.fetch();
-
     // avoid text input before first tick
     ticked = false;
 }

@@ -15,6 +15,7 @@
 #include <QUndoStack>
 #include <QUndoView>
 #include "previewdialog.h"
+#include "mappings.h"
 
 class Assistant;
 
@@ -40,7 +41,6 @@ protected:
     void setCurrentFile(const QString &fileName);
     QString strippedName(const QString &fullFileName);
     bool saveFile(const QString &fileName);
-    Mappings map;
     QProgressBar *progressBar;
 
 private:
@@ -51,11 +51,11 @@ private:
     QSystemTrayIcon *trayIcon;
     QSettings settings;
     QString curFile;
-
     QUndoView *undoView;
     PreviewDialog *previewDialog;
     QFileDialog *saveDialog;
     bool quit;
+    Mappings map;
 
 private slots:
     void on_actionPrint_triggered();

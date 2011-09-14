@@ -131,6 +131,8 @@ MainWindow::~MainWindow()
     delete timer;
     delete progressTimer;
     delete trayIcon;
+    delete prefs;
+    delete previewDialog;
     delete ui;
 }
 
@@ -441,9 +443,6 @@ QString MainWindow::buildOutput()
     QString out;
     out.append(ui->songInfoWidget->stringifyInfos());
 
-    // mappings object
-    Mappings map;
-
     out.replace("##mappings##",map.stringifyMappings());
     out.append("\n");
     out.append(ui->tabsTextEdit->toPlainText());
@@ -453,10 +452,10 @@ QString MainWindow::buildOutput()
 // if bpm changed use this slot
 void MainWindow::changeBpm(int bpm)
 {    
-    timer->setInterval(4*1000*60/bpm);
-    progressTimer->setInterval(4*10*60/bpm);
+    timer->setInterval(1000*60/(4*bpm));
+    progressTimer->setInterval(10*60/bpm);
 
-    ui->dockWidgetContents->reload();
+    ui->dockWidgetContents->reloadBmp();
 }
 
 void MainWindow::on_actionPreferences_triggered()
