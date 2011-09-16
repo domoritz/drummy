@@ -22,13 +22,13 @@ print gitsha
 
 #include "version.h"
 #const char * build_date = __DATE__ " at " __TIME__;
-#const char * build_git_sha = e45a430;
+#const char * build_git_sha = "e45a430";
 
 with open("version.c","r+w") as cfile:
     content = []
     cfile = open("version.c","r+b")
-    for line in cfile:
-        line = re.sub(r'(build_git_sha = ")\w*(";)',r"\1"+gitsha+r"\2",line)
+    for line in cfile:        
+        line = re.sub(r'(build_git_sha = ")(\w)*',r"\g<1>"+gitsha,line)
         content.append(line)
     cfile.seek(0)
     cfile.writelines(content)
