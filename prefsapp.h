@@ -30,6 +30,8 @@ private slots:
     void on_progressCheckBox_toggled(bool checked);
     void on_pushButton_clicked();
 
+    void on_resetPushButton_clicked();
+
 public slots:
     void saveFont(QFont font);
 

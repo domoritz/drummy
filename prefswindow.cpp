@@ -55,7 +55,7 @@ void PrefsWindow::on_actionGeneral_triggered()
     ui->stackedWidget->setCurrentWidget(ui->app);
     ui->actionGeneral->setChecked(true);
     ui->actionRecording->setChecked(false);
-    this->setWindowTitle(tr("Preferences"));
+    this->setWindowTitle(tr("General"));
 }
 
 void PrefsWindow::on_actionRecording_triggered()
@@ -64,9 +64,9 @@ void PrefsWindow::on_actionRecording_triggered()
     ui->actionGeneral->setChecked(false);
     ui->actionRecording->setChecked(true);
 
-    //ui->rec->reload();
+    ui->rec->reload();
 
-    this->setWindowTitle(tr("Preferences - Recording"));
+    this->setWindowTitle(tr("Recording"));
 }
 
 void PrefsWindow::on_stackedWidget_currentChanged(int index)

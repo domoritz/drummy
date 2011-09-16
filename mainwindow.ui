@@ -6,9 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>633</width>
-    <height>530</height>
+    <width>485</width>
+    <height>299</height>
    </rect>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow::separator 
+{ 
+	height: 4px;
+	width: 4px;
+}</string>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs</set>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -16,77 +29,64 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     <widget class="QTextEdit" name="tabsTextEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>200</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <widget class="QTextEdit" name="tabsTextEdit">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>100</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="palette">
-        <palette>
-         <active>
-          <colorrole role="Base">
-           <brush brushstyle="SolidPattern">
-            <color alpha="255">
-             <red>255</red>
-             <green>255</green>
-             <blue>255</blue>
-            </color>
-           </brush>
-          </colorrole>
-         </active>
-         <inactive>
-          <colorrole role="Base">
-           <brush brushstyle="SolidPattern">
-            <color alpha="255">
-             <red>255</red>
-             <green>255</green>
-             <blue>255</blue>
-            </color>
-           </brush>
-          </colorrole>
-         </inactive>
-         <disabled>
-          <colorrole role="Base">
-           <brush brushstyle="SolidPattern">
-            <color alpha="255">
-             <red>255</red>
-             <green>255</green>
-             <blue>255</blue>
-            </color>
-           </brush>
-          </colorrole>
-         </disabled>
-        </palette>
-       </property>
-       <property name="font">
-        <font>
-         <family>Monaco</family>
-        </font>
-       </property>
-       <property name="contextMenuPolicy">
-        <enum>Qt::DefaultContextMenu</enum>
-       </property>
-       <property name="lineWrapMode">
-        <enum>QTextEdit::NoWrap</enum>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="SongInfo" name="songInfoWidget" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font">
+       <font>
+        <family>Monaco</family>
+       </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
    </layout>
@@ -96,7 +96,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>633</width>
+     <width>485</width>
      <height>22</height>
     </rect>
    </property>
@@ -148,14 +148,26 @@
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionRecordingPreferences"/>
-    <addaction name="separator"/>
     <addaction name="actionFullscreen"/>
+   </widget>
+   <widget class="QMenu" name="menuWindow_2">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <widget class="QMenu" name="menuViews">
+     <property name="title">
+      <string>Views</string>
+     </property>
+     <addaction name="actionRecordingPreferences"/>
+     <addaction name="actionSongInformation"/>
+    </widget>
+    <addaction name="menuViews"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuWindow"/>
    <addaction name="menuTools"/>
+   <addaction name="menuWindow_2"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
@@ -169,16 +181,33 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionRecord"/>
-   <addaction name="actionRecordingPreferences"/>
    <addaction name="actionPreview"/>
    <addaction name="actionClear"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="recDockWidget">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Recording Preferences</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="PrefsRec" name="dockWidgetContents"/>
+   <widget class="PrefsRec" name="recDockWidgetContents"/>
+  </widget>
+  <widget class="QDockWidget" name="songinfoDockWidget">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Tab Information</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="SongInfo" name="songinfoDockWidgetContents"/>
   </widget>
   <action name="actionPreferences">
    <property name="text">
@@ -281,10 +310,7 @@
      <normaloff>:/images/record_settings_32.png</normaloff>:/images/record_settings_32.png</iconset>
    </property>
    <property name="text">
-    <string>Show Recording Preferences</string>
-   </property>
-   <property name="toolTip">
-    <string>Recording preferences</string>
+    <string>Recording Preferences</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
@@ -325,7 +351,7 @@
   </action>
   <action name="actionSave_As">
    <property name="text">
-    <string>Save As</string>
+    <string>Save As...</string>
    </property>
   </action>
   <action name="actionPreview">
@@ -381,6 +407,14 @@
   <action name="actionFind">
    <property name="text">
     <string>Find...</string>
+   </property>
+  </action>
+  <action name="actionSongInformation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Tab Information</string>
    </property>
   </action>
  </widget>

@@ -1,21 +1,22 @@
 #include "prefsapp.h"
 #include "ui_prefsapp.h"
 #include <QDebug>
+#include <QMessageBox>
 
 PrefsApp::PrefsApp(QWidget *parent) :
-        QWidget(parent),
-        ui(new Ui::PrefsApp)
+    QWidget(parent),
+    ui(new Ui::PrefsApp)
 {
     ui->setupUi(this);
 
-    #ifdef Q_WS_MACX
+#ifdef Q_WS_MACX
     QString family = "Monaco";
     int size = 13;
-    #else
+#else
     // non Mac code here
     QString family = "Courier";
     int size = 13;
-    #endif
+#endif
 
     // load settings
     outputfont.setFamily(settings.value("font/family",family).toString());
@@ -70,4 +71,28 @@ void PrefsApp::on_progressCheckBox_toggled(bool checked)
 void PrefsApp::on_barsperlineSpinBox_valueChanged(int )
 {
     settings.setValue("barsperline",ui->barsperlineSpinBox->value());
+}
+
+void PrefsApp::on_resetPushButton_clicked()
+{
+    QMessageBox msgBox(this);
+    msgBox.setText("Do you really want to reset the application preferences?");
+    msgBox.setInformativeText("This will reset all preferences of this application that are saved on your computer to the default values. \nIt will not affect you recordings!");
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Cancel);
+    msgBox.setWindowModality(Qt::WindowModal);
+    int ret = msgBox.exec();
+
+    switch (ret) {
+    case QMessageBox::Ok:
+        settings.clear();
+        break;
+    case QMessageBox::Cancel:
+        break;
+    default:
+        // should never be reached
+        break;
+    }
+
+
 }

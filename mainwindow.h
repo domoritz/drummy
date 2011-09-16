@@ -10,6 +10,7 @@
 #include "painter.h"
 #include <QTimer>
 #include <QFont>
+#include <QIcon>
 #include <QCloseEvent>
 #include <QUndoCommand>
 #include <QUndoStack>
@@ -20,7 +21,7 @@
 class Assistant;
 
 namespace Ui {
-    class MainWindow;
+class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -37,9 +38,10 @@ protected:
     Painter painter;
     QTimer *timer;
     QTimer *progressTimer;
-    int counter;    
+    int counter;
     void setCurrentFile(const QString &fileName);
     QString strippedName(const QString &fullFileName);
+    void loadFile(const QString &fileName);
     bool saveFile(const QString &fileName);
     QProgressBar *progressBar;
 
@@ -62,7 +64,7 @@ private slots:
     void on_actionPreview_triggered();
     void on_actionSelect_All_triggered();
     void on_actionRecordingPreferences_triggered();
-    void on_dockWidget_visibilityChanged(bool visible);
+    void on_recDockWidget_visibilityChanged(bool visible);
     void on_actionClear_triggered();
     void on_actionFullscreen_triggered();
     void on_actionHelp_triggered();
@@ -71,6 +73,7 @@ private slots:
     void on_actionPreferences_triggered();
     void closeEvent(QCloseEvent *event);
     void newFile();
+    void open();
     void save();
     void saveAs();
     bool maybeSave();
@@ -79,6 +82,8 @@ private slots:
     void readSettings();
     QString buildOutput();
     void saveDialogAccepted();
+    void on_actionSongInformation_triggered();
+    void on_songinfoDockWidget_visibilityChanged(bool visible);
 
 public slots:
     void keyPressEvent ( QKeyEvent * event );

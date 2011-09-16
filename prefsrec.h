@@ -45,9 +45,11 @@ private slots:
     void on_treeWidget_itemSelectionChanged();
     void setSelectionButtonsEnabled(bool enabled);
 
+    void on_metronomPushButton_clicked();
+
 public slots:
     void reload();
-    void reloadBmp();
+    void reloadBmp(int bpm=0);
     void saveTableToSettings();
     void setFullyEnabled(bool enabled, bool excludeButtons=false);
     void setMappingDefaults();

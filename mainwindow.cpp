@@ -7,8 +7,8 @@
 #include "songinfo.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-        QMainWindow(parent),
-        ui(new Ui::MainWindow)
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     // unify the title and toolbar on mac
     this->setUnifiedTitleAndToolBarOnMac(true);
@@ -20,10 +20,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 #ifdef Q_WS_MAC
-    // show dockwidget as drawer on a mac
-    ui->dockWidget->setWindowFlags(Qt::Drawer);
-    this->addDockWidget(Qt::RightDockWidgetArea,ui->dockWidget);
+    // show recDockWidget as drawer on a mac
+    //ui->recDockWidget->setWindowFlags(Qt::Drawer);
+    //this->addDockWidget(Qt::RightDockWidgetArea,ui->recDockWidget);
 #endif
+
+    splitDockWidget(ui->songinfoDockWidget,ui->recDockWidget,Qt::Horizontal);
 
     readSettings();
 
@@ -102,11 +104,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSave_As, SIGNAL(triggered()), this, SLOT(saveAs()));
 
     // connect bpm change
-    connect(ui->dockWidgetContents,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
+    connect(ui->recDockWidgetContents,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
     connect(prefs,SIGNAL(bpmChanged(int)),this,SLOT(changeBpm(int)));
 
     // connect settings changed
-    connect(prefs,SIGNAL(settingsChanged()),ui->dockWidgetContents,SLOT(reload()));
+    connect(prefs,SIGNAL(settingsChanged()),ui->recDockWidgetContents,SLOT(reload()));
 
     // save(as)/ export dialog
     saveDialog = new QFileDialog(this);
@@ -159,18 +161,14 @@ void MainWindow::writeSettings()
 {
     settings.setValue("window/pos", pos());
     settings.setValue("window/size", size());
-    settings.setValue("window/recprefs", ui->dockWidget->isVisible());
-    //settings.setValue("window/songinfo", ui->songInfoWidget->isVisible());
+    settings.setValue("window/state", saveState());
 }
 
 void MainWindow::readSettings()
 {
-    QPoint pos = settings.value("window/pos", QPoint(200, 200)).toPoint();
-    QSize size = settings.value("window/size", QSize(800, 500)).toSize();
-    ui->dockWidget->setVisible(settings.value("window/recprefs",false).toBool());
-    //ui->songInfoWidget->setVisible(settings.value("window/songinfo",true).toBool());
-    resize(size);
-    move(pos);
+    move(settings.value("window/pos", QPoint(200, 200)).toPoint());
+    resize(settings.value("window/size", QSize(800, 500)).toSize());
+    restoreState(settings.value("window/state").toByteArray());
 }
 
 bool MainWindow::maybeSave()
@@ -204,6 +202,15 @@ void MainWindow::newFile()
         // toDo delete song infos
     }
 }
+
+void MainWindow::open()
+ {
+     if (maybeSave()) {
+         QString fileName = QFileDialog::getOpenFileName(this);
+         if (!fileName.isEmpty())
+             loadFile(fileName);
+     }
+ }
 
 void MainWindow::save()
 {
@@ -239,6 +246,34 @@ void MainWindow::saveDialogAccepted()
 
 }
 
+void MainWindow::loadFile(const QString &fileName)
+ {
+     QFile file(fileName);
+     if (!file.open(QFile::ReadOnly | QFile::Text)) {
+         QMessageBox warn(this);
+         warn.setIcon(QMessageBox::Warning);
+         warn.setText(tr("Cannot read file %1:\n%2.")
+                      .arg(fileName)
+                      .arg(file.errorString()));
+         warn.setWindowModality(Qt::ApplicationModal);
+         warn.exec();
+         return;
+     }
+
+     QTextStream in(&file);
+ #ifndef QT_NO_CURSOR
+     QApplication::setOverrideCursor(Qt::WaitCursor);
+ #endif
+     ui->tabsTextEdit->setPlainText(in.readAll());
+ #ifndef QT_NO_CURSOR
+     QApplication::restoreOverrideCursor();
+ #endif
+
+     setCurrentFile(fileName);
+     //statusBar()->showMessage(tr("File loaded"), 2000);
+ }
+
+
 bool MainWindow::saveFile(const QString &fileName)
 {
     QFile file(fileName);
@@ -255,10 +290,13 @@ bool MainWindow::saveFile(const QString &fileName)
     }
 
     QTextStream out(&file);
-    QApplication::setOverrideCursor(Qt::WaitCursor);
-    // ToDo: add song/tab information
-    out << buildOutput();
-    QApplication::restoreOverrideCursor();
+#ifndef QT_NO_CURSOR
+     QApplication::setOverrideCursor(Qt::WaitCursor);
+ #endif
+     out << buildOutput();
+ #ifndef QT_NO_CURSOR
+     QApplication::restoreOverrideCursor();
+ #endif
 
     setCurrentFile(fileName);
     //ui->statusBar()->showMessage(tr("File saved"), 2000);
@@ -277,10 +315,9 @@ void MainWindow::setCurrentFile(const QString &fileName)
     setWindowModified(false);
 
     QString shownName;
+    shownName = curFile;
     if (curFile.isEmpty())
         shownName = "untitled.txt";
-    else
-        shownName = strippedName(curFile);
 
     setWindowFilePath(shownName);
 
@@ -344,7 +381,7 @@ void MainWindow::record() {
 
     //inform user
     trayIcon->show();
-    this->trayIcon->showMessage(tr("Recording"),tr("Recoding started. Use selected keys."),QSystemTrayIcon::Information,1500);
+    this->trayIcon->showMessage(tr("Recording started"),tr("Recording will start as soon as you press any key. Use selected keys to record drums"),QSystemTrayIcon::Information,1500);
 
     // change action icon to indicate recording
     ui->actionRecord->setIcon(QIcon(":/images/record_32.png"));
@@ -358,7 +395,7 @@ void MainWindow::record() {
     // disable some widgets
     ui->tabsTextEdit->setTextInteractionFlags(Qt::NoTextInteraction);
 
-    ui->songInfoWidget->setDisabled(true);
+    ui->songinfoDockWidgetContents->setDisabled(true);
     ui->actionClear->setEnabled(false);
     ui->actionPreferences->setEnabled(false);
     ui->actionPreview->setEnabled(false);
@@ -366,7 +403,7 @@ void MainWindow::record() {
     // disable menu to avod strange behavior
     ui->menuBar->setEnabled(false);
 
-    ui->dockWidgetContents->setFullyEnabled(false);
+    ui->recDockWidgetContents->setFullyEnabled(false);
 
     // set progressbar to intermedia to indicate that recording will be started soon
     if(settings.value("progress",true).toBool()) {
@@ -376,8 +413,8 @@ void MainWindow::record() {
         progressBar->setValue(0);
     }
 
-    //start timer with a short delay
-    QTimer::singleShot(500,this,SLOT(startTimer()));
+    // don't start timer yet
+    // wait for firest key to be pressed
 }
 
 void MainWindow::startTimer()
@@ -409,16 +446,16 @@ void MainWindow::stopRecording() {
     // reenable some widgets
     ui->tabsTextEdit->setTextInteractionFlags(Qt::TextEditorInteraction);
 
-    ui->songInfoWidget->setEnabled(true);
+    ui->songinfoDockWidgetContents->setEnabled(true);
     ui->actionClear->setEnabled(true);
     ui->actionPreview->setEnabled(true);
-    ui->dockWidgetContents->setFullyEnabled(true,true);
+    ui->recDockWidgetContents->setFullyEnabled(true,true);
 
     ui->tabsTextEdit->setReadOnly(false);
 
     ui->menuBar->setEnabled(true);
 
-    this->trayIcon->showMessage(tr("Finished recording"),tr("Recoding stopped."),QSystemTrayIcon::Information,1000);
+    this->trayIcon->showMessage(tr("Finished recording"),tr("You can now edit the recorded tabs."),QSystemTrayIcon::Information,1000);
 
     ui->actionRecord->setIcon(QIcon(":/images/record_off_32.png"));
 
@@ -441,7 +478,7 @@ void MainWindow::progressTick()
 QString MainWindow::buildOutput()
 {
     QString out;
-    out.append(ui->songInfoWidget->stringifyInfos());
+    out.append(ui->songinfoDockWidgetContents->stringifyInfos());
 
     out.replace("##mappings##",map.stringifyMappings());
     out.append("\n");
@@ -455,7 +492,7 @@ void MainWindow::changeBpm(int bpm)
     timer->setInterval(1000*60/(4*bpm));
     progressTimer->setInterval(10*60/bpm);
 
-    ui->dockWidgetContents->reloadBmp();
+    ui->recDockWidgetContents->reloadBmp();
 }
 
 void MainWindow::on_actionPreferences_triggered()
@@ -469,10 +506,10 @@ void MainWindow::on_actionRecordingPreferences_triggered()
     //prefs->setWindowModality(Qt::ApplicationModal);
     //prefs->show(1);
 
-    if (ui->dockWidget->isVisible()){
-        ui->dockWidget->hide();
+    if (ui->recDockWidget->isVisible()){
+        ui->recDockWidget->hide();
     } else {
-        ui->dockWidget->show();
+        ui->recDockWidget->show();
     }
 }
 
@@ -503,6 +540,13 @@ void MainWindow::on_actionFullscreen_triggered()
 
 void MainWindow::keyPressEvent ( QKeyEvent * event ){
     if (recording) {
+
+        if (!timer->isActive() && !progressTimer->isActive()) {
+            //start timer
+            //QTimer::singleShot(0,this,SLOT(startTimer()));
+            startTimer();
+        }
+
         // avoid repeating keys
         if(!event->isAutoRepeat()){
             painter.keyPressed(event);
@@ -517,7 +561,7 @@ void MainWindow::on_actionClear_triggered()
     ui->tabsTextEdit->setPlainText("");
     ui->tabsTextEdit->insertPlainText("");
     ui->actionPreferences->setEnabled(true);
-    ui->dockWidgetContents->setFullyEnabled(true,false);
+    ui->recDockWidgetContents->setFullyEnabled(true,false);
 }
 
 void MainWindow::changeFont(QFont font)
@@ -526,7 +570,7 @@ void MainWindow::changeFont(QFont font)
     ui->tabsTextEdit->setFont(font);
 };
 
-void MainWindow::on_dockWidget_visibilityChanged(bool visible)
+void MainWindow::on_recDockWidget_visibilityChanged(bool visible)
 {
     //qDebug() << "dock widget visibility changed";
     ui->actionRecordingPreferences->setChecked(visible);
@@ -559,3 +603,17 @@ void MainWindow::on_actionPrint_triggered()
     previewDialog->on_actionPrint_triggered();
 }
 
+
+void MainWindow::on_actionSongInformation_triggered()
+{
+    if (ui->songinfoDockWidget->isVisible()) {
+        ui->songinfoDockWidget->hide();
+    } else {
+        ui->songinfoDockWidget->show();
+    }
+}
+
+void MainWindow::on_songinfoDockWidget_visibilityChanged(bool visible)
+{
+    ui->actionSongInformation->setChecked(visible);
+}

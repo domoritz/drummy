@@ -2,6 +2,7 @@
 #include "ui_prefsrec.h"
 #include "noEditDelegate.h"
 #include "itemdialog.h"
+#include "metronomdialog.h"
 #include <QMessageBox>
 #include <QStringList>
 #include <QMenu>
@@ -68,10 +69,14 @@ void PrefsRec::reload()
     initalized = true;
 }
 
-void PrefsRec::reloadBmp()
+void PrefsRec::reloadBmp(int bpm)
 {
-    // set slider to saved value
-    ui->bpmHorizontalSlider->setValue(settings.value("bpm",120).toInt());
+    if (bpm > 0) {
+        ui->bpmHorizontalSlider->setValue(bpm);
+    } else {
+        // set slider to saved value
+        ui->bpmHorizontalSlider->setValue(settings.value("bpm",120).toInt());
+    }
 }
 
 // disables/enables everything in the mapping group
@@ -79,6 +84,7 @@ void PrefsRec::setFullyEnabled(bool enabled, bool excludeButtons)
 {
     ui->treeWidget->setEnabled(enabled);
     ui->bpmLineEdit->setEnabled(enabled);
+    ui->addToolButton->setEnabled(enabled);
 
     if (!excludeButtons) {
         ui->defaultsPushButton->setEnabled(enabled);
@@ -92,25 +98,25 @@ void PrefsRec::setMappingDefaults()
     ui->treeWidget->clear();
 
     QStringList Hh;
-    Hh << "High-hat" << "Hh" << "h" << "x";
+    Hh << "Hi-hat" << "Hh" << "h" << "x";
     QTreeWidgetItem *Hhitm = new QTreeWidgetItem(QStringList(Hh));
-    Hhitm->setCheckState(MACTIVE,Qt::Checked);
+    Hhitm->setCheckState(MACTIVE,Qt::Unchecked);
     Hhitm->setCheckState(MENABLED,Qt::Checked);
     ui->treeWidget->insertTopLevelItem(0,Hhitm);
 
-    QStringList TT;
-    TT << "Low tom" << "T" << "t" << "t";
-    QTreeWidgetItem *TTitm = new QTreeWidgetItem(QStringList(TT));
-    TTitm->setCheckState(MACTIVE,Qt::Checked);
-    TTitm->setCheckState(MENABLED,Qt::Checked);
-    ui->treeWidget->insertTopLevelItem(1,TTitm);
+    QStringList S;
+    S << "Snare" << "S" << "s" << "o";
+    QTreeWidgetItem *Sitm = new QTreeWidgetItem(QStringList(S));
+    Sitm->setCheckState(MACTIVE,Qt::Checked);
+    Sitm->setCheckState(MENABLED,Qt::Checked);
+    ui->treeWidget->insertTopLevelItem(1,Sitm);
 
-    QStringList R;
-    R << "Crash" << "Cc" << "c" << "X";
-    QTreeWidgetItem *Ritm = new QTreeWidgetItem(QStringList(R));
-    Ritm->setCheckState(MACTIVE,Qt::Checked);
-    Ritm->setCheckState(MENABLED,Qt::Checked);
-    ui->treeWidget->insertTopLevelItem(2,Ritm);
+    QStringList B;
+    B << "Base" << "B" << "b" << "o";
+    QTreeWidgetItem *Bitm = new QTreeWidgetItem(QStringList(B));
+    Bitm->setCheckState(MACTIVE,Qt::Checked);
+    Bitm->setCheckState(MENABLED,Qt::Checked);
+    ui->treeWidget->insertTopLevelItem(2,Bitm);
 
     this->saveTableToSettings();
 }
@@ -184,7 +190,7 @@ void PrefsRec::editItem(QTreeWidgetItem* item, int column)
 {
     ItemDialog dialog(this);
     dialog.setModal(true);
-    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setWindowModality(Qt::ApplicationModal);
     dialog.setItem(item, column);
     dialog.exec();
 }
@@ -354,4 +360,17 @@ void PrefsRec::setSelectionButtonsEnabled(bool enabled)
     ui->actionDown->setEnabled(enabled);
     ui->actionRemove->setEnabled(enabled);
     ui->actionEdit->setEnabled(enabled);
+}
+
+void PrefsRec::on_metronomPushButton_clicked()
+{
+    MetronomDialog dialog(this);
+    dialog.setWindowModality(Qt::ApplicationModal);
+    dialog.setWindowFlags(Qt::Dialog);
+
+    if (dialog.exec()) {
+        qDebug() << dialog.getBpm();
+        this->reloadBmp(dialog.getBpm());
+    }
+
 }
