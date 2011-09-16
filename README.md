@@ -4,15 +4,15 @@
 This is a c++/qt application which will help all the drummers out there who want to create tabs for songs. Example drum tabs can be found on [911Tabs](http://www.911tabs.com/drum_tabs/).
 
 ## Features
-# real time tab recording
-# simple and easy ui
-# for Windows, Linux and Mac
-# customize key mappings
-# record drums step by step (i.e. Snare first and then Base)
-# determine speed (bpm) with built in tool
-# edit tabs in the editor
-# include song information
-# save your tabs to a standatd text file
+* real time tab recording
+* simple and easy ui
+* for Windows, Linux and Mac
+* customize key mappings
+* record drums step by step (i.e. Snare first and then Base)
+* determine speed (bpm) with built in tool
+* edit tabs in the editor
+* include song information
+* save your tabs to a standatd text file
 
 ## What to do?
 
