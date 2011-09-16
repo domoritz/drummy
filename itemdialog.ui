@@ -122,7 +122,7 @@ Just one character please. Thanks!</string>
        <item>
         <widget class="QCheckBox" name="enabledCheckBox">
          <property name="toolTip">
-          <string>If enabled, item will be visible at all in the output</string>
+          <string>If enabled, item will be visible in the output. If not, it is not used for recording at all and no line will be printed.</string>
          </property>
          <property name="text">
           <string>Fully enable/diable this mapping</string>

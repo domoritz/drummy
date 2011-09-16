@@ -54,3 +54,13 @@ QString SongInfo::stringifyInfos()
 
     return out;
 }
+
+void SongInfo::clearUi()
+{
+    ui->titleLineEdit->clear();
+    ui->albumLineEdit->clear();
+    ui->artistLineEdit->clear();
+    ui->authorLineEdit->clear();
+    ui->timeEdit->setTime(QTime(0,0,0,0));
+    ui->textEdit->clear();
+}

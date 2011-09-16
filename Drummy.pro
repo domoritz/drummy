@@ -47,7 +47,8 @@ HEADERS += about.h \
     songinfo.h \
     previewdialog.h \
     enums.h \
-    metronomdialog.h
+    metronomdialog.h \
+    version.h
 FORMS += about.ui \
          helpdialog.ui \
          itemdialog.ui \
@@ -71,7 +72,8 @@ SOURCES += about.cpp \
            painter.cpp \
     songinfo.cpp \
     previewdialog.cpp \
-    metronomdialog.cpp
+    metronomdialog.cpp \
+    version.c
 TRANSLATIONS += lang/drummy_en.ts \
                 lang/drummy_de.ts
 CODECFORTC = UTF-8
@@ -80,6 +82,8 @@ RESOURCES += icons.qrc \
 
 OTHER_FILES += \
     Drummy.rc
+
+
 
 
 

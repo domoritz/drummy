@@ -96,7 +96,7 @@
    </property>
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/images/tp-settings-32x32.png</normaloff>:/images/tp-settings-32x32.png</iconset>
+     <normaloff>:/images/preferences_32.png</normaloff>:/images/preferences_32.png</iconset>
    </property>
    <property name="text">
     <string>General</string>

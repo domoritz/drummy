@@ -162,6 +162,8 @@ void MainWindow::writeSettings()
     settings.setValue("window/pos", pos());
     settings.setValue("window/size", size());
     settings.setValue("window/state", saveState());
+    settings.setValue("window/statusbar", this->statusBar()->isVisible());
+    settings.setValue("window/toolbar", ui->toolBar->isVisible());
 }
 
 void MainWindow::readSettings()
@@ -169,6 +171,12 @@ void MainWindow::readSettings()
     move(settings.value("window/pos", QPoint(200, 200)).toPoint());
     resize(settings.value("window/size", QSize(800, 500)).toSize());
     restoreState(settings.value("window/state").toByteArray());
+
+    this->statusBar()->setVisible(settings.value("window/statusbar",true).toBool());
+    ui->actionStatusBar->setChecked(settings.value("window/statusbar",true).toBool());
+
+    ui->toolBar->setVisible(settings.value("window/toolbar",true).toBool());
+    ui->actionToolbar->setChecked(settings.value("window/toolbar",true).toBool());
 }
 
 bool MainWindow::maybeSave()
@@ -199,7 +207,9 @@ void MainWindow::newFile()
     if (maybeSave()) {
         ui->tabsTextEdit->clear();
         setCurrentFile("");
-        // toDo delete song infos
+
+        // clear songinfo
+        ui->songinfoDockWidgetContents->clearUi();
     }
 }
 
@@ -348,7 +358,7 @@ void MainWindow::on_actionRecord_triggered()
             //prefPopup.setIcon(QMessageBox::Question);
             prefPopup.setText(tr("No recoding Preferences!"));
             prefPopup.setInformativeText(tr("You haven't set your recording preferences. Do you want to use your own or use the default preferences?"));
-            //prefPopup.setDetailedText(tr("The default settings are drum mappings and look like this: \nHh - High-hat\nT  - Low tom\nCc - Crash"));
+            prefPopup.setDetailedText(tr("The default settings are drum mappings and look like this: \nHh - Hi-hat\nS  - Snare\nB - Base"));
 
             QPushButton *preferencesButton = prefPopup.addButton(tr("Set preferences"), QMessageBox::ActionRole);
             QPushButton *defaultButton = prefPopup.addButton(tr("Use defaults"), QMessageBox::ActionRole);
@@ -381,10 +391,10 @@ void MainWindow::record() {
 
     //inform user
     trayIcon->show();
-    this->trayIcon->showMessage(tr("Recording started"),tr("Recording will start as soon as you press any key. Use selected keys to record drums"),QSystemTrayIcon::Information,1500);
+    this->trayIcon->showMessage(tr("Recording started"),tr("Recording will start as soon as you press any key. Use selected keys to record drums."),QSystemTrayIcon::Information,1500);
 
-    // change action icon to indicate recording
-    ui->actionRecord->setIcon(QIcon(":/images/record_32.png"));
+    // change action icon to indicate nearly recording
+    ui->actionRecord->setIcon(QIcon(":/images/record_off_active_32.png"));
 
     // initalize textedit
     painter.init();
@@ -545,6 +555,7 @@ void MainWindow::keyPressEvent ( QKeyEvent * event ){
             //start timer
             //QTimer::singleShot(0,this,SLOT(startTimer()));
             startTimer();
+            ui->actionRecord->setIcon(QIcon(":/images/record_32.png"));
         }
 
         // avoid repeating keys
@@ -568,12 +579,6 @@ void MainWindow::changeFont(QFont font)
 {
     qDebug() << "font changed to" << font.family() << font.pointSize();
     ui->tabsTextEdit->setFont(font);
-};
-
-void MainWindow::on_recDockWidget_visibilityChanged(bool visible)
-{
-    //qDebug() << "dock widget visibility changed";
-    ui->actionRecordingPreferences->setChecked(visible);
 }
 
 void MainWindow::on_actionSelect_All_triggered()
@@ -615,5 +620,28 @@ void MainWindow::on_actionSongInformation_triggered()
 
 void MainWindow::on_songinfoDockWidget_visibilityChanged(bool visible)
 {
-    ui->actionSongInformation->setChecked(visible);
+    ui->actionSongInformation->setChecked(ui->songinfoDockWidget->isVisible());
+}
+
+void MainWindow::on_recDockWidget_visibilityChanged(bool visible)
+{
+    ui->actionRecordingPreferences->setChecked(ui->recDockWidget->isVisible());
+}
+
+void MainWindow::on_actionStatusBar_triggered()
+{
+    if (this->statusBar()->isVisible()) {
+        this->statusBar()->setVisible(false);
+    } else {
+        this->statusBar()->setVisible(true);
+    }
+}
+
+void MainWindow::on_actionToolbar_triggered()
+{
+    if (ui->toolBar->isVisible()) {
+        ui->toolBar->setVisible(false);
+    } else {
+        ui->toolBar->setVisible(true);
+    }
 }

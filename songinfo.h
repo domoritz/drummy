@@ -22,6 +22,7 @@ private:
 
 public slots:
     QString stringifyInfos();
+    void clearUi();
 
 };
 

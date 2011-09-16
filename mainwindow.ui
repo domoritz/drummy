@@ -148,6 +148,8 @@
     <property name="title">
      <string>View</string>
     </property>
+    <addaction name="actionStatusBar"/>
+    <addaction name="actionToolbar"/>
     <addaction name="actionFullscreen"/>
    </widget>
    <widget class="QMenu" name="menuWindow_2">
@@ -394,8 +396,14 @@
    </property>
   </action>
   <action name="actionStatusBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>statusBar</string>
+    <string>Status Bar</string>
    </property>
    <property name="toolTip">
     <string>show/hide the windows statusbar</string>
@@ -415,6 +423,17 @@
    </property>
    <property name="text">
     <string>Tab Information</string>
+   </property>
+  </action>
+  <action name="actionToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Toolbar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+T</string>
    </property>
   </action>
  </widget>

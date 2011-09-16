@@ -84,6 +84,9 @@ private slots:
     void saveDialogAccepted();
     void on_actionSongInformation_triggered();
     void on_songinfoDockWidget_visibilityChanged(bool visible);
+    void on_actionStatusBar_triggered();
+
+    void on_actionToolbar_triggered();
 
 public slots:
     void keyPressEvent ( QKeyEvent * event );
