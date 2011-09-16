@@ -1,6 +1,6 @@
 #include "prefsrec.h"
 #include "ui_prefsrec.h"
-#include "noEditDelegate.h"
+#include "noeditdelegate.h"
 #include "itemdialog.h"
 #include "metronomdialog.h"
 #include <QMessageBox>
