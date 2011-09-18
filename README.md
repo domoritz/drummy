@@ -1,22 +1,13 @@
 #Drummy
 
 ## Record tabs from a song or your mind just by using your keyboard.
-This is a c++/qt application which will help all the drummers out there who want to create tabs for songs. Example drum tabs can be found on [911Tabs](http://www.911tabs.com/drum_tabs/).
+This is a c++/qt application which will help all the drummers out there who want to create tabs for songs.
 
-## Features
-* real time tab recording
-* simple and easy ui
-* for Windows, Linux and Mac
-* customize key mappings
-* record drums step by step (i.e. Snare first and then Base)
-* determine speed (bpm) with built in tool
-* edit tabs in the editor
-* include song information
-* save your tabs to a standatd text file
+If you want to know more, go to the [official website](http://domoritz.github.com/drummy/)!
 
 ## What to do?
 
-You can either download this app and start recording or help me improve it.
+You can either download this app and start recording or help me improve it (which I would really appreciate).
 
 ## If you want to help developing
 
