@@ -3,10 +3,10 @@
 
 
 /* TEAM */
-  <your title>: <your name>
-  Site: 
-  Twitter: 
-  Location: 
+  Initiator: Dominik Moritz
+  Site: www.dmoritz.bplaced.de
+  Twitter: @robynnick
+  Location: Germany
 
 /* THANKS */
   Names (& URL): 
@@ -14,7 +14,7 @@
 /* SITE */
   Standards: HTML5, CSS3
   Components: Modernizr, jQuery
-  Software:
+  Software: Vim, Gimp
   
 
                                     
