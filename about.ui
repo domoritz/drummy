@@ -62,7 +62,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Version 1.0 Beta 2</string>
+        <string>VERSION</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -72,7 +72,7 @@
      <item>
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Based on Qt</string>
+        <string>BASED_ON_QT</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -115,7 +115,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>About QT</string>
+      <string>ABOUT_QT</string>
      </property>
     </widget>
    </item>

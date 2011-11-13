@@ -10,22 +10,27 @@
     </message>
     <message>
         <location filename="../about.ui" line="65"/>
-        <source>Version 1.0 Beta 1</source>
-        <translation type="unfinished"></translation>
+        <source>VERSION</source>
+        <translation type="unfinished">Drummy 1.0 Beta 2</translation>
     </message>
     <message>
         <location filename="../about.ui" line="75"/>
-        <source>Based on Qt</source>
+        <source>BASED_ON_QT</source>
         <translation type="unfinished">Basiert auf Qt</translation>
     </message>
     <message>
-        <location filename="../about.ui" line="119"/>
+        <location filename="../about.ui" line="118"/>
+        <source>ABOUT_QT</source>
+        <translation type="unfinished">Über Qt</translation>
+    </message>
+    <message>
+        <location filename="../about.ui" line="131"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Lucida Grande&apos;; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Engineering:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Dominik Moritz&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Dominik Moritz (www.dmoritz.bplaced.de)&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Icons:&lt;/span&gt;&lt;/p&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Drummy Team&lt;/li&gt;
@@ -49,17 +54,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Mom&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../about.ui" line="106"/>
-        <source>About QT</source>
-        <translation>Über Qt</translation>
-    </message>
 </context>
 <context>
     <name>HelpDialog</name>
     <message>
         <location filename="../helpdialog.ui" line="14"/>
-        <source>Drummy Help</source>
+        <source>DRUMMY_HELP</source>
         <translation type="unfinished">Drummy Hilfe</translation>
     </message>
     <message>
@@ -74,7 +74,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Tips and Tricks&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can show the recording preferences all the time by activating &amp;quot;Window&amp;quot;-&amp;gt;&amp;quot;Recording Preferences&amp;quot;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can show the recording preferences all the time by activating &amp;quot;View&amp;quot;-&amp;gt;&amp;quot;Recording Preferences&amp;quot;.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;FAQ&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
@@ -86,26 +86,9 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ItemDialog</name>
     <message>
-        <location filename="../itemdialog.ui" line="77"/>
-        <source>Short name:</source>
-        <translation type="unfinished">Bezeichnung:</translation>
-    </message>
-    <message>
-        <location filename="../itemdialog.ui" line="84"/>
-        <source>This Name will be user for the output.</source>
-        <translation type="unfinished">ieser name wird für die Ausgabe genutzt.</translation>
-    </message>
-    <message>
-        <location filename="../itemdialog.ui" line="87"/>
+        <location filename="../itemdialog.ui" line="75"/>
         <source>Xxx; </source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../itemdialog.ui" line="49"/>
-        <source>The key from your key board you want to use for this drum.
-Just one character please. Thanks!</source>
-        <translation type="unfinished">Die Taste, die für für das jeweilige Schlagzeug genutzt werden soll. 
-Bitte nur ein Zeichen. Danke!</translation>
     </message>
     <message>
         <location filename="../itemdialog.ui" line="14"/>
@@ -113,55 +96,54 @@ Bitte nur ein Zeichen. Danke!</translation>
         <translation type="unfinished">Bearbeite Mapping</translation>
     </message>
     <message>
-        <location filename="../itemdialog.ui" line="53"/>
-        <location filename="../itemdialog.ui" line="70"/>
+        <location filename="../itemdialog.ui" line="27"/>
+        <source>NAME:</source>
+        <translation type="unfinished">Name:</translation>
+    </message>
+    <message>
+        <location filename="../itemdialog.ui" line="37"/>
+        <source>KEY:</source>
+        <translation type="unfinished">Taste:</translation>
+    </message>
+    <message>
+        <location filename="../itemdialog.ui" line="44"/>
+        <location filename="../itemdialog.ui" line="61"/>
         <source>X; </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../itemdialog.ui" line="27"/>
-        <source>Name:</source>
-        <translation type="unfinished">Name:</translation>
-    </message>
-    <message>
-        <location filename="../itemdialog.ui" line="34"/>
-        <source>Descriptive name of the item.
-Use one up to three characters.</source>
-        <translation type="unfinished">Beschreibender name. Maximal drei Zeichen.</translation>
-    </message>
-    <message>
-        <location filename="../itemdialog.ui" line="42"/>
-        <source>Key:</source>
-        <translation type="unfinished">Taste:</translation>
-    </message>
-    <message>
-        <location filename="../itemdialog.ui" line="60"/>
-        <source>Character:</source>
+        <location filename="../itemdialog.ui" line="51"/>
+        <source>CHARACTER:</source>
         <translation type="unfinished">Zeichen:</translation>
     </message>
     <message>
-        <location filename="../itemdialog.ui" line="67"/>
-        <source>The character that will be used to show this drum in the output</source>
+        <location filename="../itemdialog.ui" line="58"/>
+        <source>CHARACTER_TOOLTIP</source>
         <translation type="unfinished">Das Zeichen, welches in der Ausgabe genutzt werden soll</translation>
     </message>
     <message>
-        <location filename="../itemdialog.ui" line="115"/>
-        <source>If set, the mapping will be active and previous recordings will be overwritten</source>
+        <location filename="../itemdialog.ui" line="103"/>
+        <source>ACTIVATE_TOOLTIP</source>
         <translation type="unfinished">Wenn gesetzt, wird dieses Mapping aktiv und vorherige Aufnahmen werden überschrieben</translation>
     </message>
     <message>
-        <location filename="../itemdialog.ui" line="125"/>
-        <source>If enabled, item will be visible in the output. If not, it is not used for recording at all and no line will be printed.</source>
+        <location filename="../itemdialog.ui" line="113"/>
+        <source>FULLY_ENABLE_DISABLE_TOOLTIP</source>
         <translation type="unfinished">Wenn aktiviert wird der Eintrag in der Ausgabe erscheinen. Sonst nicht.</translation>
     </message>
     <message>
-        <location filename="../itemdialog.ui" line="128"/>
-        <source>Fully enable/diable this mapping</source>
+        <location filename="../itemdialog.ui" line="116"/>
+        <source>FULLY_ENABLE_DISABLE</source>
         <translation type="unfinished">Aktiviere/ Deaktiviere dieses Mapping vollständig</translation>
     </message>
     <message>
-        <location filename="../itemdialog.ui" line="118"/>
-        <source>Activate this key mapping for a recording session</source>
+        <location filename="../itemdialog.ui" line="68"/>
+        <source>SHORT_NAME:</source>
+        <translation type="unfinished">Bezeichnung:</translation>
+    </message>
+    <message>
+        <location filename="../itemdialog.ui" line="106"/>
+        <source>ACTIVATE_FOR_REC</source>
         <translation type="unfinished">Aktiviere dieses Mapping für die Aufnahme</translation>
     </message>
 </context>
@@ -179,7 +161,7 @@ Use one up to three characters.</source>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="115"/>
-        <location filename="../mainwindow.ui" line="298"/>
+        <location filename="../mainwindow.ui" line="288"/>
         <source>Help</source>
         <translation type="unfinished">Hilfe</translation>
     </message>
@@ -199,200 +181,190 @@ Use one up to three characters.</source>
         <translation type="unfinished">Darstellung</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="157"/>
-        <source>Window</source>
-        <translation type="unfinished">Fenster</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="161"/>
-        <source>Views</source>
-        <translation type="unfinished">Ansichten</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="177"/>
+        <location filename="../mainwindow.ui" line="167"/>
         <source>toolBar</source>
         <translation type="unfinished">Toolbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="195"/>
-        <location filename="../mainwindow.ui" line="315"/>
+        <location filename="../mainwindow.ui" line="185"/>
+        <location filename="../mainwindow.ui" line="305"/>
         <source>Recording Preferences</source>
         <translation type="unfinished">Aufnahmeeinstellungen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="207"/>
-        <location filename="../mainwindow.ui" line="425"/>
+        <location filename="../mainwindow.ui" line="197"/>
+        <location filename="../mainwindow.ui" line="415"/>
         <source>Tab Information</source>
         <translation type="unfinished">Tabinformationen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="216"/>
+        <location filename="../mainwindow.ui" line="206"/>
         <source>Preferences</source>
         <translation type="unfinished">Einstellungen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="219"/>
+        <location filename="../mainwindow.ui" line="209"/>
         <source>edit settings</source>
         <translation type="unfinished">bearbeite die Einstellungen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="227"/>
+        <location filename="../mainwindow.ui" line="217"/>
         <source>About</source>
         <translation type="unfinished">Über</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="230"/>
+        <location filename="../mainwindow.ui" line="220"/>
         <source>about this app</source>
         <translation type="unfinished">über diese App</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="238"/>
+        <location filename="../mainwindow.ui" line="228"/>
         <source>Quit</source>
         <translation type="unfinished">Beenden</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="241"/>
+        <location filename="../mainwindow.ui" line="231"/>
         <source>quit application</source>
         <translation type="unfinished">beendet das Programm</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="259"/>
+        <location filename="../mainwindow.ui" line="249"/>
         <source>Record</source>
         <translation type="unfinished">Aufnehmen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="262"/>
+        <location filename="../mainwindow.ui" line="252"/>
         <source>Start/stop recording a drum sequence</source>
         <translation type="unfinished">Starte/ Stoppe die Aufnahme</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="265"/>
+        <location filename="../mainwindow.ui" line="255"/>
         <source>Ctrl+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="303"/>
+        <location filename="../mainwindow.ui" line="293"/>
         <location filename="../mainwindow.cpp" line="544"/>
         <source>Enter Fullscreen</source>
         <translation type="unfinished">Vollbild</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="343"/>
+        <location filename="../mainwindow.ui" line="333"/>
         <source>Save</source>
         <translation type="unfinished">Speichern</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="348"/>
+        <location filename="../mainwindow.ui" line="338"/>
         <source>New</source>
         <translation type="unfinished">Neu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="351"/>
+        <location filename="../mainwindow.ui" line="341"/>
         <source>New song</source>
         <translation type="unfinished">Neuer Song</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="356"/>
+        <location filename="../mainwindow.ui" line="346"/>
         <source>Save As...</source>
         <translation type="unfinished">Speichere als...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="406"/>
+        <location filename="../mainwindow.ui" line="396"/>
         <source>Status Bar</source>
         <translation type="unfinished">Statusbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="409"/>
+        <location filename="../mainwindow.ui" line="399"/>
         <source>show/hide the windows statusbar</source>
         <translation type="unfinished">zeige/verstecke die Statusbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="412"/>
+        <location filename="../mainwindow.ui" line="402"/>
         <source>Ctrl+/</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="417"/>
+        <location filename="../mainwindow.ui" line="407"/>
         <source>Find...</source>
         <translation type="unfinished">Finde...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="433"/>
+        <location filename="../mainwindow.ui" line="423"/>
         <source>Toolbar</source>
         <translation type="unfinished">Toolbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="436"/>
+        <location filename="../mainwindow.ui" line="426"/>
         <source>Ctrl+Alt+T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="365"/>
+        <location filename="../mainwindow.ui" line="355"/>
         <source>Preview</source>
         <translation type="unfinished">Vorschau</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="368"/>
+        <location filename="../mainwindow.ui" line="358"/>
         <source>Preview of output</source>
         <translation type="unfinished">Vorschau der Ausgabe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="379"/>
+        <location filename="../mainwindow.ui" line="369"/>
         <source>Undo</source>
         <translation type="unfinished">Wiederherstellen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="387"/>
+        <location filename="../mainwindow.ui" line="377"/>
         <source>Redo</source>
         <translation type="unfinished">Wiederholen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="392"/>
+        <location filename="../mainwindow.ui" line="382"/>
         <source>Print</source>
         <translation type="unfinished">Drucken</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="395"/>
+        <location filename="../mainwindow.ui" line="385"/>
         <source>Print tabs document</source>
         <translation type="unfinished">Drucke dieses Tabsdocument</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="273"/>
+        <location filename="../mainwindow.ui" line="263"/>
         <source>Cut</source>
         <translation type="unfinished">Ausschneiden</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="278"/>
+        <location filename="../mainwindow.ui" line="268"/>
         <source>&amp;Copy</source>
         <translation type="unfinished">Kopieren</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="293"/>
+        <location filename="../mainwindow.ui" line="283"/>
         <source>Select &amp;All</source>
         <translation type="unfinished">&amp;Alles auswählen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="283"/>
+        <location filename="../mainwindow.ui" line="273"/>
         <source>Paste</source>
         <translation type="unfinished">Einfügen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="288"/>
+        <location filename="../mainwindow.ui" line="278"/>
         <source>Delete</source>
         <translation type="unfinished">Löschen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="327"/>
+        <location filename="../mainwindow.ui" line="317"/>
         <source>Clear</source>
         <translation type="unfinished">Bereinigen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="330"/>
+        <location filename="../mainwindow.ui" line="320"/>
         <source>Clear recordings</source>
         <translation type="unfinished">Aufnahme löschen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="338"/>
+        <location filename="../mainwindow.ui" line="328"/>
         <source>PauseRec</source>
         <translation type="unfinished"></translation>
     </message>
@@ -427,19 +399,21 @@ Use one up to three characters.</source>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="360"/>
-        <source>You haven&apos;t set your recording preferences. Do you want to use your own or use the default preferences?</source>
+        <source>NO_PREFS_DEFAULT?</source>
         <translation type="unfinished">Du hast keine Aufnahmeeinstellungen gesetzt. Willst du diese jetzt setzen oder die Standarteinstellungen benutzen?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="361"/>
-        <source>The default settings are drum mappings and look like this: 
-Hh - Hi-hat
-S  - Snare
-B - Base</source>
+        <source>DEFAULTS_LOOK_LIKE</source>
         <translation type="unfinished">Die Standardeinstellungen sind Mappings, die wie folgt aussehen: 
 Hh - Hi-hat
 S  - Snare
 B - Base</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="394"/>
+        <source>REC_WILL_START</source>
+        <translation type="unfinished">Die Aufnahme wird beginnen sobald eine beliebige Taste gedrückt wird.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="363"/>
@@ -457,19 +431,14 @@ B - Base</translation>
         <translation type="unfinished">Aufnahme gestartet</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="394"/>
-        <source>Recording will start as soon as you press any key. Use selected keys to record drums.</source>
-        <translation type="unfinished">Die Aufnahme wird beginnen sobald eine beliebige Taste gedrückt wird.</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="468"/>
-        <source>You can now edit the recorded tabs.</source>
-        <translation type="unfinished">Die Tabs können nun bearbeitet werden.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="468"/>
         <source>Finished recording</source>
         <translation type="unfinished">Aufnahme beendet</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="468"/>
+        <source>NOW_EDIT_TABS</source>
+        <translation type="unfinished">Die Tabs können nun bearbeitet werden.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="547"/>
@@ -486,45 +455,43 @@ B - Base</translation>
     </message>
     <message>
         <location filename="../metronomdialog.ui" line="20"/>
-        <source>With this tool you can determine the speed of a song yourself. Measure the speed by hitting a key bar 8 times. The average speed will be used to determine the bpm (beats per minute). 
-
-	Start by hitting any key.</source>
+        <source>HOW_TO_BPM</source>
         <translation type="unfinished">Mit diesem Tool lässt sich die Geschwindigkeit eines Liedes automatisch bestimmen. Miss die Geschwindigkeit indem Du eine beliebige Taste 8 Mal betätigst. Die durchschnittliche Geschwindigkeit wird für die Bestimmung der bpm (Beats per Minute) genutzt.
 
 	Beginne indem du eine beliebige Taste betätigst.</translation>
     </message>
     <message>
-        <location filename="../metronomdialog.ui" line="45"/>
+        <location filename="../metronomdialog.ui" line="43"/>
         <source>Stats</source>
         <translation type="unfinished">Statistik</translation>
     </message>
     <message>
-        <location filename="../metronomdialog.ui" line="51"/>
+        <location filename="../metronomdialog.ui" line="49"/>
         <source>Remaining Beats:</source>
         <translation type="unfinished">Verbleibende Beats:</translation>
     </message>
     <message>
-        <location filename="../metronomdialog.ui" line="64"/>
+        <location filename="../metronomdialog.ui" line="62"/>
         <source>8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../metronomdialog.ui" line="71"/>
+        <location filename="../metronomdialog.ui" line="69"/>
         <source>Elapsed Time:</source>
         <translation type="unfinished">Vergangene Zeit:</translation>
     </message>
     <message>
-        <location filename="../metronomdialog.ui" line="90"/>
+        <location filename="../metronomdialog.ui" line="88"/>
         <source>0:00:000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../metronomdialog.ui" line="97"/>
+        <location filename="../metronomdialog.ui" line="95"/>
         <source>Average bpm:</source>
         <translation type="unfinished">Durchschnittliche BPM:</translation>
     </message>
     <message>
-        <location filename="../metronomdialog.ui" line="116"/>
+        <location filename="../metronomdialog.ui" line="114"/>
         <source>&lt;strong&gt;0&lt;/strong&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -563,12 +530,12 @@ B - Base</translation>
     </message>
     <message>
         <location filename="../prefsapp.ui" line="102"/>
-        <source>Enable progress bar while recording tabs</source>
+        <source>ENABLE_PROC_BAR</source>
         <translation type="unfinished">Aktiviere Fortschrittsbalken während der Aufnahme</translation>
     </message>
     <message>
         <location filename="../prefsapp.ui" line="117"/>
-        <source>Reset all application preferences</source>
+        <source>RESET_ALL_PREFS</source>
         <translation type="unfinished">Setze alle Programmeinstellungen zurück</translation>
     </message>
     <message>

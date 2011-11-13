@@ -357,8 +357,8 @@ void MainWindow::on_actionRecord_triggered()
             prefPopup.setWindowModality(Qt::WindowModal);
             //prefPopup.setIcon(QMessageBox::Question);
             prefPopup.setText(tr("No recoding Preferences!"));
-            prefPopup.setInformativeText(tr("You haven't set your recording preferences. Do you want to use your own or use the default preferences?"));
-            prefPopup.setDetailedText(tr("The default settings are drum mappings and look like this: \nHh - Hi-hat\nS  - Snare\nB - Base"));
+            prefPopup.setInformativeText(tr("NO_PREFS_DEFAULT?"));
+            prefPopup.setDetailedText(tr("DEFAULTS_LOOK_LIKE"));
 
             QPushButton *preferencesButton = prefPopup.addButton(tr("Set preferences"), QMessageBox::ActionRole);
             QPushButton *defaultButton = prefPopup.addButton(tr("Use defaults"), QMessageBox::ActionRole);
@@ -391,7 +391,7 @@ void MainWindow::record() {
 
     //inform user
     trayIcon->show();
-    this->trayIcon->showMessage(tr("Recording started"),tr("Recording will start as soon as you press any key. Use selected keys to record drums."),QSystemTrayIcon::Information,1500);
+    this->trayIcon->showMessage(tr("Recording started"),tr("REC_WILL_START"),QSystemTrayIcon::Information,1500);
 
     // change action icon to indicate nearly recording
     ui->actionRecord->setIcon(QIcon(":/images/record_off_active_32.png"));
@@ -465,7 +465,7 @@ void MainWindow::stopRecording() {
 
     ui->menuBar->setEnabled(true);
 
-    this->trayIcon->showMessage(tr("Finished recording"),tr("You can now edit the recorded tabs."),QSystemTrayIcon::Information,1000);
+    this->trayIcon->showMessage(tr("Finished recording"),tr("NOW_EDIT_TABS"),QSystemTrayIcon::Information,1000);
 
     ui->actionRecord->setIcon(QIcon(":/images/record_off_32.png"));
 
@@ -620,12 +620,12 @@ void MainWindow::on_actionSongInformation_triggered()
 
 void MainWindow::on_songinfoDockWidget_visibilityChanged(bool visible)
 {
-    ui->actionSongInformation->setChecked(ui->songinfoDockWidget->isVisible());
+    ui->actionSongInformation->setChecked(visible);
 }
 
 void MainWindow::on_recDockWidget_visibilityChanged(bool visible)
 {
-    ui->actionRecordingPreferences->setChecked(ui->recDockWidget->isVisible());
+    ui->actionRecordingPreferences->setChecked(visible);
 }
 
 void MainWindow::on_actionStatusBar_triggered()

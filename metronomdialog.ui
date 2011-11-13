@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>348</width>
-    <height>274</height>
+    <width>350</width>
+    <height>303</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,7 @@
    <item row="0" column="0" colspan="2">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>With this tool you can determine the speed of a song yourself. Measure the speed by hitting a key bar 8 times. The average speed will be used to determine the bpm (beats per minute). 
-
-	Start by hitting any key.</string>
+      <string>HOW_TO_BPM</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>

@@ -24,31 +24,22 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Name:</string>
+          <string>NAME:</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="nameLineEdit">
-         <property name="toolTip">
-          <string>Descriptive name of the item.
-Use one up to three characters.</string>
-         </property>
-        </widget>
+        <widget class="QLineEdit" name="nameLineEdit"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Key:</string>
+          <string>KEY:</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="keyLineEdit">
-         <property name="toolTip">
-          <string>The key from your key board you want to use for this drum.
-Just one character please. Thanks!</string>
-         </property>
          <property name="inputMask">
           <string>X; </string>
          </property>
@@ -57,14 +48,14 @@ Just one character please. Thanks!</string>
        <item row="3" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Character:</string>
+          <string>CHARACTER:</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
         <widget class="QLineEdit" name="charLineEdit">
          <property name="toolTip">
-          <string>The character that will be used to show this drum in the output</string>
+          <string>CHARACTER_TOOLTIP</string>
          </property>
          <property name="inputMask">
           <string>X; </string>
@@ -74,15 +65,12 @@ Just one character please. Thanks!</string>
        <item row="1" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Short name:</string>
+          <string>SHORT_NAME:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QLineEdit" name="shortNameLineEdit">
-         <property name="toolTip">
-          <string>This Name will be user for the output.</string>
-         </property>
          <property name="inputMask">
           <string>Xxx; </string>
          </property>
@@ -112,20 +100,20 @@ Just one character please. Thanks!</string>
        <item>
         <widget class="QCheckBox" name="activeCheckBox">
          <property name="toolTip">
-          <string>If set, the mapping will be active and previous recordings will be overwritten</string>
+          <string>ACTIVATE_TOOLTIP</string>
          </property>
          <property name="text">
-          <string>Activate this key mapping for a recording session</string>
+          <string>ACTIVATE_FOR_REC</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="enabledCheckBox">
          <property name="toolTip">
-          <string>If enabled, item will be visible in the output. If not, it is not used for recording at all and no line will be printed.</string>
+          <string>FULLY_ENABLE_DISABLE_TOOLTIP</string>
          </property>
          <property name="text">
-          <string>Fully enable/diable this mapping</string>
+          <string>FULLY_ENABLE_DISABLE</string>
          </property>
         </widget>
        </item>
