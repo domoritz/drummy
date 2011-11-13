@@ -104,7 +104,8 @@ p, li { white-space: pre-wrap; }
         <location filename="../itemdialog.ui" line="49"/>
         <source>The key from your key board you want to use for this drum.
 Just one character please. Thanks!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Die Taste, die für für das jeweilige Schlagzeug genutzt werden soll. 
+Bitte nur ein Zeichen. Danke!</translation>
     </message>
     <message>
         <location filename="../itemdialog.ui" line="14"/>
@@ -141,12 +142,12 @@ Use one up to three characters.</source>
     <message>
         <location filename="../itemdialog.ui" line="67"/>
         <source>The character that will be used to show this drum in the output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Das Zeichen, welches in der Ausgabe genutzt werden soll</translation>
     </message>
     <message>
         <location filename="../itemdialog.ui" line="115"/>
         <source>If set, the mapping will be active and previous recordings will be overwritten</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wenn gesetzt, wird dieses Mapping aktiv und vorherige Aufnahmen werden überschrieben</translation>
     </message>
     <message>
         <location filename="../itemdialog.ui" line="125"/>
@@ -222,7 +223,7 @@ Use one up to three characters.</source>
         <location filename="../mainwindow.ui" line="207"/>
         <location filename="../mainwindow.ui" line="425"/>
         <source>Tab Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tabinformationen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="216"/>
@@ -232,7 +233,7 @@ Use one up to three characters.</source>
     <message>
         <location filename="../mainwindow.ui" line="219"/>
         <source>edit settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">bearbeite die Einstellungen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="227"/>
@@ -242,7 +243,7 @@ Use one up to three characters.</source>
     <message>
         <location filename="../mainwindow.ui" line="230"/>
         <source>about this app</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">über diese App</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="238"/>
@@ -252,7 +253,7 @@ Use one up to three characters.</source>
     <message>
         <location filename="../mainwindow.ui" line="241"/>
         <source>quit application</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">beendet das Programm</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="259"/>
@@ -262,7 +263,7 @@ Use one up to three characters.</source>
     <message>
         <location filename="../mainwindow.ui" line="262"/>
         <source>Start/stop recording a drum sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Starte/ Stoppe die Aufnahme</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="265"/>
@@ -298,7 +299,7 @@ Use one up to three characters.</source>
     <message>
         <location filename="../mainwindow.ui" line="406"/>
         <source>Status Bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Statusbar</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="409"/>
@@ -328,7 +329,7 @@ Use one up to three characters.</source>
     <message>
         <location filename="../mainwindow.ui" line="365"/>
         <source>Preview</source>
-        <translation type="unfinished">VOrschau</translation>
+        <translation type="unfinished">Vorschau</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="368"/>
@@ -435,7 +436,10 @@ Use one up to three characters.</source>
 Hh - Hi-hat
 S  - Snare
 B - Base</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Die Standardeinstellungen sind Mappings, die wie folgt aussehen: 
+Hh - Hi-hat
+S  - Snare
+B - Base</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="363"/>
@@ -485,7 +489,7 @@ B - Base</source>
         <source>With this tool you can determine the speed of a song yourself. Measure the speed by hitting a key bar 8 times. The average speed will be used to determine the bpm (beats per minute). 
 
 	Start by hitting any key.</source>
-        <translation type="unfinished">Mit diesem Toll lässt sich die Geschwindigkeit eines Liedes automatisch bestimmen. Miss die Geschwindigkeit indem Du eine beliebige Taste 8 Mal betätigst. Die durchschnittliche Geschwindigkeit wird für die Bestimmung der bpm (Beats per Minute) genutzt.
+        <translation type="unfinished">Mit diesem Tool lässt sich die Geschwindigkeit eines Liedes automatisch bestimmen. Miss die Geschwindigkeit indem Du eine beliebige Taste 8 Mal betätigst. Die durchschnittliche Geschwindigkeit wird für die Bestimmung der bpm (Beats per Minute) genutzt.
 
 	Beginne indem du eine beliebige Taste betätigst.</translation>
     </message>
@@ -517,7 +521,7 @@ B - Base</source>
     <message>
         <location filename="../metronomdialog.ui" line="97"/>
         <source>Average bpm:</source>
-        <translation type="unfinished">Durchschnittliche Zeit:</translation>
+        <translation type="unfinished">Durchschnittliche BPM:</translation>
     </message>
     <message>
         <location filename="../metronomdialog.ui" line="116"/>
@@ -540,7 +544,7 @@ B - Base</source>
     <message>
         <location filename="../prefsapp.ui" line="26"/>
         <source>Output settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ausgabeeinstellungen</translation>
     </message>
     <message>
         <location filename="../prefsapp.ui" line="34"/>
@@ -593,12 +597,12 @@ B - Base</source>
     <message>
         <location filename="../prefsrec.ui" line="53"/>
         <source>Slide to set the speed for recording in bpm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bewege den Slider um die Geschwindigkeit der Aufnahme festzulegen</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="90"/>
         <source>Type the speed for recording</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gib die Geschwindigkeit direkt ein</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="93"/>
@@ -638,7 +642,7 @@ B - Base</source>
     <message>
         <location filename="../prefsrec.ui" line="188"/>
         <source>Descriptive name of the item.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beschreibender Name des Eintrags</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="193"/>
@@ -648,7 +652,7 @@ B - Base</source>
     <message>
         <location filename="../prefsrec.ui" line="196"/>
         <source>This Name will be user for the output.</source>
-        <translation type="unfinished">ieser name wird für die Ausgabe genutzt.</translation>
+        <translation type="unfinished">Dieser Name wird für die Ausgabe genutzt.</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="201"/>
@@ -658,7 +662,7 @@ B - Base</source>
     <message>
         <location filename="../prefsrec.ui" line="204"/>
         <source>Key you have to press if you want the item to be recorded.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Taste, die gedrückt werden muss, um einen Tab aufzunehmen.</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="209"/>
@@ -668,7 +672,7 @@ B - Base</source>
     <message>
         <location filename="../prefsrec.ui" line="212"/>
         <source>Character that will be shown in the output.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeichen, das für die Ausgabe genutzt wird.</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="217"/>
@@ -695,12 +699,12 @@ B - Base</source>
         <source>This table shows your key mappings. This means 
 which key will be translated to which drum and 
 shown as which character.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diese Tabelle zeigt die Mappings; also die Zurodnung von Tasten zu Schlagzeugen und den Zeichen der Ausgabe. </translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="220"/>
         <source>If set, the mapping will be active and previous recordings will be overwritten.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wenn gesetst, ist das Mapping aktiv und vorherige Aufnahmen werden überschrieben.</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="225"/>
@@ -710,13 +714,13 @@ shown as which character.</source>
     <message>
         <location filename="../prefsrec.ui" line="228"/>
         <source>If enabled, item will be visible at all in the output.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wenn aktiviert wird der Eintarg für das Mapping überhaupt in der Ausgabe erscheinen. </translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="233"/>
         <location filename="../prefsrec.ui" line="241"/>
         <source>New Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neuer Eintrag</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="259"/>
