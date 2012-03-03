@@ -4,8 +4,8 @@
 
 /* TEAM */
   Initiator: Dominik Moritz
-  Site: www.dmoritz.bplaced.de
-  Twitter: @robynnick
+  Site: www.domoritz.de
+  Twitter: @dooble_doo
   Location: Germany
 
 /* THANKS */
