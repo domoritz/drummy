@@ -46,7 +46,7 @@ void Painter::drawInitLine()
     mainCursor.movePosition(QTextCursor::Up);
     mainCursor.movePosition(QTextCursor::Right,QTextCursor::MoveAnchor,4);
 
-    foreach(MappingItem mapping, *map.getByNumberOrderedMapping()) {
+    foreach(MappingItem mapping, *map.getByNumberOrderedAndEnabledMapping()) {
         moveCursor.insertText(QString("%1|\n").arg(mapping.shortName,-3));
     }
 
@@ -62,7 +62,7 @@ void Painter::keyPressed(QKeyEvent *event)
 
         MappingItem *item = map.getMappingForKey(c);
 
-        if (item->active && item) {
+        if (item->active && item->enabled && item) {
             qDebug() << c;
 
             QTextCursor moveCursor;
@@ -70,7 +70,7 @@ void Painter::keyPressed(QKeyEvent *event)
 
             moveCursor.beginEditBlock();
 
-            moveCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,item->number+1);
+            moveCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,map.getNumberInEnabledMapping(item->id)+1);
             moveCursor.deletePreviousChar();
             moveCursor.insertText(item->character);
 
@@ -98,7 +98,7 @@ void Painter::tick()
         // vertical line
         if (mainCursor.atBlockEnd()) {
             mainCursor.insertText("|");
-            for (int i = 0; i < map.count; i++) {
+            for (int i = 0; i < map.activeCount(); i++) {
                 moveCursor.movePosition(QTextCursor::Down);
                 moveCursor.insertText("|");
             }
@@ -113,7 +113,7 @@ void Painter::tick()
         if (barcounter == settings.value("barsperline",2).toInt()) {
             barcounter = 0;
 
-            mainCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,map.count+1);
+            mainCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,map.activeCount()+1);
             mainCursor.movePosition(QTextCursor::EndOfLine);
 
             if (mainCursor.atEnd()) {
@@ -142,7 +142,7 @@ void Painter::tick()
     counter++;
 
     int column;
-    foreach(MappingItem mapping, *map.getByNumberOrderedMapping()) {
+    foreach(MappingItem mapping, *map.getByNumberOrderedAndEnabledMapping()) {
         moveCursor.movePosition(QTextCursor::Down);
         column = moveCursor.columnNumber();
 
@@ -171,7 +171,7 @@ void Painter::highlight(bool enabled)
     QTextCursor moveCursor;
     moveCursor = mainCursor;
 
-    for(int i = 0; i<map.count+1 ;i++) {
+    for(int i = 0; i<map.activeCount()+1 ;i++) {
         moveCursor.movePosition(QTextCursor::Left,QTextCursor::KeepAnchor);
 
         QTextCharFormat format;

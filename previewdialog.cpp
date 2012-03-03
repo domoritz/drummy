@@ -25,6 +25,7 @@ void PreviewDialog::setText(QString text)
 
 void PreviewDialog::readFont()
 {
+    // default
     #ifdef Q_WS_MACX
     QString family = "Monaco";
     int size = 13;
@@ -34,6 +35,7 @@ void PreviewDialog::readFont()
     int size = 13;
     #endif
 
+    // get font from settings
     QFont font = QFont(settings.value("font/family",family).toString(),settings.value("font/size",size).toInt());
 
     ui->textEdit->setFont(font);

@@ -16,9 +16,12 @@ public:
     QChar getCharForKeyIfActive(QChar);
     MappingItem *getMappingForKey(QChar);
     QMap<int,MappingItem> *getByNumberOrderedMapping();
+    QMap<int,MappingItem> *getByNumberOrderedAndEnabledMapping();
     QHash<QChar,MappingItem> *getMapping();
     MappingItem emptyMappingItem;
-    int count;
+    int count() const;
+    int activeCount() const;
+    int getNumberInEnabledMapping(int number);
 
 public slots:
     void fetch();
@@ -27,8 +30,13 @@ public slots:
 
 protected:
     QSettings settings;
-    QMap<int,MappingItem> omappings;
-    QHash<QChar,MappingItem> mappings;
+    QMap<int,MappingItem> orderedMapping;
+    QMap<int,MappingItem> orderedFilteredMapping;
+    QHash<QChar,MappingItem> mapping;
+
+private:
+    void createOrderedMapping();
+    void createOrderedFilteredMapping();
 };
 
 #endif // MAPPINGS_H

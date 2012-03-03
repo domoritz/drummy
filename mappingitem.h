@@ -14,7 +14,7 @@ public:
     QString shortName;
     QChar key;
     QChar character;
-    int number;
+    int id;
     bool active;
     bool enabled;
 };

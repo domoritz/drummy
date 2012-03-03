@@ -19,32 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-#ifdef Q_WS_MAC
-    // show recDockWidget as drawer on a mac
-    //ui->recDockWidget->setWindowFlags(Qt::Drawer);
-    //this->addDockWidget(Qt::RightDockWidgetArea,ui->recDockWidget);
-#endif
-
     splitDockWidget(ui->songinfoDockWidget,ui->recDockWidget,Qt::Horizontal);
 
     readSettings();
 
-    //shortcuts, platform independant
-    ui->actionCopy->setShortcut(QKeySequence::Copy);
-    ui->actionCut->setShortcut(QKeySequence::Cut);
-    ui->actionDelete->setShortcut(QKeySequence::Delete);
-    ui->actionHelp->setShortcut(QKeySequence::HelpContents);
-    ui->actionNew->setShortcut(QKeySequence::New);
-    ui->actionPaste->setShortcut(QKeySequence::Paste);
-    ui->actionSave->setShortcut(QKeySequence::Save);
-    ui->actionSave_As->setShortcut(QKeySequence::SaveAs);
-    ui->actionPreferences->setShortcut(QKeySequence::Preferences);
-    ui->actionQuit->setShortcut(QKeySequence::Quit);
-    ui->actionSelect_All->setShortcut(QKeySequence::SelectAll);
-    ui->actionUndo->setShortcut(QKeySequence::Undo);
-    ui->actionRedo->setShortcut(QKeySequence::Redo);
-    ui->actionPrint->setShortcut(QKeySequence::Print);
-
+    this->setAndEnableShortcuts();
 
     // simple undo/ redo
     connect(ui->tabsTextEdit->document(), SIGNAL(undoAvailable(bool)),
@@ -271,13 +250,13 @@ void MainWindow::loadFile(const QString &fileName)
      }
 
      QTextStream in(&file);
- #ifndef QT_NO_CURSOR
-     QApplication::setOverrideCursor(Qt::WaitCursor);
- #endif
-     ui->tabsTextEdit->setPlainText(in.readAll());
- #ifndef QT_NO_CURSOR
-     QApplication::restoreOverrideCursor();
- #endif
+     #ifndef QT_NO_CURSOR
+         QApplication::setOverrideCursor(Qt::WaitCursor);
+     #endif
+         ui->tabsTextEdit->setPlainText(in.readAll());
+     #ifndef QT_NO_CURSOR
+         QApplication::restoreOverrideCursor();
+     #endif
 
      setCurrentFile(fileName);
      //statusBar()->showMessage(tr("File loaded"), 2000);
@@ -300,13 +279,13 @@ bool MainWindow::saveFile(const QString &fileName)
     }
 
     QTextStream out(&file);
-#ifndef QT_NO_CURSOR
-     QApplication::setOverrideCursor(Qt::WaitCursor);
- #endif
-     out << buildOutput();
- #ifndef QT_NO_CURSOR
-     QApplication::restoreOverrideCursor();
- #endif
+    #ifndef QT_NO_CURSOR
+         QApplication::setOverrideCursor(Qt::WaitCursor);
+     #endif
+         out << buildOutput();
+     #ifndef QT_NO_CURSOR
+         QApplication::restoreOverrideCursor();
+     #endif
 
     setCurrentFile(fileName);
     //ui->statusBar()->showMessage(tr("File saved"), 2000);
@@ -331,9 +310,9 @@ void MainWindow::setCurrentFile(const QString &fileName)
 
     setWindowFilePath(shownName);
 
-#ifndef Q_WS_MAC
-    setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("Drummy")));
-#endif
+    #ifndef Q_WS_MAC
+        setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("Drummy")));
+    #endif
 }
 
 QString MainWindow::strippedName(const QString &fullFileName)
@@ -341,17 +320,23 @@ QString MainWindow::strippedName(const QString &fullFileName)
     return QFileInfo(fullFileName).fileName();
 }
 
+bool MainWindow::mappingsAreDeclared()
+{
+    // if the mapping size is set and bigger than 0 we are ready to record
+    // TODO take disabled into consideration
+    return !settings.value("mappings/size").isNull() && settings.value("mappings/size").toInt() > 0;
+}
+
 void MainWindow::on_actionRecord_triggered()
 {
     if (recording) {
         stopRecording();
     } else {
-        // if the mapping size is set and bigger than 0 we are ready to record
-        bool settingsSet = !settings.value("mappings/size").isNull() && settings.value("mappings/size").toInt() > 0;
-
-        if (settingsSet) {
+        if (this->mappingsAreDeclared()) {
             record();
         } else {
+            // show question to user if he/she wants to use the default settings or not
+            // we need this because a recording without any mappings does not make sense
             QMessageBox prefPopup(this);
             prefPopup.setModal(true);
             prefPopup.setWindowModality(Qt::WindowModal);
@@ -368,12 +353,11 @@ void MainWindow::on_actionRecord_triggered()
             prefPopup.exec();
 
             if (prefPopup.clickedButton() == (QAbstractButton*)defaultButton) {
-                // default
+                // use defaults
                 prefs->setMappingDefaults();
-                //TODO set defaults
                 record();
             } else if (prefPopup.clickedButton() == (QAbstractButton*)preferencesButton) {
-                // prefs
+                // set your own preferences
                 prefs->setWindowModality(Qt::ApplicationModal);
                 prefs->show(1);
             } else if (prefPopup.clickedButton() == (QAbstractButton*)cancelButton){
@@ -470,6 +454,25 @@ void MainWindow::stopRecording() {
     ui->actionRecord->setIcon(QIcon(":/images/record_off_32.png"));
 
     progressBar->hide();
+}
+
+void MainWindow::setAndEnableShortcuts()
+{
+    //shortcuts, platform independant
+    ui->actionCopy->setShortcut(QKeySequence::Copy);
+    ui->actionCut->setShortcut(QKeySequence::Cut);
+    ui->actionDelete->setShortcut(QKeySequence::Delete);
+    ui->actionHelp->setShortcut(QKeySequence::HelpContents);
+    ui->actionNew->setShortcut(QKeySequence::New);
+    ui->actionPaste->setShortcut(QKeySequence::Paste);
+    ui->actionSave->setShortcut(QKeySequence::Save);
+    ui->actionSave_As->setShortcut(QKeySequence::SaveAs);
+    ui->actionPreferences->setShortcut(QKeySequence::Preferences);
+    ui->actionQuit->setShortcut(QKeySequence::Quit);
+    ui->actionSelect_All->setShortcut(QKeySequence::SelectAll);
+    ui->actionUndo->setShortcut(QKeySequence::Undo);
+    ui->actionRedo->setShortcut(QKeySequence::Redo);
+    ui->actionPrint->setShortcut(QKeySequence::Print);
 }
 
 // updates the progressbar

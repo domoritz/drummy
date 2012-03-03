@@ -78,6 +78,8 @@ private slots:
     void saveAs();
     bool maybeSave();
     void documentWasModified();
+    bool mappingsAreDeclared();
+    void setAndEnableShortcuts();
     void writeSettings();
     void readSettings();
     QString buildOutput();

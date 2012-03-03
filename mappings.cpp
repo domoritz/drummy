@@ -8,13 +8,14 @@
 
 Mappings::Mappings()
 {
-    //create empty mapping
+    //create empty mapping item
     emptyMappingItem.active=false;
+    emptyMappingItem.enabled=false;
     emptyMappingItem.character=QChar::Null;
     emptyMappingItem.key=QChar::Null;
     emptyMappingItem.name="";
     emptyMappingItem.shortName="";
-    emptyMappingItem.number=0;
+    emptyMappingItem.id=0;
 
     fetch();
 }
@@ -26,12 +27,12 @@ Mappings::~Mappings()
 // fetches keymappings from settings
 void Mappings::fetch() {
 
-    omappings.clear();
-    mappings.clear();
+    // clear old mappings
+    orderedMapping.clear();
+    orderedFilteredMapping.clear();
+    mapping.clear();
 
     int count = settings.beginReadArray("mappings");
-
-    qDebug() << "Fetching" << count << "mappings";
 
     for (int i = 0; i < count; i++) {
         settings.setArrayIndex(i);
@@ -44,36 +45,69 @@ void Mappings::fetch() {
         item.key = key;
         item.character = settings.value("char","").toString()[0];
         item.active = settings.value("active",true).toBool();
-        item.number = i;
+        item.enabled = settings.value("enabled",true).toBool();
+        item.id = i;
 
-        mappings.insert(key,item);
-
-        qDebug() << "fetched" << key;
+        mapping.insert(key,item);
     }
     settings.endArray();
 
-    // create ordered mapping
-    foreach (MappingItem item, mappings) {
-        omappings[item.number] = item;
-    }
+    this->createOrderedMapping();
+    this->createOrderedFilteredMapping();
+}
 
-    // set count
-    this->count = count;
+void Mappings::createOrderedMapping()
+{
+    foreach (MappingItem item, mapping) {
+        orderedMapping[item.id] = item;
+    }
+}
+
+// depends on execution of createOrderedMapping
+void Mappings::createOrderedFilteredMapping()
+{
+    orderedFilteredMapping = QMap<int,MappingItem>(orderedMapping);
+    foreach (MappingItem item, mapping) {
+        if (!item.enabled) {
+            orderedFilteredMapping.remove(item.id);
+            item.enabled = false;
+        }
+    }
+}
+
+int Mappings::activeCount() const
+{
+    return this->orderedFilteredMapping.count();
+}
+
+int Mappings::count() const
+{
+    return this->mapping.count();
+}
+
+int Mappings::getNumberInEnabledMapping(int id) {
+    int number = 0;
+    foreach (MappingItem item, orderedFilteredMapping) {
+        if (item.id == id){
+            return number;
+        }
+        number++;
+    }
 }
 
 QChar Mappings::getCharForKeyIfActive(QChar key) {
-    if (mappings[key].active) {
-        return mappings[key].character;
-        qDebug() << "Fetched"<<key<<", return"<<mappings[key].character;
+    if (mapping[key].active) {
+        return mapping[key].character;
+        qDebug() << "Fetched"<<key<<", return"<<mapping[key].character;
     } else {
         return QChar::Null;
     }
 };
 
-// return nullpointer if no mapping was found
+// return empty mapping if no mapping was found
 MappingItem *Mappings::getMappingForKey(QChar key) {
-    if (mappings.contains(key)) {
-        return &mappings[key];
+    if (mapping.contains(key)) {
+        return &mapping[key];
         qDebug() << "Fetched"<<key;
     } else {
         return &emptyMappingItem;
@@ -81,11 +115,15 @@ MappingItem *Mappings::getMappingForKey(QChar key) {
 };
 
 QHash<QChar,MappingItem>* Mappings::getMapping() {
-    return &mappings;
+    return &mapping;
 }
 
 QMap<int,MappingItem>* Mappings::getByNumberOrderedMapping() {
-    return &omappings;
+    return &orderedMapping;
+}
+
+QMap<int,MappingItem>* Mappings::getByNumberOrderedAndEnabledMapping() {
+    return &orderedFilteredMapping;
 }
 
 QString Mappings::stringifyMappings()
@@ -93,7 +131,7 @@ QString Mappings::stringifyMappings()
     QString out;
     int size = -15;
 
-    foreach(MappingItem mapping, omappings) {
+    foreach(MappingItem mapping, orderedMapping) {
         out.append(QString("%1- %2\n").arg(mapping.shortName,size).arg(mapping.name));
     }
 
