@@ -110,7 +110,7 @@ void Painter::tick()
 
 
         // after 4 bars, new line
-        if (barcounter == settings.value("barsperline",2).toInt()) {
+        if (barcounter == settings.value("barsperline",4).toInt()) {
             barcounter = 0;
 
             mainCursor.movePosition(QTextCursor::Down,QTextCursor::MoveAnchor,map.activeCount()+1);
