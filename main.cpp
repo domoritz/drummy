@@ -1,3 +1,9 @@
+/**
+ * Start here
+ * ------------
+ * This loads the application and sets the language
+ */
+
 #include <QtGui/QApplication>
 #include "mainwindow.h"
 #include <QDebug>

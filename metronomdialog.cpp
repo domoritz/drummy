@@ -1,3 +1,9 @@
+/**
+ * Metronom
+ * ------------
+ * Determine the BPM with this simple tool.
+ */
+
 #include "metronomdialog.h"
 #include "ui_metronomdialog.h"
 #include <QDebug>

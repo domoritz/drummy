@@ -76,8 +76,8 @@ void PrefsApp::on_barsperlineSpinBox_valueChanged(int )
 void PrefsApp::on_resetPushButton_clicked()
 {
     QMessageBox msgBox(this);
-    msgBox.setText("Do you really want to reset the application preferences?");
-    msgBox.setInformativeText("This will reset all preferences of this application that are saved on your computer to the default values. \nIt will not affect you recordings!");
+    msgBox.setText(tr("Do you really want to reset the application preferences?"));
+    msgBox.setInformativeText(tr("This will reset all preferences of this application that are saved on your computer to the default values. \nIt will not affect you recordings!"));
     msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Cancel);
     msgBox.setWindowModality(Qt::WindowModal);

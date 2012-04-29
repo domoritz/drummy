@@ -1,3 +1,10 @@
+/**
+ * Preview widget
+ * ------------
+ * Shows a preview of the text output. Lets the user print it if he/she wants to.
+ */
+
+
 #include "previewdialog.h"
 #include "ui_previewdialog.h"
 #include <QDebug>

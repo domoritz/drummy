@@ -14,7 +14,7 @@ PrefsWindow::PrefsWindow(QWidget *parent) :
     ui->actionPreferences->setEnabled(false);
     ui->actionAbout->setEnabled(false);
 
-    // pass signals through
+    // pass signals
     connect(ui->app,SIGNAL(fontChanged(QFont)),this,SIGNAL(fontChanged(QFont)));
     connect(ui->rec,SIGNAL(bpmChanged(int)),this,SIGNAL(bpmChanged(int)));
     connect(ui->rec,SIGNAL(settingsChanged()),this,SIGNAL(settingsChanged()));

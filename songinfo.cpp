@@ -1,3 +1,10 @@
+/**
+ * Songinfo widget
+ * ------------
+ * Lets the user edit artist, title and other stuff
+ */
+
+
 #include "songinfo.h"
 #include "ui_songinfo.h"
 

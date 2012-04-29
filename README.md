@@ -30,7 +30,7 @@ After updating the language file you have to build the `.qm` files out of the `.
 
 ### Windows
 
-comin soon...
+coming soon...
 
 ### Linux
 

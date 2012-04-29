@@ -1,3 +1,18 @@
+/**
+ * Draw/ paint the bars
+ * ------------
+ * This will create nice looking tag bars likte this one
+ *
+
+   |1 + 2 + 3 + 4 + |1 + 2 + 3 + 4 + |
+Hh |----xx-------x--|x----------x----|
+S  |----------o---o-|---o----o-------|
+B  |o-------o----o--|--------o-----o-|
+
+ * It reacts to key presses and ticks
+ *
+ */
+
 #include "painter.h"
 #include <QScrollBar>
 
@@ -166,6 +181,9 @@ void Painter::tick()
     highlight(true);
 }
 
+/**
+ * Highlight a column by underlining the characters in the column
+ */
 void Painter::highlight(bool enabled)
 {
     QTextCursor moveCursor;
