@@ -16,4 +16,37 @@ You can either download this app and start recording or help me improve it (whic
 3. Set up your working environment and [learn how to use Qt](http://doc.qt.nokia.com/4.7/gettingstartedqt.html)
 4. happy coding
 
+
+## Developer notes
+###Update language files
+   
+    lupdate -no-obsolete Drummy.pro
+
+After updating the language file you have to build the `.qm` files out of the `.ts` files by executing
+
+    lrelease Drummy.pro
+    
+## How to build
+
+### Windows
+
+comin soon...
+
+### Linux
+
+coming soon...
+
+### Mac
+	# create version file
+    python git_sha.py
+    
+    # run qmake
+    qmake Drummy.pro -r -spec macx-g++ CONFIG+=release
+    
+    #run make
+    make -w
+    
+    #build app (for deployment)
+    macdeployqt Drummy.app -verbose=2 -dmg
+
 ## FAQ
