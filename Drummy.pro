@@ -7,12 +7,12 @@
 #   $lrelease Drummy.pro
 ######################################################################
 
-TEMPLATE = app
-TARGET = Drummy
-DEPENDPATH += .
+TEMPLATE    = app
+TARGET      = Drummy
+DEPENDPATH  += .
 INCLUDEPATH += .
-QT       += core gui
-CONFIG += static
+QT          += core gui
+CONFIG      += static
 
 win32 {
     win32:RC_FILE = Drummy.rc

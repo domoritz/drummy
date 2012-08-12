@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("dominik.de");
     QCoreApplication::setApplicationName("Drummy");
 
-    QCoreApplication::setApplicationVersion("1.0 Beta 2");
+    QCoreApplication::setApplicationVersion("1.0 RC 1");
 
     QApplication::setWindowIcon(QIcon(":/images/record_512.png"));
 
@@ -38,11 +38,11 @@ int main(int argc, char *argv[])
 
     // Translator
     QTranslator qtTranslator;
-    qDebug() << "qt language" << qtTranslator.load("qt_" + QLocale::system().name(),QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    qDebug() << "Qt language" << qtTranslator.load("qt_" + QLocale::system().name(),QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&qtTranslator);
 
     QTranslator appTranslator;
-    qDebug() << "drummy language" << appTranslator.load("drummy_" + QLocale::system().name(),":/lang");
+    qDebug() << "Drummy language" << appTranslator.load("drummy_" + QLocale::system().name(),":/lang");
     a.installTranslator(&appTranslator);
 
     MainWindow w;

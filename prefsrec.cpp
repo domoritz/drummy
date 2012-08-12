@@ -213,8 +213,8 @@ void PrefsRec::on_defaultsPushButton_clicked()
     QMessageBox msgBox(this);
     msgBox.setModal(true);
     msgBox.setWindowModality(Qt::WindowModal);
-    msgBox.setText("Replace current settings with defaults?");
-    msgBox.setInformativeText("Do you want to replace the current mappings with some example settings? Your own mappings will be lost.");
+    msgBox.setText(tr("Replace current settings with defaults?"));
+    msgBox.setInformativeText(tr("Do you want to replace the current mappings with some example settings? Your own mappings will be lost."));
     msgBox.setStandardButtons(QMessageBox::Yes  | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Yes);
     int ret = msgBox.exec();

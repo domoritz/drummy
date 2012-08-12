@@ -11,7 +11,7 @@
     <message>
         <location filename="../about.ui" line="65"/>
         <source>VERSION</source>
-        <translation type="unfinished">Drummy 1.0 Beta 2</translation>
+        <translation type="unfinished">Drummy 1.0 RC 1</translation>
     </message>
     <message>
         <location filename="../about.ui" line="75"/>
@@ -30,7 +30,7 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Lucida Grande&apos;; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Engineering:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Dominik Moritz (www.dmoritz.bplaced.de)&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Dominik Moritz (www.domoritz.de)&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Icons:&lt;/span&gt;&lt;/p&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Drummy Team&lt;/li&gt;
@@ -150,7 +150,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="335"/>
+        <location filename="../mainwindow.cpp" line="314"/>
         <source>Drummy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -161,7 +161,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../mainwindow.ui" line="115"/>
-        <location filename="../mainwindow.ui" line="288"/>
+        <location filename="../mainwindow.ui" line="291"/>
         <source>Help</source>
         <translation type="unfinished">Hilfe</translation>
     </message>
@@ -186,224 +186,224 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Toolbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="185"/>
-        <location filename="../mainwindow.ui" line="305"/>
+        <location filename="../mainwindow.ui" line="188"/>
+        <location filename="../mainwindow.ui" line="308"/>
         <source>Recording Preferences</source>
         <translation type="unfinished">Aufnahmeeinstellungen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="197"/>
-        <location filename="../mainwindow.ui" line="415"/>
+        <location filename="../mainwindow.ui" line="200"/>
+        <location filename="../mainwindow.ui" line="418"/>
         <source>Tab Information</source>
         <translation type="unfinished">Tabinformationen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="206"/>
+        <location filename="../mainwindow.ui" line="209"/>
         <source>Preferences</source>
         <translation type="unfinished">Einstellungen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="209"/>
+        <location filename="../mainwindow.ui" line="212"/>
         <source>edit settings</source>
         <translation type="unfinished">bearbeite die Einstellungen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="217"/>
+        <location filename="../mainwindow.ui" line="220"/>
         <source>About</source>
         <translation type="unfinished">Über</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="220"/>
+        <location filename="../mainwindow.ui" line="223"/>
         <source>about this app</source>
         <translation type="unfinished">über diese App</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="228"/>
+        <location filename="../mainwindow.ui" line="231"/>
         <source>Quit</source>
         <translation type="unfinished">Beenden</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="231"/>
+        <location filename="../mainwindow.ui" line="234"/>
         <source>quit application</source>
         <translation type="unfinished">beendet das Programm</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="249"/>
+        <location filename="../mainwindow.ui" line="252"/>
         <source>Record</source>
         <translation type="unfinished">Aufnehmen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="252"/>
+        <location filename="../mainwindow.ui" line="255"/>
         <source>Start/stop recording a drum sequence</source>
         <translation type="unfinished">Starte/ Stoppe die Aufnahme</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="255"/>
+        <location filename="../mainwindow.ui" line="258"/>
         <source>Ctrl+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="293"/>
-        <location filename="../mainwindow.cpp" line="544"/>
+        <location filename="../mainwindow.ui" line="296"/>
+        <location filename="../mainwindow.cpp" line="547"/>
         <source>Enter Fullscreen</source>
         <translation type="unfinished">Vollbild</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="333"/>
+        <location filename="../mainwindow.ui" line="336"/>
         <source>Save</source>
         <translation type="unfinished">Speichern</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="338"/>
+        <location filename="../mainwindow.ui" line="341"/>
         <source>New</source>
         <translation type="unfinished">Neu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="341"/>
+        <location filename="../mainwindow.ui" line="344"/>
         <source>New song</source>
         <translation type="unfinished">Neuer Song</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="346"/>
+        <location filename="../mainwindow.ui" line="349"/>
         <source>Save As...</source>
         <translation type="unfinished">Speichere als...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="396"/>
+        <location filename="../mainwindow.ui" line="399"/>
         <source>Status Bar</source>
         <translation type="unfinished">Statusbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="399"/>
+        <location filename="../mainwindow.ui" line="402"/>
         <source>show/hide the windows statusbar</source>
         <translation type="unfinished">zeige/verstecke die Statusbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="402"/>
+        <location filename="../mainwindow.ui" line="405"/>
         <source>Ctrl+/</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="407"/>
+        <location filename="../mainwindow.ui" line="410"/>
         <source>Find...</source>
         <translation type="unfinished">Finde...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="423"/>
+        <location filename="../mainwindow.ui" line="426"/>
         <source>Toolbar</source>
         <translation type="unfinished">Toolbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="426"/>
+        <location filename="../mainwindow.ui" line="429"/>
         <source>Ctrl+Alt+T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="355"/>
+        <location filename="../mainwindow.ui" line="358"/>
         <source>Preview</source>
         <translation type="unfinished">Vorschau</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="358"/>
+        <location filename="../mainwindow.ui" line="361"/>
         <source>Preview of output</source>
         <translation type="unfinished">Vorschau der Ausgabe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="369"/>
+        <location filename="../mainwindow.ui" line="372"/>
         <source>Undo</source>
         <translation type="unfinished">Wiederherstellen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="377"/>
+        <location filename="../mainwindow.ui" line="380"/>
         <source>Redo</source>
         <translation type="unfinished">Wiederholen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="382"/>
+        <location filename="../mainwindow.ui" line="385"/>
         <source>Print</source>
         <translation type="unfinished">Drucken</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="385"/>
+        <location filename="../mainwindow.ui" line="388"/>
         <source>Print tabs document</source>
         <translation type="unfinished">Drucke dieses Tabsdocument</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="263"/>
+        <location filename="../mainwindow.ui" line="266"/>
         <source>Cut</source>
         <translation type="unfinished">Ausschneiden</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="268"/>
+        <location filename="../mainwindow.ui" line="271"/>
         <source>&amp;Copy</source>
         <translation type="unfinished">Kopieren</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="283"/>
+        <location filename="../mainwindow.ui" line="286"/>
         <source>Select &amp;All</source>
         <translation type="unfinished">&amp;Alles auswählen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="273"/>
+        <location filename="../mainwindow.ui" line="276"/>
         <source>Paste</source>
         <translation type="unfinished">Einfügen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="278"/>
+        <location filename="../mainwindow.ui" line="281"/>
         <source>Delete</source>
         <translation type="unfinished">Löschen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="317"/>
+        <location filename="../mainwindow.ui" line="320"/>
         <source>Clear</source>
         <translation type="unfinished">Bereinigen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="320"/>
+        <location filename="../mainwindow.ui" line="323"/>
         <source>Clear recordings</source>
         <translation type="unfinished">Aufnahme löschen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="328"/>
+        <location filename="../mainwindow.ui" line="331"/>
         <source>PauseRec</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="236"/>
+        <location filename="../mainwindow.cpp" line="215"/>
         <source>Save tabs</source>
         <translation type="unfinished">Speichere Tabs</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="265"/>
+        <location filename="../mainwindow.cpp" line="244"/>
         <source>Cannot read file %1:
 %2.</source>
         <translation type="unfinished">Kann Datei %1 nicht lesen:
 %2.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="293"/>
+        <location filename="../mainwindow.cpp" line="272"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation type="unfinished">Kann Datei %1 nicht schreiben:
 %2.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="335"/>
+        <location filename="../mainwindow.cpp" line="314"/>
         <source>%1[*] - %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="359"/>
+        <location filename="../mainwindow.cpp" line="344"/>
         <source>No recoding Preferences!</source>
         <translation type="unfinished">Keine Aufnahmeeinstellungen!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="360"/>
+        <location filename="../mainwindow.cpp" line="345"/>
         <source>NO_PREFS_DEFAULT?</source>
         <translation type="unfinished">Du hast keine Aufnahmeeinstellungen gesetzt. Willst du diese jetzt setzen oder die Standarteinstellungen benutzen?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="361"/>
+        <location filename="../mainwindow.cpp" line="346"/>
         <source>DEFAULTS_LOOK_LIKE</source>
         <translation type="unfinished">Die Standardeinstellungen sind Mappings, die wie folgt aussehen: 
 Hh - Hi-hat
@@ -411,37 +411,37 @@ S  - Snare
 B - Base</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="394"/>
+        <location filename="../mainwindow.cpp" line="378"/>
         <source>REC_WILL_START</source>
         <translation type="unfinished">Die Aufnahme wird beginnen sobald eine beliebige Taste gedrückt wird.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="363"/>
+        <location filename="../mainwindow.cpp" line="348"/>
         <source>Set preferences</source>
         <translation type="unfinished">Setze Einstellungen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="364"/>
+        <location filename="../mainwindow.cpp" line="349"/>
         <source>Use defaults</source>
         <translation type="unfinished">Nutze Standardwerte</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="394"/>
+        <location filename="../mainwindow.cpp" line="378"/>
         <source>Recording started</source>
         <translation type="unfinished">Aufnahme gestartet</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="468"/>
+        <location filename="../mainwindow.cpp" line="452"/>
         <source>Finished recording</source>
         <translation type="unfinished">Aufnahme beendet</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="468"/>
+        <location filename="../mainwindow.cpp" line="452"/>
         <source>NOW_EDIT_TABS</source>
         <translation type="unfinished">Die Tabs können nun bearbeitet werden.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="547"/>
+        <location filename="../mainwindow.cpp" line="550"/>
         <source>Quit Fullsceen</source>
         <translation type="unfinished">Vollbildmodus beenden</translation>
     </message>
@@ -496,7 +496,7 @@ B - Base</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../metronomdialog.cpp" line="49"/>
+        <location filename="../metronomdialog.cpp" line="55"/>
         <source>(out of range)</source>
         <translation type="unfinished">(außerhalb des Bereichs)</translation>
     </message>
@@ -547,6 +547,17 @@ B - Base</translation>
         <location filename="../prefsapp.ui" line="77"/>
         <source>Number of bars per line:</source>
         <translation type="unfinished">Anzahl der Takte pro Zeile:</translation>
+    </message>
+    <message>
+        <location filename="../prefsapp.cpp" line="79"/>
+        <source>Do you really want to reset the application preferences?</source>
+        <translation type="unfinished">Möchten Sie wirklich die gesamten Programmeinstellungen zurücksetzen?</translation>
+    </message>
+    <message>
+        <location filename="../prefsapp.cpp" line="80"/>
+        <source>This will reset all preferences of this application that are saved on your computer to the default values. 
+It will not affect you recordings!</source>
+        <translation type="unfinished">Dies wird alle Programmeinstellungen auf den Anfagszustand zurücksetzen. Die Aufnahmen sind davon nicht betroffen!</translation>
     </message>
 </context>
 <context>
@@ -609,7 +620,7 @@ B - Base</translation>
     <message>
         <location filename="../prefsrec.ui" line="188"/>
         <source>Descriptive name of the item.</source>
-        <translation type="unfinished">Beschreibender Name des Eintrags</translation>
+        <translation type="unfinished">Beschreibender Name des Eintrags.</translation>
     </message>
     <message>
         <location filename="../prefsrec.ui" line="193"/>
@@ -652,12 +663,12 @@ B - Base</translation>
         <translation type="unfinished">entferne den ausgewählten Eintrag</translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="351"/>
+        <location filename="../prefsrec.ui" line="363"/>
         <source>Remove</source>
         <translation type="unfinished">Entfernen</translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="329"/>
+        <location filename="../prefsrec.ui" line="341"/>
         <source>edit selected entry</source>
         <translation type="unfinished">bearbeite den ausgewähten Eintrag</translation>
     </message>
@@ -705,23 +716,23 @@ shown as which character.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="319"/>
+        <location filename="../prefsrec.ui" line="325"/>
         <source>Move </source>
         <translation type="unfinished">Verschieben</translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="332"/>
-        <location filename="../prefsrec.ui" line="356"/>
+        <location filename="../prefsrec.ui" line="344"/>
+        <location filename="../prefsrec.ui" line="368"/>
         <source>Edit</source>
         <translation type="unfinished">Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="361"/>
+        <location filename="../prefsrec.ui" line="373"/>
         <source>Move up</source>
         <translation type="unfinished">Verschiebe hoch</translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="366"/>
+        <location filename="../prefsrec.ui" line="378"/>
         <source>Move down</source>
         <translation type="unfinished">Verschiebe runter</translation>
     </message>
@@ -731,9 +742,19 @@ shown as which character.</source>
         <translation type="unfinished">füge einen neuen Eintrag hinzu</translation>
     </message>
     <message>
-        <location filename="../prefsrec.ui" line="346"/>
+        <location filename="../prefsrec.ui" line="358"/>
         <source>Add</source>
         <translation type="unfinished">Neu</translation>
+    </message>
+    <message>
+        <location filename="../prefsrec.cpp" line="216"/>
+        <source>Replace current settings with defaults?</source>
+        <translation type="unfinished">Ersetze Einstellungen mit Standardeinstellungen?</translation>
+    </message>
+    <message>
+        <location filename="../prefsrec.cpp" line="217"/>
+        <source>Do you want to replace the current mappings with some example settings? Your own mappings will be lost.</source>
+        <translation type="unfinished">Möchten Sie die momentanen Mappingeinstellungen duch die Beispieleinträge erstezen? Ihre eigenen Mappings werden dabei verloren gehen.</translation>
     </message>
 </context>
 <context>
@@ -805,7 +826,7 @@ shown as which character.</source>
         <translation type="unfinished">Drucken</translation>
     </message>
     <message>
-        <location filename="../previewdialog.cpp" line="48"/>
+        <location filename="../previewdialog.cpp" line="57"/>
         <source>Print Tabs</source>
         <translation type="unfinished">Drucke Tabs</translation>
     </message>
@@ -889,37 +910,37 @@ shown as which character.</source>
     </message>
     <message>
         <location filename="../songinfo.ui" line="166"/>
-        <location filename="../songinfo.cpp" line="52"/>
+        <location filename="../songinfo.cpp" line="59"/>
         <source>Additional Information</source>
         <translation type="unfinished">Weitere Informationen</translation>
     </message>
     <message>
-        <location filename="../songinfo.cpp" line="23"/>
+        <location filename="../songinfo.cpp" line="30"/>
         <source>Song</source>
         <translation type="unfinished">Titel</translation>
     </message>
     <message>
-        <location filename="../songinfo.cpp" line="27"/>
+        <location filename="../songinfo.cpp" line="34"/>
         <source>Artist</source>
         <translation type="unfinished">Interpret</translation>
     </message>
     <message>
-        <location filename="../songinfo.cpp" line="31"/>
+        <location filename="../songinfo.cpp" line="38"/>
         <source>Album</source>
         <translation type="unfinished">Album</translation>
     </message>
     <message>
-        <location filename="../songinfo.cpp" line="35"/>
+        <location filename="../songinfo.cpp" line="42"/>
         <source>Length</source>
         <translation type="unfinished">Länge</translation>
     </message>
     <message>
-        <location filename="../songinfo.cpp" line="42"/>
+        <location filename="../songinfo.cpp" line="49"/>
         <source>Instrument</source>
         <translation type="unfinished">Instrument</translation>
     </message>
     <message>
-        <location filename="../songinfo.cpp" line="45"/>
+        <location filename="../songinfo.cpp" line="52"/>
         <source>Author</source>
         <translation type="unfinished">Autor</translation>
     </message>
